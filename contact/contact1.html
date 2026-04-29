@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – Mayenne Badminton</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIABLES DE TON INDEX --- */
+        :root {
+            --primary: #0a2a6e;
+            --accent: #e8c400;
+            --light: #f4f6fb;
+            --dark: #08183f;
+            --text: #1a1a2e;
+            --muted: #6b7a99;
+            --white: #ffffff;
+            --radius: 12px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+        /* --- NAVIGATION (Identique à l'Index) --- */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5vw; height: 72px;
+            background: rgba(8,24,63,0.96); backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .nav-logo-text .club { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--accent); line-height:1; }
+        .nav-logo-text .dept { font-size: 0.72rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); display: block;}
+        .nav-links { display: flex; gap: 2px; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.88rem; font-weight: 500; transition: all .2s; }
+        .nav-links a:hover { background: var(--accent); color: var(--dark); }
+        .nav-cta { background: var(--accent); color: var(--dark) !important; font-weight: 700 !important; padding: 8px 20px !important; border-radius: 8px !important; }
+
+        /* --- SECTION CONTACT SPECIFIQUE --- */
+        .contact-hero {
+            background: var(--dark);
+            padding: 150px 5vw 80px;
+            text-align: center;
+            color: white;
+        }
+        .contact-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; letter-spacing: 2px; }
+        .contact-hero p { color: var(--accent); text-transform: uppercase; letter-spacing: 4px; font-weight: 600; font-size: 0.9rem; }
+
+        .contact-wrapper { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr; 
+            gap: 50px; 
+            max-width: 1200px; 
+            margin: -60px auto 100px; 
+            padding: 0 20px; 
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-card { 
+            background: var(--white); 
+            padding: 50px; 
+            border-radius: var(--radius); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .info-sidebar { 
+            background: var(--primary); 
+            color: white; 
+            padding: 50px; 
+            border-radius: var(--radius);
+            box-shadow: 0 20px 50px rgba(10,42,110,0.2);
+            display: flex; flex-direction: column; gap: 30px;
+        }
+
+        /* --- ELEMENTS DU FORMULAIRE --- */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--primary); }
+        input, textarea { 
+            width: 100%; padding: 14px; 
+            border: 2px solid var(--light); border-radius: 8px; 
+            font-family: 'Outfit', sans-serif; font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+
+        .btn-submit { 
+            background: var(--primary); color: white; 
+            font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px;
+            padding: 15px 40px; border: none; border-radius: 8px; cursor: pointer; 
+            transition: all 0.3s; width: 100%;
+        }
+        .btn-submit:hover { background: var(--accent); color: var(--dark); transform: translateY(-3px); }
+
+        /* --- SIDEBAR DETAILS --- */
+        .info-item h3 { font-family: 'Bebas Neue', sans-serif; color: var(--accent); font-size: 1.8rem; margin-bottom: 10px; }
+        .info-item p { color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+        /* --- FOOTER (Identique à l'Index) --- */
+        footer { background: var(--dark); padding: 64px 5vw 32px; color: rgba(255,255,255,0.6); margin-top: 100px; }
+        .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; }
+        footer h4 { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px; color:var(--accent); margin-bottom:16px; }
+        footer ul { list-style:none; }
+        footer ul li a { font-size:0.85rem; color:rgba(255,255,255,0.55); text-decoration:none; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .contact-wrapper { grid-template-columns: 1fr; margin-top: 20px; }
+            .contact-hero h1 { font-size: 2.5rem; }
+            .nav-links { display:none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a class="nav-logo" href="index.html">
+        <div class="nav-logo-text">
+            <span class="club">Mayenne Badminton</span>
+            <span class="dept">Département 53</span>
+        </div>
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Accueil</a>
+        <a href="#">Le Club</a>
+        <a href="#">Compétitions</a>
+        <a href="#">Horaires & Tarifs</a>
+        <a href="contact1.html">Contact</a>
+        <a href="#" class="nav-cta">Nous rejoindre</a>
+    </div>
+</nav>
+
+<section class="contact-hero">
+    <p>Une question ? Un projet ?</p>
+    <h1>Contactez-nous</h1>
+</section>
+
+<div class="contact-wrapper">
+    <div class="form-card">
+        <form>
+            <div class="form-group">
+                <label>Nom complet</label>
+                <input type="text" placeholder="Ex: Jean Dupont" required>
+            </div>
+            <div class="form-group">
+                <label>Adresse Email</label>
+                <input type="email" placeholder="nom@exemple.com" required>
+            </div>
+            <div class="form-group">
+                <label>Sujet</label>
+                <input type="text" placeholder="Inscriptions, tournois, partenariat...">
+            </div>
+            <div class="form-group">
+                <label>Votre message</label>
+                <textarea rows="6" placeholder="Comment pouvons-nous vous aider ?" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Envoyer le message</button>
+        </form>
+    </div>
+
+    <div class="info-sidebar">
+        <div class="info-item">
+            <h3>📍 Localisation</h3>
+            <p>Gymnase Municipal<br>53000 Laval, Mayenne</p>
+        </div>
+        <div class="info-item">
+            <h3>📧 Email direct</h3>
+            <p>contact@mayenne-badminton.fr</p>
+        </div>
+        <div class="info-item">
+            <h3>📱 Réseaux Sociaux</h3>
+            <p>Suivez nos actualités sur Facebook et Instagram pour ne rien rater.</p>
+        </div>
+        <div style="margin-top:auto; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1)">
+            <span style="color:var(--accent); font-weight:700">🏅 Club 3 Étoiles</span>
+            <p style="font-size:0.8rem">École Française de Badminton</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h4 style="color:var(--accent)">Mayenne Badminton</h4>
+            <p style="font-size:0.85rem">Le club de référence en Mayenne depuis 1979.</p>
+        </div>
+        <div>
+            <h4>Lien rapides</h4>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#">Horaires</a></li>
+                <li><a href="contact1.html">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Légal</h4>
+            <ul>
+                <li><a href="#">Mentions Légales</a></li>
+                <li><a href="#">Confidentialité</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Fédération</h4>
+            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:5px; font-size:0.8rem">
+                Affilié à la <strong>FFBaD</strong>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

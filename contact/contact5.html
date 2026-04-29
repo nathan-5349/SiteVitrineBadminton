@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact — AMB.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root { --brand: #1e54d4; --accent: #e8c400; --dark: #04122e; --surface: #f8fafc; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; padding: 40px 5vw; }
+    
+    .bento-grid { 
+      display: grid; grid-template-columns: repeat(3, 1fr); 
+      grid-template-rows: auto auto; gap: 20px; max-width: 1200px; margin: 0 auto; 
+    }
+    
+    .tile { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); }
+    
+    .tile-main { grid-column: span 2; grid-row: span 2; background: white; color: var(--dark); }
+    .tile-accent { background: var(--brand); }
+    .tile-yellow { background: var(--accent); color: var(--dark); }
+
+    h2 { font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 20px; }
+    input { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; border: 1px solid #ddd; }
+    button { background: var(--dark); color: white; padding: 15px 30px; border: none; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 800; }
+
+    @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .tile-main { grid-column: span 1; } }
+  </style>
+</head>
+<body>
+  <div class="bento-grid">
+    <div class="tile tile-main">
+      <h2>Envoyez un message</h2>
+      <input type="text" placeholder="Nom"><input type="email" placeholder="Email">
+      <textarea style="width:100%; padding:15px; border-radius:12px; border:1px solid #ddd; margin-bottom:15px;" rows="5" placeholder="Message"></textarea>
+      <button>ENVOYER</button>
+    </div>
+    <div class="tile tile-accent">
+      <h3 style="font-family:'Bebas Neue'; font-size: 2rem;">Laval (53)</h3>
+      <p>Gymnase Municipal<br>Rue d'Erevan</p>
+    </div>
+    <div class="tile tile-yellow">
+      <h3 style="font-family:'Bebas Neue'; font-size: 2rem;">Urgent ?</h3>
+      <p>06 00 00 00 00</p>
+    </div>
+  </div>
+</body>
+</html>

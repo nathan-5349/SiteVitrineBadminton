@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root { --blue: #1A3C8F; --off: #F0F4FF; --ink: #060E26; }
+    body { font-family: 'Space Grotesk', sans-serif; background: var(--off); color: var(--ink); padding: 100px 5vw; }
+    
+    .contact-header { border-bottom: 2px solid var(--ink); padding-bottom: 20px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .contact-header h1 { font-size: 6vw; text-transform: uppercase; line-height: 0.8; }
+    
+    .content-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 100px; }
+    
+    .tag { font-family: 'Space Mono'; background: var(--ink); color: white; padding: 5px 10px; font-size: 0.8rem; display: inline-block; margin-bottom: 20px; }
+    
+    .field { margin-bottom: 40px; }
+    .field label { font-family: 'Space Mono'; display: block; margin-bottom: 10px; font-weight: bold; }
+    .field input { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--ink); font-size: 2rem; padding: 10px 0; outline: none; }
+    
+    .submit-area { display: flex; align-items: center; gap: 20px; }
+    .circle-btn { width: 150px; height: 150px; border-radius: 50%; background: var(--blue); color: white; border: none; font-family: 'Space Grotesk'; font-weight: bold; cursor: pointer; transition: 0.3s; }
+    .circle-btn:hover { background: var(--ink); transform: rotate(15deg); }
+
+    @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } .contact-header h1 { font-size: 3rem; } }
+  </style>
+</head>
+<body>
+  <div class="contact-header">
+    <h1>Contact</h1>
+    <div style="font-family:'Space Mono'">MAYENNE // 53</div>
+  </div>
+  <div class="content-grid">
+    <div>
+      <div class="tag">INFOS</div>
+      <p style="font-size: 1.5rem;">Prêt à rejoindre l'élite de la Mayenne ? Écrivez-nous ou passez au gymnase.</p>
+    </div>
+    <form>
+      <div class="field"><label>01 // NOM</label><input type="text"></div>
+      <div class="field"><label>02 // EMAIL</label><input type="email"></div>
+      <div class="submit-area">
+        <p>En cliquant sur le bouton, vous acceptez nos conditions.</p>
+        <button type="button" class="circle-btn">ENVOYER</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

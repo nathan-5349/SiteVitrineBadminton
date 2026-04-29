@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Prestige Badminton</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bleu: #1A3C8F; --or: #C9A84C; --gris-bg: #F7F8FC; --texte: #1A2340;
+    }
+
+    body {
+      margin: 0; background: var(--gris-bg); color: var(--texte);
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .prestige-contact { max-width: 800px; margin: 100px auto; text-align: center; padding: 0 20px; }
+    
+    h1 { font-family: 'Playfair Display'; font-size: 4rem; margin-bottom: 10px; font-weight: 400; }
+    
+    .subtitle { letter-spacing: 4px; color: var(--or); font-weight: 600; font-size: 0.8rem; margin-bottom: 60px; }
+
+    .letter-form { 
+      border-top: 1px solid var(--or); border-bottom: 1px solid var(--or); 
+      padding: 80px 0; margin-top: 40px; 
+    }
+    
+    .prestige-input { 
+      border: none; font-family: 'Playfair Display'; font-style: italic; 
+      font-size: 1.8rem; text-align: center; width: 100%; 
+      margin-bottom: 50px; background: transparent; outline: none;
+      color: var(--bleu);
+    }
+    
+    .prestige-input::placeholder { color: #ccc; font-style: italic; }
+
+    textarea.prestige-input { font-size: 1.3rem; min-height: 100px; resize: none; }
+
+    button { 
+      background: var(--bleu); color: white; padding: 15px 50px; 
+      font-family: 'Playfair Display'; border: none; font-size: 1.1rem;
+      cursor: pointer; transition: all 0.4s; letter-spacing: 1px;
+    }
+    button:hover { background: var(--or); letter-spacing: 3px; }
+
+    .contact-info { margin-top: 60px; display: flex; justify-content: center; gap: 40px; font-size: 0.9rem; opacity: 0.7; }
+  </style>
+</head>
+<body>
+
+  <div class="prestige-contact">
+    <p class="subtitle">ESTABLISHED 1979</p>
+    <h1>Nous contacter</h1>
+    <p style="color: var(--or); letter-spacing: 2px;">RÉPONSE SOUS 24 HEURES</p>
+
+    <div class="letter-form">
+      <form>
+        <input class="prestige-input" type="text" placeholder="Votre Nom et Prénom">
+        <input class="prestige-input" type="email" placeholder="Votre adresse email">
+        <input class="prestige-input" type="text" placeholder="Le sujet de votre demande">
+        <textarea class="prestige-input" placeholder="Décrivez votre projet sportif..."></textarea>
+        <button type="submit">Envoyer la demande</button>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <span>LAVAL, FRANCE</span>
+      <span>•</span>
+      <span>CONTACT@MAYENNE-BADMINTON.FR</span>
+    </div>
+  </div>
+
+</body>
+</html>

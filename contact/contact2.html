@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Mayenne Badminton</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --b900: #04122e; --b800: #0c2461; --b600: #1e54d4;
+      --white: #ffffff; --border: rgba(255,255,255,0.1);
+    }
+
+    body {
+      margin: 0; background: var(--b900); color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Navigation simple pour la cohérence */
+    nav { padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Syne'; font-weight: 800; font-size: 1.5rem; color: var(--white); text-decoration: none; }
+
+    .contact-container { 
+      display: flex; min-height: 70vh; border-radius: 30px; 
+      overflow: hidden; margin: 50px; background: rgba(255,255,255,0.03); 
+      border: 1px solid var(--border); 
+    }
+    
+    .visual-side { 
+      flex: 1; background: linear-gradient(135deg, var(--b800), var(--b600)); 
+      display: flex; align-items: center; justify-content: center; 
+      font-family: 'Syne'; font-size: 5rem; font-weight: 800;
+    }
+    
+    .form-side { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+    
+    h2 { font-family: 'Syne'; font-size: 3rem; margin-bottom: 40px; line-height: 1.1; }
+    
+    input { 
+      background: transparent; border: none; border-bottom: 2px solid var(--b600); 
+      width: 100%; padding: 20px 0; color: white; margin-bottom: 30px; 
+      font-size: 1.2rem; font-family: inherit; outline: none;
+    }
+    
+    input::placeholder { color: rgba(255,255,255,0.4); }
+
+    button { 
+      background: var(--b600); color: white; border-radius: 50px; 
+      padding: 18px 45px; border: none; margin-top: 30px; 
+      font-weight: 600; font-size: 1.1rem; cursor: pointer; align-self: flex-start;
+      transition: transform 0.3s ease;
+    }
+    button:hover { transform: scale(1.05); background: #2e66f0; }
+
+    footer { padding: 50px; text-align: center; color: rgba(255,255,255,0.3); font-size: 0.9rem; border-top: 1px solid var(--border); }
+
+    @media (max-width: 900px) {
+      .contact-container { flex-direction: column; margin: 20px; }
+      .visual-side { padding: 60px 20px; font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">AMB.53</a>
+    <a href="#" style="color:white; text-decoration:none">Retour à l'accueil</a>
+  </nav>
+
+  <div class="contact-container">
+    <div class="visual-side">HELLO.</div>
+    <div class="form-side">
+      <h2>Prêt pour<br>un match ?</h2>
+      <form>
+        <input type="text" placeholder="Comment vous appelez-vous ?">
+        <input type="email" placeholder="Votre adresse email">
+        <input type="text" placeholder="Votre message">
+        <button type="submit">Envoyer →</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Association Mayennaise de Badminton — Laval
+  </footer>
+
+</body>
+</html>
