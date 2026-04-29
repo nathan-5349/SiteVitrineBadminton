@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMB — L'Excellence du Badminton en Mayenne</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syne:wght@800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand: #1e54d4; /* Bleu V2 */
+            --brand-dark: #04122e; /* Fond V1 */
+            --accent: #e8c400; /* Jaune index1 */
+            --text-main: #0A0C10;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+            --surface: #F8FAFC;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--white); 
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND EFFECTS (Inspiré index.html) --- */
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            opacity: 0.4;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 5%;
+        }
+        .logo { 
+            font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; 
+            letter-spacing: -1px; text-transform: uppercase;
+        }
+        .logo span { color: var(--brand); }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.85rem; transition: 0.2s; }
+        .nav-links a:hover { color: var(--brand); }
+
+        .btn-join {
+            background: var(--brand-dark); color: var(--white);
+            padding: 0.7rem 1.4rem; border-radius: 12px; font-weight: 700;
+            text-decoration: none; font-size: 0.85rem; transition: 0.3s;
+        }
+        .btn-join:hover { background: var(--brand); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 160px 5% 100px;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; position: relative;
+        }
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(30, 84, 212, 0.08); color: var(--brand);
+            padding: 8px 16px; border-radius: 100px; font-weight: 800;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 2.5rem;
+        }
+        .hero-tag .dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+
+        h1 {
+            font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 10vw, 7.5rem);
+            line-height: 0.85; letter-spacing: -5px; margin-bottom: 2.5rem;
+        }
+        h1 span { display: block; color: var(--brand); }
+
+        .hero-desc {
+            max-width: 580px; font-size: 1.2rem; color: var(--text-muted);
+            line-height: 1.6; margin-bottom: 3.5rem; font-weight: 400;
+        }
+
+        /* --- STATS RIBBON (Inspiré index2.html) --- */
+        .stats-ribbon {
+            display: flex; gap: 4rem; justify-content: center;
+            padding: 3rem; background: var(--brand-dark); color: var(--white);
+            border-radius: 40px; width: 90%; margin: 0 auto;
+        }
+        .stat-item { text-align: center; }
+        .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1; color: var(--accent); }
+        .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; margin-top: 5px; }
+
+        /* --- CARDS SECTION --- */
+        section { padding: 120px 5%; max-width: 1400px; margin: 0 auto; }
+        .section-header { margin-bottom: 4rem; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 3.5rem; letter-spacing: -2px; }
+
+        .grid-features {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem;
+        }
+        .card {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 3rem; border-radius: 32px; transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .card:hover {
+            background: var(--white); border-color: var(--brand);
+            transform: translateY(-10px); box-shadow: 0 40px 80px rgba(0,0,0,0.05);
+        }
+        .card-icon {
+            width: 56px; height: 56px; background: var(--brand); color: white;
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 2rem;
+        }
+        .card h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 1rem; }
+        .card p { color: var(--text-muted); line-height: 1.6; }
+
+        /* --- PLANNING (Version Pro) --- */
+        .planning-row {
+            display: grid; grid-template-columns: 150px 1fr 180px;
+            padding: 2.5rem 0; border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+        .p-day { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 1px; }
+        .p-title { font-weight: 700; font-size: 1.1rem; }
+        .p-time { text-align: right; font-weight: 600; color: var(--brand); background: var(--brand-soft); }
+
+        footer {
+            background: var(--brand-dark); color: var(--white);
+            padding: 100px 5% 50px; border-radius: 60px 60px 0 0;
+            margin-top: 100px;
+        }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; }
+        
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .planning-row { grid-template-columns: 1fr; gap: 1rem; }
+            .stats-ribbon { flex-direction: column; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <nav>
+        <div class="logo">AMB<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#club">Le Club</a></li>
+            <li><a href="#creneaux">Créneaux</a></li>
+            <li><a href="#competitions">Compétitions</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" class="btn-join">Nous rejoindre</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-tag"><div class="dot"></div> Saison 2025/2026 ouverte</div>
+        <h1>Dominez le <span>Terrain.</span></h1>
+        <p class="hero-desc">L'Association Mayennaise de Badminton combine performance technique et esprit de club. Rejoignez le club numéro 1 de la région.</p>
+        
+        <div class="stats-ribbon">
+            <div class="stat-item">
+                <div class="stat-num">250+</div>
+                <div class="stat-label">Membres Actifs</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">12</div>
+                <div class="stat-label">Terrains Pro</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">3★</div>
+                <div class="stat-label">Label FFBaD</div>
+            </div>
+        </div>
+    </header>
+
+    <section id="club">
+        <div class="section-header">
+            <p class="hero-tag">Pourquoi nous ?</p>
+            <h2>L'expérience AMB.</h2>
+        </div>
+        <div class="grid-features">
+            <div class="card">
+                <div class="card-icon">🏸</div>
+                <h3>Entraînement Élite</h3>
+                <p>Des séances structurées pour tous les niveaux, encadrées par des coachs diplômés d'État.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏆</div>
+                <h3>Esprit Compétition</h3>
+                <p>Engagez-vous dans nos équipes d'interclubs, de la départementale à la régionale.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Vie Sociale</h3>
+                <p>Plus qu'un sport, une communauté avec des événements mensuels et du jeu libre convivial.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="creneaux" style="background: var(--surface); border-radius: 60px;">
+        <div class="section-header">
+            <h2>Les Créneaux.</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Retrouvez-nous au Gymnase de l'Aubépin et à la salle de la Mayenne.</p>
+        </div>
+
+        <div class="planning-row">
+            <div class="p-day">Lundi</div>
+            <div class="p-title">Entraînement Adultes (Confirmés)</div>
+            <div class="p-time">20:00 — 22:30</div>
+        </div>
+        <div class="planning-row">
+            <div class="p-day">Mercredi</div>
+            <div class="p-title">École de Badminton (Jeunes)</div>
+            <div class="p-time">14:00 — 17:30</div>
+        </div>
+        <div class="planning-row">
+            <div class="p-day">Jeudi</div>
+            <div class="p-title">Jeu Libre (Tous niveaux)</div>
+            <div class="p-time">19:30 — 22:00</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="logo" style="font-size: 2rem; margin-bottom: 1.5rem;">AMB<span>.</span></div>
+                <p style="opacity: 0.6; line-height: 1.8;">Le badminton en Mayenne redéfini. Performance, respect et convivialité sur chaque volant.</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 2rem; letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase;">Navigation</h4>
+                <ul style="list-style: none; opacity: 0.7; line-height: 2.5;">
+                    <li>Actualités</li>
+                    <li>Tarifs 2025</li>
+                    <li>Nos Partenaires</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 2rem; letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase;">Réseaux</h4>
+                <ul style="list-style: none; opacity: 0.7; line-height: 2.5;">
+                    <li>Instagram</li>
+                    <li>Facebook</li>
+                    <li>BadNet</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.4;">
+            © 2025 Association Mayennaise de Badminton. Design V3 Pro.
+        </div>
+    </footer>
+
+</body>
+</html>

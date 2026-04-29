@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mayenne Badminton – Le club de badminton de la Mayenne</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0a2a6e;
+    --accent: #e8c400;
+    --light: #f4f6fb;
+    --dark: #08183f;
+    --text: #1a1a2e;
+    --muted: #6b7a99;
+    --white: #ffffff;
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(8,24,63,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--accent);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo svg { width: 44px; height: 44px; filter: brightness(0) invert(1); }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text span { display: block; }
+  .nav-logo-text .club { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--accent); line-height:1; }
+  .nav-logo-text .dept { font-size: 0.72rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+  .nav-links { display: flex; gap: 2px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all .2s;
+  }
+  .nav-links a:hover { background: var(--accent); color: var(--dark); }
+  .nav-cta {
+    background: var(--accent);
+    color: var(--dark) !important;
+    font-weight: 700 !important;
+    padding: 8px 20px !important;
+    border-radius: 8px !important;
+  }
+  .nav-cta:hover { background: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100vh; min-height: 620px;
+    display: flex; align-items: center;
+    overflow: hidden;
+    background: var(--dark);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(14,60,160,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(232,196,0,0.12) 0%, transparent 60%),
+      linear-gradient(135deg, #08183f 0%, #0d2660 50%, #0a1e50 100%);
+  }
+  /* Court lines */
+  .hero-court {
+    position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+    width: 55vw; max-width: 780px; opacity: 0.09;
+  }
+  .hero-court svg { width: 100%; height: auto; }
+
+  /* Shuttlecock large background */
+  .hero-shuttle {
+    position: absolute; right: 5vw; top: 50%; transform: translateY(-52%);
+    width: 42vw; max-width: 560px; opacity: 0.13;
+  }
+  .hero-shuttle svg { width: 100%; height: auto; }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 5vw;
+    max-width: 700px;
+    animation: fadeUp .9s ease both;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .hero-eyebrow::before { content:''; display:block; width:30px; height:2px; background:var(--accent); }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.4rem, 7vw, 6rem);
+    line-height: 0.95;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.72);
+    max-width: 520px; margin-bottom: 40px; font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--dark);
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 14px 32px; border-radius: 8px; border: none; cursor: pointer;
+    text-decoration: none; letter-spacing: 0.5px;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(232,196,0,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,196,0,0.4); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.95rem;
+    padding: 14px 32px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3);
+    text-decoration: none; letter-spacing: 0.5px;
+    transition: all .2s;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  .hero-stats {
+    position: absolute; bottom: 48px; left: 5vw; right: 5vw;
+    display: flex; gap: 48px; z-index: 2;
+    animation: fadeUp 1s .3s ease both;
+  }
+  .stat { border-left: 3px solid var(--accent); padding-left: 16px; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--white); line-height:1; }
+  .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 2px; }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 52px; right: 5vw; z-index:2;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.35); font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
+    animation: fadeUp 1.2s .5s ease both;
+  }
+  .scroll-hint::after {
+    content: ''; display: block; width: 1px; height: 44px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    animation: scrollLine 2s ease infinite;
+  }
+  @keyframes scrollLine { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.5);opacity:.4} }
+
+  /* ── ACTUALITÉS ── */
+  .section { padding: 96px 5vw; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 12px;
+  }
+  .section-tag::before { content:''; display:block; width:24px; height:2px; background:var(--accent); }
+  .section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    color: var(--primary); letter-spacing: 1px;
+    margin-bottom: 48px; line-height: 1.05;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 24px;
+  }
+  .news-card {
+    background: var(--light);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+    cursor: pointer;
+  }
+  .news-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(10,42,110,0.12); }
+  .news-card.featured { grid-row: span 2; }
+  .card-img {
+    width:100%; aspect-ratio:16/10; object-fit:cover;
+    background: linear-gradient(135deg,#0a2a6e,#1a4fd6);
+    display: flex; align-items: center; justify-content: center;
+    font-family:'Bebas Neue',sans-serif; font-size:4rem; color:rgba(255,255,255,0.15);
+    letter-spacing:2px;
+  }
+  .news-card.featured .card-img { aspect-ratio: 4/3; font-size:6rem; }
+  .card-img.green { background: linear-gradient(135deg,#1a3d1a,#2d6a2d); }
+  .card-img.gold  { background: linear-gradient(135deg,#3d2e00,#8a6a00); }
+  .card-img.navy  { background: linear-gradient(135deg,#0a2a6e,#1a4fd6); }
+  .card-body { padding: 22px 24px 26px; }
+  .card-cat {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--primary);
+    background: rgba(10,42,110,0.08); padding: 4px 10px; border-radius: 4px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .card-cat.gold-cat { color: #7a5c00; background: rgba(232,196,0,0.18); }
+  .card-title { font-weight: 700; font-size: 1rem; line-height: 1.4; color: var(--text); margin-bottom: 8px; }
+  .news-card.featured .card-title { font-size: 1.25rem; }
+  .card-date { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+  .card-excerpt { font-size: 0.88rem; color: var(--muted); line-height:1.6; margin: 8px 0; }
+
+  .section-footer { text-align:center; margin-top: 40px; }
+
+  /* ── INFOS PRATIQUES ── */
+  .infos { background: var(--primary); }
+  .infos .section-tag { color: var(--accent); }
+  .infos .section-tag::before { background: var(--accent); }
+  .infos h2 { color: var(--white); }
+  .infos-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+  .info-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: background .2s;
+  }
+  .info-card:hover { background: rgba(255,255,255,0.12); }
+  .info-icon { font-size: 2rem; margin-bottom: 16px; }
+  .info-card h3 { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:var(--accent); letter-spacing:1px; margin-bottom:12px; }
+  .info-card p, .info-card li { font-size:0.9rem; color:rgba(255,255,255,0.72); line-height:1.7; }
+  .info-card ul { list-style:none; }
+  .info-card ul li { padding: 3px 0; }
+  .info-card ul li::before { content:'— '; color:var(--accent); font-weight:700; }
+
+  /* ── REJOINDRE ── */
+  .join { background: var(--light); }
+  .join-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .join-text .section-tag { margin-bottom: 12px; }
+  .join-text h2 { margin-bottom: 20px; }
+  .join-text p { font-size:1rem; color:var(--muted); line-height:1.8; margin-bottom:18px; font-weight:300; }
+  .join-text .btn-primary { display:inline-block; margin-top:8px; }
+
+  .pricing-cards { display: flex; flex-direction: column; gap: 16px; }
+  .price-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 22px 26px;
+    display: flex; align-items: center; justify-content: space-between;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: border-color .2s, transform .2s;
+  }
+  .price-card:hover { border-color: var(--accent); transform: translateX(4px); }
+  .price-card.featured-price { border-color: var(--primary); background: var(--primary); }
+  .price-label { font-weight: 600; font-size:1rem; color:var(--text); }
+  .price-card.featured-price .price-label { color: var(--white); }
+  .price-sub { font-size:0.78rem; color:var(--muted); margin-top:2px; }
+  .price-card.featured-price .price-sub { color:rgba(255,255,255,0.55); }
+  .price-amount { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--primary); letter-spacing:1px; }
+  .price-card.featured-price .price-amount { color:var(--accent); }
+
+  /* ── PARTENAIRES ── */
+  .partners { padding: 64px 5vw; border-top: 1px solid #edf0f7; }
+  .partners h3 { text-align:center; font-size:0.72rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--muted); margin-bottom:36px; }
+  .partners-row { display:flex; gap:40px; justify-content:center; align-items:center; flex-wrap:wrap; }
+  .partner-logo {
+    height: 44px; padding: 8px 20px;
+    background: var(--light); border-radius: 8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--muted); border: 1px solid #e4e8f0;
+    min-width: 120px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 64px 5vw 32px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+  .footer-brand .nav-logo-text .club { font-size:1.8rem; }
+  .footer-brand p { font-size:0.85rem; line-height:1.7; margin-top:16px; max-width:280px; }
+  footer h4 { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:2px; color:var(--accent); margin-bottom:16px; }
+  footer ul { list-style:none; }
+  footer ul li { margin-bottom:8px; }
+  footer ul li a { font-size:0.85rem; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .2s; }
+  footer ul li a:hover { color:var(--accent); }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,0.08); padding-top:24px; display:flex; justify-content:space-between; font-size:0.78rem; }
+  .ffbad-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:6px 14px; font-size:0.75rem; color:rgba(255,255,255,0.5); }
+  .ffbad-badge strong { color:var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .reveal { opacity:0; transform:translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .news-grid { grid-template-columns:1fr; }
+    .news-card.featured { grid-row:auto; }
+    .infos-grid { grid-template-columns:1fr; }
+    .join-inner { grid-template-columns:1fr; gap:40px; }
+    .footer-grid { grid-template-columns:1fr 1fr; }
+    .hero-stats { gap:28px; }
+    .nav-links { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg viewBox="0 0 768 686" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+      <g transform="translate(0,686) scale(0.1,-0.1)" fill="#fff" stroke="none">
+        <path d="M3518 6589 c-870 -885 -1544 -1842 -2142 -3037 -148 -296 -356 -760 -356 -794 0 -25 26 18 126 204 293 551 667 1221 879 1574 325 540 814 1196 1444 1937 234 275 235 276 227 284 -3 4 -83 -72 -178 -168z"/>
+        <path d="M4440 6149 c-364 -42 -777 -263 -1148 -613 -186 -177 -430 -481 -725 -908 l-67 -96 97 -32 c425 -140 781 -316 1043 -515 409 -311 590 -543 776 -995 166 -407 213 -695 200 -1250 -3 -157 -9 -302 -12 -322 l-6 -38 124 0 c68 0 198 7 289 15 1064 100 1767 415 2093 938 140 224 201 509 166 774 -34 253 -132 519 -265 723 -60 91 -207 242 -293 299 -140 94 -321 161 -495 182 -97 12 -344 6 -409 -10 -21 -5 -38 -7 -38 -6 0 2 20 43 44 92 89 176 119 303 118 498 0 176 -27 288 -107 450 -69 140 -154 252 -291 385 -147 143 -264 228 -419 305 -226 113 -436 151 -675 124z"/>
+        <path d="M2421 4396 c-37 -44 -511 -783 -511 -795 0 -9 14 -58 30 -110 16 -52 28 -97 25 -99 -3 -3 -48 -12 -100 -21 l-95 -16 -219 -415 -219 -415 47 -13 c155 -43 345 -130 480 -220 336 -225 504 -546 543 -1034 12 -140 13 -147 33 -143 11 2 79 11 150 20 387 45 1086 129 1260 150 110 13 286 34 390 46 129 15 194 26 201 36 41 50 55 686 21 917 -131 876 -503 1408 -1267 1809 -176 93 -419 197 -635 274 -116 41 -123 42 -134 29z"/>
+      </g>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="club">Mayenne Badminton</span>
+      <span class="dept">Département 53</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#">Accueil</a>
+    <a href="#">Le Club</a>
+    <a href="#">Compétitions</a>
+    <a href="#">Jeunes</a>
+    <a href="#">Horaires & Tarifs</a>
+    <a href="#">Contact</a>
+    <a href="#" class="nav-cta">Nous rejoindre</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Court lines SVG -->
+  <div class="hero-court">
+    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-width="2">
+      <rect x="20" y="20" width="560" height="360"/>
+      <line x1="300" y1="20" x2="300" y2="380"/>
+      <rect x="70" y="20" width="460" height="360"/>
+      <line x1="20" y1="200" x2="580" y2="200"/>
+      <line x1="300" y1="100" x2="300" y2="300"/>
+      <rect x="70" y="100" width="460" height="200"/>
+    </svg>
+  </div>
+
+  <!-- Logo watermark -->
+  <div class="hero-shuttle">
+    <svg viewBox="0 0 768 686" xmlns="http://www.w3.org/2000/svg" fill="white">
+      <g transform="translate(0,686) scale(0.1,-0.1)" fill="white" stroke="none">
+        <path d="M3518 6589 c-870 -885 -1544 -1842 -2142 -3037 -148 -296 -356 -760 -356 -794 0 -25 26 18 126 204 293 551 667 1221 879 1574 325 540 814 1196 1444 1937 234 275 235 276 227 284 -3 4 -83 -72 -178 -168z"/>
+        <path d="M4440 6149 c-364 -42 -777 -263 -1148 -613 -186 -177 -430 -481 -725 -908 l-67 -96 97 -32 c425 -140 781 -316 1043 -515 409 -311 590 -543 776 -995 166 -407 213 -695 200 -1250 -3 -157 -9 -302 -12 -322 l-6 -38 124 0 c68 0 198 7 289 15 1064 100 1767 415 2093 938 140 224 201 509 166 774 -34 253 -132 519 -265 723 -60 91 -207 242 -293 299 -140 94 -321 161 -495 182 -97 12 -344 6 -409 -10 -21 -5 -38 -7 -38 -6 0 2 20 43 44 92 89 176 119 303 118 498 0 176 -27 288 -107 450 -69 140 -154 252 -291 385 -147 143 -264 228 -419 305 -226 113 -436 151 -675 124z"/>
+        <path d="M2421 4396 c-37 -44 -511 -783 -511 -795 0 -9 14 -58 30 -110 16 -52 28 -97 25 -99 -3 -3 -48 -12 -100 -21 l-95 -16 -219 -415 -219 -415 47 -13 c155 -43 345 -130 480 -220 336 -225 504 -546 543 -1034 12 -140 13 -147 33 -143 11 2 79 11 150 20 387 45 1086 129 1260 150 110 13 286 34 390 46 129 15 194 26 201 36 41 50 55 686 21 917 -131 876 -503 1408 -1267 1809 -176 93 -419 197 -635 274 -116 41 -123 42 -134 29z"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Club affilié FFBaD</div>
+    <h1>Le Badminton,<br><em>c'est en Mayenne</em><br>que ça se passe !</h1>
+    <p class="hero-desc">Rejoignez le club de badminton de la Mayenne. Toutes catégories, tous niveaux — du débutant au compétiteur — dans une ambiance conviviale et sportive.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">🏸 Nous rejoindre</a>
+      <a href="#" class="btn-outline">Découvrir le club</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Licenciés</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Terrains</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Équipes en compét'</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1979</div>
+      <div class="stat-label">Fondé en</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<!-- ACTUALITÉS -->
+<section class="section reveal" id="actus">
+  <div class="section-tag">Dernières nouvelles</div>
+  <h2>Actualités du Club</h2>
+  <div class="news-grid">
+
+    <div class="news-card featured">
+      <div class="card-img navy">🏆</div>
+      <div class="card-body">
+        <span class="card-cat gold-cat">Tournoi</span>
+        <div class="card-title">Tournoi Départemental Jeunes – Résultats de la saison 2024/2025</div>
+        <p class="card-excerpt">Nos jeunes ont brillé tout au long de la saison avec de nombreux podiums. Bravo à toutes les joueuses et joueurs, encadrants et parents pour cette belle saison !</p>
+        <div class="card-date">📅 Mai 2025</div>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-img green">🏸</div>
+      <div class="card-body">
+        <span class="card-cat">Interclubs</span>
+        <div class="card-title">Interclubs Départementaux – Bilan de la 1ère journée</div>
+        <div class="card-date">📅 Novembre 2024</div>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-img gold">🎉</div>
+      <div class="card-body">
+        <span class="card-cat gold-cat">Vie du club</span>
+        <div class="card-title">Tournoi interne Promobad – 44 joueurs au rendez-vous !</div>
+        <div class="card-date">📅 Novembre 2024</div>
+      </div>
+    </div>
+
+    <div class="news-card">
+      <div class="card-img navy">📋</div>
+      <div class="card-body">
+        <span class="card-cat">Inscriptions</span>
+        <div class="card-title">Inscriptions saison 2025/2026 – Ouvertes dès septembre</div>
+        <div class="card-date">📅 Septembre 2025</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section-footer">
+    <a href="#" class="btn-primary">Toutes les actualités</a>
+  </div>
+</section>
+
+<!-- INFOS PRATIQUES -->
+<section class="section infos reveal" id="infos">
+  <div class="section-tag">Informations</div>
+  <h2>Tout Savoir pour<br>Jouer avec Nous</h2>
+  <div class="infos-grid">
+    <div class="info-card">
+      <div class="info-icon">🕒</div>
+      <h3>Créneaux d'entraînement</h3>
+      <ul>
+        <li>Lundi 19h00 – 22h00</li>
+        <li>Mercredi 14h00 – 17h00 (Jeunes)</li>
+        <li>Jeudi 19h00 – 22h00</li>
+        <li>Samedi 10h00 – 13h00</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">📍</div>
+      <h3>Nos Salles</h3>
+      <p>Gymnase principal – Laval<br>Salle annexe disponible sur réservation<br><br>Accessible en transport en commun<br>et parking gratuit sur place.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🏅</div>
+      <h3>Catégories</h3>
+      <ul>
+        <li>Poussin / Benjamin</li>
+        <li>Minime / Cadet</li>
+        <li>Junior / Senior</li>
+        <li>Vétéran 35+, 45+, 55+</li>
+        <li>Loisirs tous niveaux</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NOUS REJOINDRE / TARIFS -->
+<section class="section join reveal" id="tarifs">
+  <div class="join-inner">
+    <div class="join-text">
+      <div class="section-tag">Inscriptions</div>
+      <h2>Rejoignez l'équipe<br>Mayenne Badminton</h2>
+      <p>Que vous soyez débutant curieux ou joueur confirmé, notre club vous accueille dans une ambiance chaleureuse. La saison commence en septembre — les inscriptions sont ouvertes toute l'année.</p>
+      <p>Un cours d'essai gratuit est proposé aux nouveaux arrivants. N'hésitez pas à venir nous rencontrer lors d'un entraînement !</p>
+      <a href="#" class="btn-primary">📩 Nous contacter</a>
+    </div>
+    <div class="pricing-cards">
+      <div class="price-card">
+        <div>
+          <div class="price-label">Enfant / Ado</div>
+          <div class="price-sub">Moins de 18 ans</div>
+        </div>
+        <div class="price-amount">80 €</div>
+      </div>
+      <div class="price-card featured-price">
+        <div>
+          <div class="price-label">Adulte</div>
+          <div class="price-sub">Compétition incluse</div>
+        </div>
+        <div class="price-amount">130 €</div>
+      </div>
+      <div class="price-card">
+        <div>
+          <div class="price-label">Loisirs</div>
+          <div class="price-sub">Sans compétition</div>
+        </div>
+        <div class="price-amount">100 €</div>
+      </div>
+      <div class="price-card">
+        <div>
+          <div class="price-label">Famille</div>
+          <div class="price-sub">2 adultes + enfants</div>
+        </div>
+        <div class="price-amount">280 €</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTENAIRES -->
+<section class="partners reveal">
+  <h3>Nos Partenaires & Affiliations</h3>
+  <div class="partners-row">
+    <div class="partner-logo">FFBaD</div>
+    <div class="partner-logo">Ligue PDL</div>
+    <div class="partner-logo">CD Mayenne 53</div>
+    <div class="partner-logo">Ville de Laval</div>
+    <div class="partner-logo">CROS PDL</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo-text">
+        <span class="club" style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#e8c400;letter-spacing:2px;">Mayenne Badminton</span>
+        <span style="display:block;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);font-family:'Outfit',sans-serif;">Club affilié FFBaD – Département 53</span>
+      </div>
+      <p>Le club de badminton de référence en Mayenne depuis 1979. Compétition, loisirs, jeunes — pour tous, tout au long de l'année.</p>
+      <div style="margin-top:20px;">
+        <span class="ffbad-badge">🏅 <strong>Label FFBaD</strong> 3 étoiles</span>
+      </div>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Le Club</a></li>
+        <li><a href="#">Compétitions</a></li>
+        <li><a href="#">Jeunes</a></li>
+        <li><a href="#">Galerie photos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Informations</h4>
+      <ul>
+        <li><a href="#">Horaires & Créneaux</a></li>
+        <li><a href="#">Tarifs & Inscriptions</a></li>
+        <li><a href="#">Salles & Accès</a></li>
+        <li><a href="#">Bureau du club</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@mayenne-badminton.fr">📧 contact@mayenne-badminton.fr</a></li>
+        <li><a href="#">📍 Laval, Mayenne (53)</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Mayenne Badminton – Tous droits réservés</span>
+    <span>Mentions légales · Politique de confidentialité</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

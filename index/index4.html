@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMB — Association Mayennaise de Badminton</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e54d4;
+      --primary-dark: #0c2461;
+      --accent: #3b82f6;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --text: #04122e;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --border: rgba(30, 84, 212, 0.12);
+      --glass: rgba(255, 255, 255, 0.8);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
+
+    /* --- Navigation --- */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: var(--glass); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 1rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary-dark); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* --- Hero --- */
+    .hero {
+      padding: 180px 5% 100px;
+      background: radial-gradient(circle at 100% 0%, #dbeafe 0%, transparent 40%),
+                  radial-gradient(circle at 0% 100%, #eff6ff 0%, transparent 40%);
+      text-align: center;
+    }
+    .badge {
+      display: inline-block; padding: 6px 14px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 100px;
+      color: var(--primary); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1; margin-bottom: 2rem; letter-spacing: -2px; }
+    h1 span { background: linear-gradient(90deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    /* --- Grid Layouts --- */
+    section { padding: 80px 5%; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 2.2rem; margin-bottom: 3rem; position: relative; }
+    .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--primary); margin-top: 10px; border-radius: 2px; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+    
+    /* --- Cards --- */
+    .card { background: var(--white); padding: 2.5rem; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s; }
+    .card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 84, 212, 0.08); }
+    .card h3 { margin-bottom: 1rem; font-family: 'Syne', sans-serif; font-size: 1.4rem; }
+    
+    /* --- Schedule Table --- */
+    .schedule-box { overflow-x: auto; background: var(--bg-alt); border-radius: 24px; padding: 2rem; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    th { text-align: left; padding: 1rem; color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    td { padding: 1.2rem 1rem; border-top: 1px solid var(--border); }
+    .time { font-weight: 700; color: var(--primary-dark); }
+    .category { font-size: 0.9rem; font-weight: 500; }
+
+    /* --- Buttons --- */
+    .btn { padding: 1rem 2rem; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; }
+    .btn-primary { background: var(--primary); color: var(--white); border: 1px solid var(--primary); }
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    /* --- Footer --- */
+    footer { background: var(--primary-dark); color: var(--white); padding: 80px 5% 40px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; }
+    .footer-col h4 { font-family: 'Syne', sans-serif; margin-bottom: 1.5rem; font-size: 1rem; color: var(--accent); }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.8rem; opacity: 0.7; font-size: 0.9rem; cursor: pointer; transition: 0.3s; }
+    .footer-col ul li:hover { opacity: 1; padding-left: 5px; }
+
+    @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">AM<span>BADMINTON</span></div>
+    <ul class="nav-links">
+      <li><a href="#club">Le Club</a></li>
+      <li><a href="#creneaux">Horaires</a></li>
+      <li><a href="#tarifs">Inscriptions</a></li>
+      <li><a href="#staff">Le Staff</a></li>
+    </ul>
+    <a href="#" class="btn-primary btn" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;">Adhérer</a>
+  </nav>
+
+  <header class="hero">
+    <div class="badge">Saison 2025/2026 ouverte</div>
+    <h1>L'Excellence du <span>Badminton</span><br>en Mayenne.</h1>
+    <p style="max-width: 600px; margin: 0 auto 2.5rem; color: var(--text-light); font-size: 1.1rem;">Découvrez une structure moderne, des entraîneurs passionnés et une ambiance conviviale pour tous les niveaux.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
+      <a href="#club" class="btn" style="border: 1px solid var(--border); color: var(--text);">Découvrir le club</a>
+    </div>
+  </header>
+
+  <section id="club">
+    <h2 class="section-title">Actualités & News</h2>
+    <div class="grid-3">
+      <div class="card">
+        <span style="color: var(--primary); font-weight: 800; font-size: 0.8rem;">12 AVRIL 2026</span>
+        <h3 style="margin-top: 0.5rem;">Tournoi de Printemps</h3>
+        <p>Inscriptions ouvertes pour notre tournoi annuel de doubles. Tous niveaux acceptés !</p>
+      </div>
+      <div class="card" style="background: var(--primary); color: white; border: none;">
+        <span style="color: var(--accent); font-weight: 800; font-size: 0.8rem;">IMPORTANT</span>
+        <h3 style="margin-top: 0.5rem; color: white;">Nouveau Partenaire</h3>
+        <p>Bénéficiez de -20% sur tout le matériel chez notre partenaire sport local.</p>
+      </div>
+      <div class="card">
+        <span style="color: var(--primary); font-weight: 800; font-size: 0.8rem;">05 AVRIL 2026</span>
+        <h3 style="margin-top: 0.5rem;">Résultats Interclubs</h3>
+        <p>Félicitations à l'équipe 1 pour sa victoire 6-2 ce week-end en régionale !</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="creneaux" style="background: var(--bg-alt);">
+    <h2 class="section-title">Planning des entraînements</h2>
+    <div class="schedule-box">
+      <table>
+        <thead>
+          <tr>
+            <th>Jour</th>
+            <th>Matin / Après-midi</th>
+            <th>Soirée</th>
+            <th>Lieu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Lundi</b></td>
+            <td>-</td>
+            <td><span class="time">18h30 - 22h00</span><br><span class="category">Jeu Libre (Adultes)</span></td>
+            <td>Gymnase Ferry</td>
+          </tr>
+          <tr>
+            <td><b>Mardi</b></td>
+            <td>-</td>
+            <td><span class="time">17h30 - 19h00</span><br><span class="category">École de Jeunes (Minibad)</span></td>
+            <td>Salle Buron</td>
+          </tr>
+          <tr>
+            <td><b>Mercredi</b></td>
+            <td><span class="time">14h00 - 17h00</span><br><span class="category">Jeunes Compétition</span></td>
+            <td><span class="time">19h00 - 21h00</span><br><span class="category">Entraînement Encadré</span></td>
+            <td>Gymnase Ferry</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="color: white; margin-bottom: 1.5rem;">AM<span>BAD</span></div>
+        <p style="opacity: 0.6; font-size: 0.9rem;">L'Association Mayennaise de Badminton est fière de promouvoir le sport pour tous depuis plus de 20 ans.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Le Club</h4>
+        <ul>
+          <li>Histoire</li>
+          <li>Le Bureau</li>
+          <li>Nos Partenaires</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Pratique</h4>
+        <ul>
+          <li>Inscriptions</li>
+          <li>Salles</li>
+          <li>Documents</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Suivez-nous</h4>
+        <ul>
+          <li>Facebook</li>
+          <li>Instagram</li>
+          <li>BadNet</li>
+        </ul>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; padding-top: 20px; text-align: center; font-size: 0.8rem; opacity: 0.5;">
+      © 2026 AMB — Association Mayennaise de Badminton.
+    </div>
+  </footer>
+
+</body>
+</html>

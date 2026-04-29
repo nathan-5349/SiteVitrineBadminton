@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Association Mayennaise de Badminton</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* ══ TOKENS ══════════════════════════════════════════ */
+    :root {
+      --b900: #04122e;
+      --b800: #0c2461;
+      --b700: #1a3799;
+      --b600: #1e54d4;
+      --b500: #3b82f6;
+      --b400: #60a5fa;
+      --b100: #dbeafe;
+      --b050: #eff6ff;
+      --white: #ffffff;
+      --slate: #64748b;
+      --slate-light: #f1f5f9;
+      --border: rgba(30,84,212,.12);
+      --r: 12px;
+      --r-lg: 20px;
+    }
+
+    /* ══ BASE ════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--white);
+      color: var(--b900);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ══ HEADER ══════════════════════════════════════════ */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 0 2rem;
+      transition: background .3s, backdrop-filter .3s, box-shadow .3s;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border), 0 8px 32px rgba(4,18,46,.08);
+    }
+    .nav-inner {
+      max-width: 1320px; margin: 0 auto;
+      display: flex; align-items: center; height: 76px; gap: 1.5rem;
+    }
+    .logo { display: flex; align-items: center; gap: .85rem; }
+    .logo-mark {
+      width: 44px; height: 44px;
+      background: var(--b700); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: .88rem; line-height: 1.2;
+      color: var(--b900); letter-spacing: -.01em; text-transform: uppercase;
+    }
+    .logo-text span { color: var(--b600); }
+    .nav-links {
+      display: flex; align-items: center; gap: .25rem;
+      margin-left: auto;
+    }
+    .nav-links a {
+      font-size: .875rem; font-weight: 500; color: var(--b900);
+      padding: .5rem .9rem; border-radius: 8px;
+      transition: background .2s, color .2s;
+      letter-spacing: -.01em;
+    }
+    .nav-links a:hover { background: var(--b050); color: var(--b600); }
+    .nav-cta {
+      background: var(--b600); color: var(--white) !important;
+      padding: .6rem 1.4rem !important; border-radius: 99px !important;
+      font-weight: 700 !important; font-size: .875rem !important;
+      transition: background .2s, transform .15s, box-shadow .2s !important;
+      box-shadow: 0 2px 12px rgba(30,84,212,.3);
+    }
+    .nav-cta:hover { background: var(--b700) !important; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(30,84,212,.4) !important; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 4px;
+      cursor: pointer; padding: .6rem; margin-left: auto; background: none; border: none;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--b900); border-radius: 2px; transition: .3s; }
+
+    /* ══ HERO ════════════════════════════════════════════ */
+    .hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 2rem 5rem;
+      position: relative; overflow: hidden;
+      background: var(--b900);
+    }
+
+    /* Animated gradient orbs */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 30%, rgba(30,84,212,.55) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,55,153,.4) 0%, transparent 60%),
+        var(--b900);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+    }
+    /* Floating shuttle silhouette */
+    .hero-shuttle {
+      position: absolute; top: 8%; right: 5%; z-index: 1;
+      width: 340px; height: 340px; opacity: .07;
+      animation: floatSlow 8s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1320px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 380px; gap: 5rem; align-items: flex-end;
+    }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      color: var(--b400); font-size: .78rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 99px; margin-bottom: 2rem;
+      animation: fadeUp .7s ease both;
+    }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(3rem, 6vw, 5.5rem); line-height: .92;
+      color: var(--white); letter-spacing: -.03em;
+      animation: fadeUp .7s .08s ease both;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, var(--b400), #93c5fd);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: block;
+    }
+    .hero-desc {
+      margin-top: 1.75rem; color: rgba(255,255,255,.6);
+      font-size: 1.05rem; line-height: 1.7; max-width: 500px;
+      animation: fadeUp .7s .16s ease both;
+    }
+    .hero-actions {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp .7s .24s ease both;
+    }
+    .btn-blue {
+      background: var(--b600); color: var(--white);
+      font-weight: 700; font-size: .95rem; letter-spacing: -.01em;
+      padding: .9rem 2.2rem; border-radius: 99px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 24px rgba(30,84,212,.45);
+    }
+    .btn-blue:hover { background: var(--b500); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(30,84,212,.5); }
+    .btn-outline-w {
+      border: 1.5px solid rgba(255,255,255,.3); color: rgba(255,255,255,.85);
+      font-weight: 600; font-size: .95rem;
+      padding: .9rem 2.2rem; border-radius: 99px;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline-w:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.07); }
+
+    /* Hero side card */
+    .hero-side { display: flex; flex-direction: column; gap: 1rem; animation: fadeUp .7s .2s ease both; }
+    .side-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-lg); padding: 1.4rem;
+      backdrop-filter: blur(12px);
+    }
+    .side-card-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--b400); margin-bottom: 1rem;
+    }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .stat-item {
+      background: rgba(255,255,255,.06); border-radius: 10px;
+      padding: 1rem; text-align: center;
+    }
+    .stat-item .n {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2rem; line-height: 1; color: var(--white);
+    }
+    .stat-item .l { font-size: .72rem; color: rgba(255,255,255,.5); margin-top: .3rem; letter-spacing: .04em; text-transform: uppercase; }
+    .news-mini { display: flex; flex-direction: column; gap: .6rem; }
+    .news-mini-item {
+      display: flex; gap: .75rem; align-items: center;
+      padding: .6rem .8rem; border-radius: 10px;
+      transition: background .2s; cursor: pointer;
+    }
+    .news-mini-item:hover { background: rgba(255,255,255,.06); }
+    .news-mini-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--b500); flex-shrink: 0; }
+    .news-mini-text { font-size: .83rem; color: rgba(255,255,255,.75); line-height: 1.35; }
+    .news-mini-date { font-size: .72rem; color: rgba(255,255,255,.35); margin-top: .15rem; }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      color: rgba(255,255,255,.35); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+      animation: fadeIn 1s 1s ease both;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ══ RIBBON ══════════════════════════════════════════ */
+    .ribbon {
+      background: var(--b600); padding: 1.5rem 2rem;
+      overflow: hidden; position: relative;
+    }
+    .ribbon-inner {
+      max-width: 1320px; margin: 0 auto;
+      display: flex; gap: 4rem; justify-content: space-between; align-items: center;
+      flex-wrap: wrap;
+    }
+    .ribbon-item {
+      display: flex; align-items: center; gap: 1rem;
+      color: var(--white);
+    }
+    .ribbon-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .ribbon-n {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.75rem; line-height: 1; letter-spacing: -.03em;
+    }
+    .ribbon-l { font-size: .78rem; color: rgba(255,255,255,.7); margin-top: .2rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    /* ══ SECTIONS BASE ═══════════════════════════════════ */
+    .section { padding: 7rem 2rem; }
+    .section-sm { padding: 5rem 2rem; }
+    .inner { max-width: 1320px; margin: 0 auto; }
+    .eyebrow {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--b600); margin-bottom: .75rem;
+    }
+    .heading {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.0;
+      letter-spacing: -.03em; color: var(--b900);
+    }
+    .heading span { color: var(--b600); }
+    .subtext { margin-top: 1rem; color: var(--slate); line-height: 1.75; max-width: 520px; font-size: .97rem; }
+
+    /* ══ ABOUT ═══════════════════════════════════════════ */
+    .about-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .about-visual { position: relative; }
+    .about-main-img {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover;
+      border-radius: var(--r-lg); display: block;
+    }
+    .about-float {
+      position: absolute; right: -2rem; top: 2rem;
+      background: var(--white); border-radius: var(--r-lg);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 20px 60px rgba(4,18,46,.18);
+      border: 1px solid var(--border);
+      min-width: 190px;
+    }
+    .about-float .big {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2.5rem; line-height: 1; letter-spacing: -.04em; color: var(--b700);
+    }
+    .about-float .small { font-size: .8rem; color: var(--slate); margin-top: .3rem; line-height: 1.4; }
+    .about-pill {
+      position: absolute; left: -1.5rem; bottom: 2rem;
+      background: var(--b700); color: var(--white);
+      border-radius: var(--r); padding: .9rem 1.2rem;
+      box-shadow: 0 12px 40px rgba(26,55,153,.4);
+    }
+    .about-pill .pill-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem; line-height: 1; }
+    .about-pill .pill-l { font-size: .72rem; opacity: .75; margin-top: .2rem; text-transform: uppercase; letter-spacing: .06em; }
+    .pillars { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .pillar {
+      display: flex; gap: 1.1rem; align-items: flex-start;
+      padding: 1.25rem; border-radius: var(--r);
+      border: 1px solid var(--border);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .pillar:hover { border-color: var(--b600); box-shadow: 0 4px 24px rgba(30,84,212,.1); transform: translateX(4px); }
+    .pillar-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--b050); display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .pillar-title { font-weight: 700; font-size: .97rem; color: var(--b900); }
+    .pillar-text { font-size: .86rem; color: var(--slate); margin-top: .3rem; line-height: 1.55; }
+
+    /* ══ ACTIVITIES ══════════════════════════════════════ */
+    .section-bg { background: var(--slate-light); }
+    .acts-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+    .acts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .act-card {
+      background: var(--white); border-radius: var(--r-lg);
+      overflow: hidden; border: 1px solid var(--border);
+      transition: transform .25s, box-shadow .25s;
+      display: flex; flex-direction: column;
+    }
+    .act-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(4,18,46,.12); }
+    .act-thumb {
+      height: 200px; display: flex; align-items: center;
+      justify-content: center; font-size: 3.5rem; position: relative; overflow: hidden;
+    }
+    .act-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(4,18,46,.15), transparent);
+    }
+    .act-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .act-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--b600); background: var(--b050);
+      padding: .25rem .75rem; border-radius: 99px; margin-bottom: 1rem; width: fit-content;
+    }
+    .act-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: -.02em; color: var(--b900); line-height: 1.1; }
+    .act-desc { font-size: .88rem; color: var(--slate); margin-top: .75rem; line-height: 1.65; flex: 1; }
+    .act-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      margin-top: 1.5rem; font-size: .85rem; font-weight: 700;
+      color: var(--b600); transition: gap .2s;
+    }
+    .act-link:hover { gap: .85rem; }
+    .act-arrow {
+      width: 22px; height: 22px; background: var(--b050);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; transition: background .2s;
+    }
+    .act-link:hover .act-arrow { background: var(--b600); color: white; }
+
+    /* ══ PLANNING ════════════════════════════════════════ */
+    .plan-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+    .plan-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .plan-slot {
+      background: var(--white); border-radius: var(--r);
+      border: 1px solid var(--border); padding: 1.4rem 1.6rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .plan-slot:hover { border-color: var(--b500); box-shadow: 0 4px 20px rgba(30,84,212,.08); }
+    .plan-day {
+      flex-shrink: 0; width: 56px; text-align: center;
+    }
+    .plan-day-abbr {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.5rem; line-height: 1; color: var(--b700); letter-spacing: -.02em;
+    }
+    .plan-day-full { font-size: .65rem; color: var(--slate); margin-top: .15rem; text-transform: uppercase; letter-spacing: .06em; }
+    .plan-sep { width: 1px; height: 40px; background: var(--border); flex-shrink: 0; }
+    .plan-info { flex: 1; min-width: 0; }
+    .plan-name { font-weight: 700; font-size: .97rem; color: var(--b900); }
+    .plan-time { font-size: .83rem; color: var(--slate); margin-top: .25rem; }
+    .plan-badge {
+      flex-shrink: 0; font-size: .7rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: .3rem .8rem; border-radius: 99px;
+      background: var(--b050); color: var(--b700);
+    }
+
+    /* ══ JOIN ════════════════════════════════════════════ */
+    .join-section {
+      background: var(--b900); position: relative; overflow: hidden;
+    }
+    .join-bg-orb {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,84,212,.3) 0%, transparent 70%);
+    }
+    .join-bg-orb.l { top: -200px; left: -200px; }
+    .join-bg-orb.r { bottom: -200px; right: -100px; }
+    .join-inner {
+      position: relative; z-index: 1;
+      max-width: 1320px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .join-text .heading { color: var(--white); }
+    .join-text .heading .accent { color: var(--b400); }
+    .join-text .subtext { color: rgba(255,255,255,.55); }
+    .join-actions { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-white {
+      background: var(--white); color: var(--b800);
+      font-weight: 700; font-size: .95rem; letter-spacing: -.01em;
+      padding: .9rem 2.2rem; border-radius: 99px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-white:hover { background: var(--b100); transform: translateY(-2px); }
+    .btn-outline-blue {
+      border: 1.5px solid rgba(255,255,255,.25); color: rgba(255,255,255,.8);
+      font-weight: 600; font-size: .95rem;
+      padding: .9rem 2.2rem; border-radius: 99px;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline-blue:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.07); }
+    .tarifs-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .tarif {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r); padding: 1.4rem 1.6rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; transition: background .2s;
+    }
+    .tarif:hover { background: rgba(255,255,255,.11); }
+    .tarif.featured { background: var(--b600); border-color: var(--b500); }
+    .tarif-cat { font-weight: 700; font-size: .97rem; color: var(--white); }
+    .tarif-detail { font-size: .82rem; color: rgba(255,255,255,.55); margin-top: .25rem; }
+    .tarif.featured .tarif-detail { color: rgba(255,255,255,.75); }
+    .tarif-price {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.6rem; color: var(--white); letter-spacing: -.03em;
+      white-space: nowrap;
+    }
+    .tarif-price sub { font-size: .9rem; font-weight: 600; opacity: .7; vertical-align: baseline; }
+
+    /* ══ NEWS ════════════════════════════════════════════ */
+    .news-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+    .news-all { font-size: .85rem; font-weight: 700; color: var(--b600); letter-spacing: -.01em; transition: gap .2s; display: flex; align-items: center; gap: .4rem; }
+    .news-all:hover { gap: .65rem; }
+    .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+    .news-featured {
+      background: var(--b800); border-radius: var(--r-lg);
+      padding: 2.5rem; display: flex; flex-direction: column; justify-content: flex-end;
+      min-height: 380px; position: relative; overflow: hidden;
+      transition: transform .25s;
+    }
+    .news-featured:hover { transform: scale(1.01); }
+    .news-featured-bg {
+      position: absolute; inset: 0; font-size: 10rem; display: flex;
+      align-items: center; justify-content: center; opacity: .06;
+    }
+    .news-feat-cat {
+      display: inline-flex; align-items: center;
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--b400); margin-bottom: 1rem; position: relative; z-index: 1;
+    }
+    .news-feat-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.5rem; line-height: 1.15; letter-spacing: -.02em;
+      color: var(--white); position: relative; z-index: 1;
+    }
+    .news-feat-desc {
+      font-size: .87rem; color: rgba(255,255,255,.6);
+      margin-top: .75rem; line-height: 1.6; position: relative; z-index: 1;
+    }
+    .news-feat-date { font-size: .75rem; color: rgba(255,255,255,.4); margin-top: 1.25rem; position: relative; z-index: 1; }
+    .news-list { display: flex; flex-direction: column; gap: 1rem; }
+    .news-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.3rem;
+      transition: border-color .2s, transform .2s;
+      flex: 1;
+    }
+    .news-card:hover { border-color: var(--b500); transform: translateX(4px); }
+    .news-card-cat { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--b600); margin-bottom: .6rem; }
+    .news-card-title { font-weight: 700; font-size: .95rem; color: var(--b900); line-height: 1.35; }
+    .news-card-date { font-size: .75rem; color: var(--slate); margin-top: .6rem; }
+
+    /* ══ PARTNERS ════════════════════════════════════════ */
+    .partners-section { background: var(--slate-light); padding: 3.5rem 2rem; }
+    .partners-label {
+      text-align: center; font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--slate); margin-bottom: 2rem;
+    }
+    .partners-row {
+      display: flex; justify-content: center;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .partner-chip {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 99px; padding: .55rem 1.5rem;
+      font-size: .85rem; font-weight: 600; color: var(--b800);
+      opacity: .55; transition: opacity .2s, box-shadow .2s;
+    }
+    .partner-chip:hover { opacity: 1; box-shadow: 0 4px 16px rgba(30,84,212,.12); }
+
+    /* ══ FOOTER ══════════════════════════════════════════ */
+    footer {
+      background: var(--b900); color: rgba(255,255,255,.5);
+      padding: 5rem 2rem 2.5rem;
+    }
+    .footer-grid {
+      max-width: 1320px; margin: 0 auto;
+      display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 4rem;
+      padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-desc { font-size: .88rem; line-height: 1.7; margin-top: 1rem; }
+    .footer-social { display: flex; gap: .6rem; margin-top: 1.5rem; }
+    .soc {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,.07); display: flex;
+      align-items: center; justify-content: center; font-size: .95rem;
+      transition: background .2s; border: 1px solid rgba(255,255,255,.1);
+    }
+    .soc:hover { background: var(--b600); border-color: var(--b600); }
+    footer h5 {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); margin-bottom: 1.25rem;
+    }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    footer ul a { font-size: .88rem; color: rgba(255,255,255,.55); transition: color .2s; }
+    footer ul a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1320px; margin: 2rem auto 0;
+      display: flex; justify-content: space-between;
+      align-items: center; font-size: .8rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.35); transition: color .2s; }
+    .footer-bottom a:hover { color: rgba(255,255,255,.75); }
+
+    /* ══ ANIMATIONS ══════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-30px) rotate(5deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: .4; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .4; transform: scaleY(1); }
+      50%       { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ══ RESPONSIVE ══════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-side { display: none; }
+      .about-wrap { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      .acts-grid { grid-template-columns: 1fr 1fr; }
+      .news-grid { grid-template-columns: 1fr; }
+      .join-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: fixed; top: 76px; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,.97); backdrop-filter: blur(20px); flex-direction: column; align-items: stretch; padding: 1.5rem; gap: .25rem; overflow-y: auto; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 1rem; border-radius: 10px; }
+      .nav-cta { margin-top: .5rem; text-align: center; }
+      .nav-hamburger { display: flex; }
+      .hero { min-height: 100svh; padding-bottom: 4rem; }
+      .acts-grid { grid-template-columns: 1fr; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .tarifs-cards { gap: .75rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header id="site-header">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">
+          <svg width="26" height="26" viewBox="0 0 768 686" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0,686) scale(0.1,-0.1)" fill="white" stroke="none">
+              <path d="M4440 6149 c-364 -42 -777 -263 -1148 -613 -186 -177 -430 -481 -725 -908 l-67 -96 97 -32 c425 -140 781 -316 1043 -515 409 -311 590 -543 776 -995 166 -407 213 -695 200 -1250 -3 -157 -9 -302 -12 -322 l-6 -38 124 0 c68 0 198 7 289 15 1064 100 1767 415 2093 938 140 224 201 509 166 774 -34 253 -132 519 -265 723 -60 91 -207 242 -293 299 -140 94 -321 161 -495 182 -97 12 -344 6 -409 -10 -21 -5 -38 -7 -38 -6 0 2 20 43 44 92 89 176 119 303 118 498 0 176 -27 288 -107 450 -69 140 -154 252 -291 385 -147 143 -264 228 -419 305 -226 113 -436 151 -675 124z"/>
+            </g>
+          </svg>
+        </div>
+        <div class="logo-text">Ass. Mayennaise<br><span>de Badminton</span></div>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#">Accueil</a>
+        <a href="#">Le Club</a>
+        <a href="#">Équipes</a>
+        <a href="#">Calendriers</a>
+        <a href="#">Entraînement</a>
+        <a href="#">Contact</a>
+        <a href="#" class="nav-cta">Nous Rejoindre</a>
+      </nav>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="document.getElementById('nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <!-- Shuttle watermark -->
+    <svg class="hero-shuttle" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="white">
+      <circle cx="100" cy="170" r="20"/>
+      <path d="M80 162 Q100 50 120 162" fill="white"/>
+      <path d="M65 145 Q100 35 135 145" fill="white"/>
+      <path d="M50 125 Q100 20 150 125" fill="white"/>
+      <path d="M38 102 Q100 8 162 102" fill="white"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-label">
+          <span class="hero-dot"></span>
+          Saison 2025–2026 — Inscriptions ouvertes
+        </div>
+        <h1>Jouez.<br>Progressez.<br><span class="accent">Gagnez.</span></h1>
+        <p class="hero-desc">
+          L'Association Mayennaise de Badminton rassemble plus de 250 joueurs autour d'une passion commune.
+          Débutant, loisir ou compétition — rejoignez-nous en Mayenne.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn-blue">Nous rejoindre</a>
+          <a href="#" class="btn-outline-w">Découvrir le club</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="side-card">
+          <div class="side-card-label">Le club en chiffres</div>
+          <div class="stat-row">
+            <div class="stat-item"><div class="n">250+</div><div class="l">Licenciés</div></div>
+            <div class="stat-item"><div class="n">8</div><div class="l">Terrains</div></div>
+            <div class="stat-item"><div class="n">30+</div><div class="l">Ans d'histoire</div></div>
+            <div class="stat-item"><div class="n">12</div><div class="l">Équipes</div></div>
+          </div>
+        </div>
+        <div class="side-card">
+          <div class="side-card-label">Dernières nouvelles</div>
+          <div class="news-mini">
+            <div class="news-mini-item">
+              <div class="news-mini-dot"></div>
+              <div><div class="news-mini-text">Tournoi Départemental — Podiums !</div><div class="news-mini-date">12 mai 2026</div></div>
+            </div>
+            <div class="news-mini-item">
+              <div class="news-mini-dot"></div>
+              <div><div class="news-mini-text">Interclubs Jeunes : belle victoire</div><div class="news-mini-date">28 avr. 2026</div></div>
+            </div>
+            <div class="news-mini-item">
+              <div class="news-mini-dot"></div>
+              <div><div class="news-mini-text">Inscriptions 2025-2026 ouvertes</div><div class="news-mini-date">10 avr. 2026</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Défiler
+    </div>
+  </section>
+
+  <!-- RIBBON -->
+  <div class="ribbon">
+    <div class="ribbon-inner">
+      <div class="ribbon-item">
+        <div class="ribbon-icon">🏸</div>
+        <div><div class="ribbon-n">250+</div><div class="ribbon-l">Licenciés actifs</div></div>
+      </div>
+      <div class="ribbon-item">
+        <div class="ribbon-icon">🏟️</div>
+        <div><div class="ribbon-n">8</div><div class="ribbon-l">Terrains disponibles</div></div>
+      </div>
+      <div class="ribbon-item">
+        <div class="ribbon-icon">🥇</div>
+        <div><div class="ribbon-n">12</div><div class="ribbon-l">Équipes en compétition</div></div>
+      </div>
+      <div class="ribbon-item">
+        <div class="ribbon-icon">📅</div>
+        <div><div class="ribbon-n">30+</div><div class="ribbon-l">Années d'histoire</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- À PROPOS -->
+  <section class="section">
+    <div class="inner">
+      <div class="about-wrap">
+        <div class="about-visual">
+          <img
+            src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=900&q=85"
+            alt="Joueurs de badminton"
+            class="about-main-img"
+          />
+          <div class="about-float">
+            <div class="big">FFBaD</div>
+            <div class="small">Club affilié à la<br>Fédération Française<br>de Badminton</div>
+          </div>
+          <div class="about-pill">
+            <div class="pill-n">Dep. 53</div>
+            <div class="pill-l">Mayenne</div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Notre club</div>
+          <h2 class="heading">Un club pour <span>tous les niveaux</span></h2>
+          <p class="subtext">Fondée en Mayenne, notre association accueille des joueurs de tous horizons. De l'école de badminton aux championnats nationaux, nous créons un environnement où chacun peut progresser à son rythme.</p>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-icon">🏆</div>
+              <div>
+                <div class="pillar-title">Excellence sportive</div>
+                <div class="pillar-text">Entraîneurs diplômés d'État, suivi personnalisé et participation aux championnats régionaux et nationaux.</div>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">👥</div>
+              <div>
+                <div class="pillar-title">Convivialité & partage</div>
+                <div class="pillar-text">Tournois internes, événements et vie associative riche tout au long de la saison.</div>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🌱</div>
+              <div>
+                <div class="pillar-title">Formation des jeunes</div>
+                <div class="pillar-text">Section jeunes dès 6 ans avec un parcours structuré jusqu'aux équipes seniors.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITÉS -->
+  <section class="section section-bg">
+    <div class="inner">
+      <div class="acts-header">
+        <div>
+          <div class="eyebrow">Ce que nous proposons</div>
+          <h2 class="heading">Nos <span>activités</span></h2>
+        </div>
+        <a href="#" style="font-size:.85rem;font-weight:700;color:var(--b600);display:flex;align-items:center;gap:.4rem;">Tout voir →</a>
+      </div>
+      <div class="acts-grid">
+        <div class="act-card">
+          <div class="act-thumb" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">🏸</div>
+          <div class="act-body">
+            <div class="act-tag">Débutant → Confirmé</div>
+            <div class="act-title">Badminton Loisir</div>
+            <p class="act-desc">Créneaux adultes en semaine et week-end. Venez jouer dans une ambiance conviviale, matériel disponible sur place pour les nouveaux.</p>
+            <a href="#" class="act-link">En savoir plus <span class="act-arrow">→</span></a>
+          </div>
+        </div>
+        <div class="act-card">
+          <div class="act-thumb" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">🥇</div>
+          <div class="act-body">
+            <div class="act-tag">Compétition</div>
+            <div class="act-title">Équipes & Compétitions</div>
+            <p class="act-desc">Interclubs départementaux, régionaux et nationaux. Rejoignez l'une de nos 12 équipes en simple, double ou mixte.</p>
+            <a href="#" class="act-link">Voir les équipes <span class="act-arrow">→</span></a>
+          </div>
+        </div>
+        <div class="act-card">
+          <div class="act-thumb" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0)">🌱</div>
+          <div class="act-body">
+            <div class="act-tag">Dès 6 ans</div>
+            <div class="act-title">École de Badminton</div>
+            <p class="act-desc">Programme adapté par âge, initiations, stages pendant les vacances scolaires et compétitions jeunes toute l'année.</p>
+            <a href="#" class="act-link">Section jeunes <span class="act-arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTRAÎNEMENTS -->
+  <section class="section">
+    <div class="inner">
+      <div class="plan-header">
+        <div>
+          <div class="eyebrow">Entraînements</div>
+          <h2 class="heading">Nos <span>créneaux</span></h2>
+        </div>
+        <p style="font-size:.88rem;color:var(--slate);max-width:320px;text-align:right;">Lieu : Gymnase Municipal de Laval. Horaires à confirmer auprès du club.</p>
+      </div>
+      <div class="plan-grid">
+        <div class="plan-slot">
+          <div class="plan-day"><div class="plan-day-abbr">LUN</div><div class="plan-day-full">Lundi</div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-info"><div class="plan-name">Adultes Loisir</div><div class="plan-time">19h00 – 21h30 · Salle principale</div></div>
+          <span class="plan-badge">Tous niveaux</span>
+        </div>
+        <div class="plan-slot">
+          <div class="plan-day"><div class="plan-day-abbr">MAR</div><div class="plan-day-full">Mardi</div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-info"><div class="plan-name">École de Badminton Jeunes</div><div class="plan-time">17h30 – 19h00 · Gymnase A</div></div>
+          <span class="plan-badge">6 – 14 ans</span>
+        </div>
+        <div class="plan-slot">
+          <div class="plan-day"><div class="plan-day-abbr">MER</div><div class="plan-day-full">Mercredi</div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-info"><div class="plan-name">Entraînement Compétition</div><div class="plan-time">19h00 – 21h30 · Salle principale</div></div>
+          <span class="plan-badge">Classés</span>
+        </div>
+        <div class="plan-slot">
+          <div class="plan-day"><div class="plan-day-abbr">JEU</div><div class="plan-day-full">Jeudi</div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-info"><div class="plan-name">Adultes Loisir</div><div class="plan-time">19h00 – 21h30 · Salle principale</div></div>
+          <span class="plan-badge">Tous niveaux</span>
+        </div>
+        <div class="plan-slot">
+          <div class="plan-day"><div class="plan-day-abbr">VEN</div><div class="plan-day-full">Vendredi</div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-info"><div class="plan-name">Entraînement Avancé</div><div class="plan-time">20h00 – 22h00 · Salle principale</div></div>
+          <span class="plan-badge">Confirmés</span>
+        </div>
+        <div class="plan-slot">
+          <div class="plan-day"><div class="plan-day-abbr">SAM</div><div class="plan-day-full">Samedi</div></div>
+          <div class="plan-sep"></div>
+          <div class="plan-info"><div class="plan-name">Plateau Jeunes & Ados</div><div class="plan-time">09h00 – 11h30 · Gymnase A</div></div>
+          <span class="plan-badge">– 18 ans</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOUS REJOINDRE -->
+  <section class="section join-section">
+    <div class="join-bg-orb l"></div>
+    <div class="join-bg-orb r"></div>
+    <div class="join-inner">
+      <div class="join-text">
+        <div class="eyebrow" style="color:var(--b400)">Nous rejoindre</div>
+        <h2 class="heading">Rejoignez<br><span class="accent">l'aventure !</span></h2>
+        <p class="subtext">Inscriptions ouvertes pour la saison 2025-2026. 1re séance d'essai gratuite — venez découvrir le club sans engagement.</p>
+        <div class="join-actions">
+          <a href="#" class="btn-white">S'inscrire en ligne</a>
+          <a href="#" class="btn-outline-blue">Télécharger le dossier</a>
+        </div>
+      </div>
+      <div class="tarifs-cards">
+        <div class="tarif">
+          <div>
+            <div class="tarif-cat">Enfant / Ado</div>
+            <div class="tarif-detail">Jusqu'à 17 ans · Licence FFBaD incluse</div>
+          </div>
+          <div class="tarif-price">~80<sub> €</sub></div>
+        </div>
+        <div class="tarif featured">
+          <div>
+            <div class="tarif-cat">Adulte</div>
+            <div class="tarif-detail">Licence FFBaD incluse</div>
+          </div>
+          <div class="tarif-price">~130<sub> €</sub></div>
+        </div>
+        <div class="tarif">
+          <div>
+            <div class="tarif-cat">Séance Découverte</div>
+            <div class="tarif-detail">Venez essayer sans engagement</div>
+          </div>
+          <div class="tarif-price">Gratuit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTUALITÉS -->
+  <section class="section section-bg">
+    <div class="inner">
+      <div class="news-header">
+        <div>
+          <div class="eyebrow">Vie du club</div>
+          <h2 class="heading">Dernières <span>actualités</span></h2>
+        </div>
+        <a href="#" class="news-all">Toutes les actualités →</a>
+      </div>
+      <div class="news-grid">
+        <a href="#" class="news-featured">
+          <div class="news-featured-bg">🏆</div>
+          <div class="news-feat-cat">🏅 Compétition</div>
+          <div class="news-feat-title">Tournoi Départemental Seniors — Nos joueurs sur le podium !</div>
+          <p class="news-feat-desc">Trois de nos licenciés terminent sur le podium lors du tournoi départemental seniors. Une belle performance qui récompense des mois de travail.</p>
+          <div class="news-feat-date">12 mai 2026</div>
+        </a>
+        <div class="news-list">
+          <a href="#" class="news-card">
+            <div class="news-card-cat">🌱 Jeunes</div>
+            <div class="news-card-title">Interclubs Jeunes : victoire de nos équipes</div>
+            <div class="news-card-date">28 avril 2026</div>
+          </a>
+          <a href="#" class="news-card">
+            <div class="news-card-cat">📋 Infos Club</div>
+            <div class="news-card-title">Inscriptions 2025-2026 : encore quelques places disponibles</div>
+            <div class="news-card-date">10 avril 2026</div>
+          </a>
+          <a href="#" class="news-card">
+            <div class="news-card-cat">🎒 Stage</div>
+            <div class="news-card-title">Stage de Pâques Jeunes — retour en images</div>
+            <div class="news-card-date">2 avril 2026</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENAIRES -->
+  <div class="partners-section">
+    <div class="inner" style="max-width:1320px">
+      <div class="partners-label">Nos partenaires & soutiens</div>
+      <div class="partners-row">
+        <span class="partner-chip">Département de la Mayenne</span>
+        <span class="partner-chip">FFBaD</span>
+        <span class="partner-chip">Ligue des Pays de la Loire</span>
+        <span class="partner-chip">Ville de Laval</span>
+        <span class="partner-chip">CROS PDL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="logo">
+          <div class="logo-mark">
+            <svg width="22" height="22" viewBox="0 0 768 686" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(0,686) scale(0.1,-0.1)" fill="white" stroke="none">
+                <path d="M4440 6149 c-364 -42 -777 -263 -1148 -613 -186 -177 -430 -481 -725 -908 l-67 -96 97 -32 c425 -140 781 -316 1043 -515 409 -311 590 -543 776 -995 166 -407 213 -695 200 -1250 -3 -157 -9 -302 -12 -322 l-6 -38 124 0 c68 0 198 7 289 15 1064 100 1767 415 2093 938 140 224 201 509 166 774 -34 253 -132 519 -265 723 -60 91 -207 242 -293 299 -140 94 -321 161 -495 182 -97 12 -344 6 -409 -10 -21 -5 -38 -7 -38 -6 0 2 20 43 44 92 89 176 119 303 118 498 0 176 -27 288 -107 450 -69 140 -154 252 -291 385 -147 143 -264 228 -419 305 -226 113 -436 151 -675 124z"/>
+              </g>
+            </svg>
+          </div>
+          <div class="logo-text" style="color:white">Ass. Mayennaise<br><span>de Badminton</span></div>
+        </div>
+        <p class="footer-desc">Club affilié à la Fédération Française de Badminton. Nous œuvrons pour le développement du badminton en Mayenne depuis plus de 30 ans.</p>
+        <div class="footer-social">
+          <a href="#" class="soc" title="Facebook">📘</a>
+          <a href="#" class="soc" title="Instagram">📷</a>
+          <a href="#" class="soc" title="YouTube">▶️</a>
+        </div>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#">Le Club</a></li>
+          <li><a href="#">Équipes</a></li>
+          <li><a href="#">Calendriers</a></li>
+          <li><a href="#">Entraînement</a></li>
+          <li><a href="#">Nous Rejoindre</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Informations</h5>
+        <ul>
+          <li><a href="#">Tarifs & Licences</a></li>
+          <li><a href="#">Règlement intérieur</a></li>
+          <li><a href="#">Galerie photos</a></li>
+          <li><a href="#">Résultats & Classements</a></li>
+          <li><a href="#">Badnet</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="#">📍 Laval, Mayenne (53)</a></li>
+          <li><a href="mailto:contact@mayenne-badminton.fr">✉ contact@mayenne-badminton.fr</a></li>
+          <li><a href="#">📞 06 00 00 00 00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Association Mayennaise de Badminton. Tous droits réservés.</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky header on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+</body>
+</html>
