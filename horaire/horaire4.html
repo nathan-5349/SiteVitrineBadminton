@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>AMB — Horaires V4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Syne:wght@800&display=swap" rel="stylesheet">
+  <style>
+    :root { --p: #1e54d4; --bg: #f8fafc; --text: #04122e; --white: #ffffff; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); padding: 40px 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 { font-family: 'Syne', sans-serif; font-size: 2.5rem; margin-bottom: 30px; border-left: 8px solid var(--p); padding-left: 20px; }
+    
+    .schedule-board { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #f1f5f9; text-align: left; padding: 15px 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; }
+    td { padding: 20px; border-bottom: 1px solid #e2e8f0; }
+    
+    .time-tag { font-weight: 700; color: var(--p); background: rgba(30,84,212,0.1); padding: 4px 8px; border-radius: 6px; font-size: 0.9rem; }
+    .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+    .cat-jeunes { background: #22c55e; }
+    .cat-loisir { background: #3b82f6; }
+    .cat-comp { background: #ef4444; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Planning Sportif</h1>
+    <div class="schedule-board">
+      <table>
+        <thead>
+          <tr>
+            <th>Jour</th>
+            <th>Horaire</th>
+            <th>Public</th>
+            <th>Lieu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Lundi</strong></td>
+            <td><span class="time-tag">18:00 - 20:00</span></td>
+            <td><span class="status-dot cat-jeunes"></span>École de Bad</td>
+            <td>Gymnase Ferry</td>
+          </tr>
+          <tr>
+            <td><strong>Mardi</strong></td>
+            <td><span class="time-tag">20:00 - 22:30</span></td>
+            <td><span class="status-dot cat-loisir"></span>Jeu Libre Adultes</td>
+            <td>Salle Principale</td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horaires — Mayenne Badminton V1</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0a2a6e;
+    --accent: #e8c400;
+    --light: #f4f6fb;
+    --dark: #08183f;
+    --text: #1a1a2e;
+    --muted: #6b7a99;
+    --white: #ffffff;
+    --radius: 12px;
+
+    --cat-loisir:  #1a4fd6;
+    --cat-comp:    #b91c1c;
+    --cat-jeunes:  #15803d;
+    --cat-libre:   #7c3aed;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; color: var(--text); background: var(--white); }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 72px;
+    background: rgba(8,24,63,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--accent);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-text .club { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--accent); }
+  .nav-logo-text .dept { font-size: 0.72rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  .nav-links { display: flex; gap: 2px; }
+  .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.88rem; font-weight: 500; transition: all .2s; }
+  .nav-links a:hover, .nav-links a.active { background: var(--accent); color: var(--dark); font-weight: 700; }
+
+  /* HERO */
+  .page-hero {
+    background: var(--dark);
+    padding: 4rem 5vw 3rem;
+    border-bottom: 3px solid var(--accent);
+    position: relative; overflow: hidden;
+  }
+  .page-hero::after {
+    content: 'HORAIRES';
+    position: absolute; right: 3vw; bottom: -1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 9rem; color: rgba(255,255,255,0.03);
+    letter-spacing: 4px; line-height: 1;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+  }
+  .page-hero .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--accent); }
+  .page-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); color: var(--white); letter-spacing: 2px; line-height: 1; }
+  .page-hero p { color: rgba(255,255,255,0.6); margin-top: 1rem; font-size: 1rem; font-weight: 300; max-width: 560px; }
+
+  /* MAIN */
+  .container { max-width: 1200px; margin: 0 auto; padding: 3rem 5vw 5rem; }
+
+  /* LÉGENDE */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--light); border-radius: var(--radius);
+    border-left: 4px solid var(--accent);
+  }
+  .legend-title { width: 100%; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: var(--primary); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+  /* SEMAINE GRID */
+  .week-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(6, 1fr);
+    gap: 3px;
+    background: #dde5f0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 3px solid var(--primary);
+  }
+  .wg-cell {
+    background: var(--white);
+    min-height: 56px;
+  }
+  /* En-têtes jours */
+  .wg-day-header {
+    background: var(--primary);
+    color: var(--white);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 0.75rem 0.5rem;
+    gap: 2px;
+  }
+  .wg-day-abbr { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; line-height: 1; }
+  .wg-day-full { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.65; }
+  /* En-tête angle */
+  .wg-corner {
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem;
+    letter-spacing: 2px; color: var(--accent);
+  }
+  /* Créneaux */
+  .wg-slot {
+    padding: 0.5rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    min-height: 90px;
+  }
+  .slot-card {
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s;
+  }
+  .slot-card:hover { transform: scale(1.02); z-index: 2; }
+  .slot-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .slot-card.loisir  { background: rgba(26,79,214,0.08); }
+  .slot-card.loisir::before  { background: var(--cat-loisir); }
+  .slot-card.comp    { background: rgba(185,28,28,0.07); }
+  .slot-card.comp::before    { background: var(--cat-comp); }
+  .slot-card.jeunes  { background: rgba(21,128,61,0.08); }
+  .slot-card.jeunes::before  { background: var(--cat-jeunes); }
+  .slot-card.libre   { background: rgba(124,58,237,0.08); }
+  .slot-card.libre::before   { background: var(--cat-libre); }
+
+  .slot-name { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .slot-time { font-size: 0.68rem; color: var(--muted); margin-top: 2px; font-weight: 500; }
+  .slot-salle { font-size: 0.62rem; color: var(--muted); margin-top: 1px; }
+
+  .wg-empty { background: var(--light); }
+
+  /* INFO CARDS */
+  .info-strip {
+    margin-top: 2.5rem;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;
+  }
+  .info-card {
+    background: var(--primary); color: var(--white);
+    border-radius: var(--radius); padding: 1.5rem;
+    border-bottom: 3px solid var(--accent);
+  }
+  .info-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 1px; color: var(--accent); margin-bottom: 0.5rem; }
+  .info-card p, .info-card li { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+  .info-card ul { list-style: none; }
+  .info-card ul li::before { content: '— '; color: var(--accent); }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 2.5rem 5vw; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 2px solid var(--accent); }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 860px) {
+    .week-grid { grid-template-columns: 70px repeat(6, 1fr); font-size: 0.8rem; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 640px) {
+    .week-grid { grid-template-columns: 1fr; }
+    .wg-day-header { flex-direction: row; justify-content: flex-start; padding: 0.5rem 1rem; gap: 8px; }
+    .wg-corner { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-text">
+      <span class="club">Mayenne Badminton</span>
+      <span class="dept">Département 53</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index1.html">Accueil</a>
+    <a href="#">Le Club</a>
+    <a href="horaire1.html" class="active">Horaires</a>
+    <a href="#">Tarifs</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="eyebrow">Planning de la saison</div>
+  <h1>Créneaux<br>d'Entraînement</h1>
+  <p>Retrouvez tous nos créneaux hebdomadaires — loisir, compétition, école de badminton jeunes. Saison 2025/2026.</p>
+</div>
+
+<div class="container">
+
+  <!-- LÉGENDE -->
+  <div class="legend">
+    <div class="legend-title">Catégories</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-loisir)"></div> Adultes Loisir</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-comp)"></div> Compétition</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-jeunes)"></div> Jeunes / École</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--cat-libre)"></div> Jeu Libre</div>
+  </div>
+
+  <!-- GRILLE SEMAINE -->
+  <div class="week-grid">
+
+    <!-- Ligne en-tête -->
+    <div class="wg-cell wg-corner">LIEU</div>
+    <div class="wg-cell wg-day-header"><div class="wg-day-abbr">LUN</div><div class="wg-day-full">Lundi</div></div>
+    <div class="wg-cell wg-day-header"><div class="wg-day-abbr">MAR</div><div class="wg-day-full">Mardi</div></div>
+    <div class="wg-cell wg-day-header"><div class="wg-day-abbr">MER</div><div class="wg-day-full">Mercredi</div></div>
+    <div class="wg-cell wg-day-header"><div class="wg-day-abbr">JEU</div><div class="wg-day-full">Jeudi</div></div>
+    <div class="wg-cell wg-day-header"><div class="wg-day-abbr">VEN</div><div class="wg-day-full">Vendredi</div></div>
+    <div class="wg-cell wg-day-header"><div class="wg-day-abbr">SAM</div><div class="wg-day-full">Samedi</div></div>
+
+    <!-- Ligne MATIN -->
+    <div class="wg-cell wg-day-header" style="background:#1a3799; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">Matin</div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card jeunes">
+        <div class="slot-name">École Badminton Jeunes</div>
+        <div class="slot-time">14h00 – 17h00</div>
+        <div class="slot-salle">Gymnase A</div>
+      </div>
+    </div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card jeunes">
+        <div class="slot-name">Plateau Jeunes & Ados</div>
+        <div class="slot-time">09h00 – 11h30</div>
+        <div class="slot-salle">Gymnase A</div>
+      </div>
+    </div>
+
+    <!-- Ligne APRÈS-MIDI -->
+    <div class="wg-cell wg-day-header" style="background:#1a3799; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">Après‑midi</div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card jeunes">
+        <div class="slot-name">École de Bad. Jeunes</div>
+        <div class="slot-time">17h30 – 19h00</div>
+        <div class="slot-salle">Gymnase A</div>
+      </div>
+    </div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-empty"></div>
+
+    <!-- Ligne SOIRÉE -->
+    <div class="wg-cell wg-day-header" style="background:#1a3799; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">Soirée</div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card loisir">
+        <div class="slot-name">Adultes Loisir</div>
+        <div class="slot-time">19h00 – 21h30</div>
+        <div class="slot-salle">Salle principale</div>
+      </div>
+    </div>
+    <div class="wg-cell wg-empty"></div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card comp">
+        <div class="slot-name">Entraîn. Compétition</div>
+        <div class="slot-time">19h00 – 21h30</div>
+        <div class="slot-salle">Salle principale</div>
+      </div>
+    </div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card loisir">
+        <div class="slot-name">Adultes Loisir</div>
+        <div class="slot-time">19h00 – 21h30</div>
+        <div class="slot-salle">Salle principale</div>
+      </div>
+    </div>
+    <div class="wg-cell wg-slot">
+      <div class="slot-card comp">
+        <div class="slot-name">Entraîn. Avancé</div>
+        <div class="slot-time">20h00 – 22h00</div>
+        <div class="slot-salle">Salle principale</div>
+      </div>
+    </div>
+    <div class="wg-cell wg-empty"></div>
+
+  </div>
+
+  <!-- INFO CARDS -->
+  <div class="info-strip">
+    <div class="info-card">
+      <h3>📍 Salles</h3>
+      <ul>
+        <li>Gymnase Municipal — Laval</li>
+        <li>Gymnase A — entrée secondaire</li>
+        <li>Accès P gratuit sur place</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>🎽 Équipement</h3>
+      <ul>
+        <li>Chaussures indoor obligatoires</li>
+        <li>Raquettes prêtées aux débutants</li>
+        <li>Volants fournis (loisir)</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>📝 1re séance</h3>
+      <p>Essai gratuit sans engagement pour tout nouvel arrivant. Venez simplement avec des chaussures de sport !</p>
+    </div>
+    <div class="info-card">
+      <h3>📞 Contact</h3>
+      <p>contact@mayenne-badminton.fr<br>06 00 00 00 00<br>Laval, Mayenne (53)</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Mayenne Badminton</strong> · Club affilié FFBaD · Département 53 · © 2026
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Horaires — AMB Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --b900: #04122e; --b800: #0c2461; --b700: #1a3799;
+      --b600: #1e54d4; --b500: #3b82f6; --b400: #60a5fa;
+      --white: #ffffff; --slate: #64748b;
+      --border: rgba(255,255,255,0.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--b900);
+      color: var(--white);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 80% 10%, rgba(30,84,212,.35), transparent),
+        radial-gradient(ellipse 50% 60% at 10% 90%, rgba(26,55,153,.3), transparent);
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    header {
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(4,18,46,.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1320px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; height: 72px; gap: 1.5rem;
+    }
+    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: .95rem; line-height: 1.2; text-transform: uppercase; letter-spacing: -.01em; }
+    .logo span { color: var(--b500); }
+    .nav-links { display: flex; align-items: center; gap: .25rem; margin-left: auto; }
+    .nav-links a { font-size: .875rem; font-weight: 500; padding: .5rem .9rem; border-radius: 8px; transition: background .2s, color .2s; color: rgba(255,255,255,.7); }
+    .nav-links a:hover { background: rgba(255,255,255,.08); color: var(--white); }
+    .nav-links a.active { color: var(--b400); background: rgba(59,130,246,.12); }
+    .nav-cta { background: var(--b600); color: var(--white) !important; padding: .55rem 1.3rem !important; border-radius: 99px !important; font-weight: 700 !important; }
+
+    /* PAGE HEADER */
+    .page-header {
+      max-width: 1320px; margin: 0 auto;
+      padding: 4rem 2rem 3rem;
+    }
+    .eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--b400); margin-bottom: .75rem; }
+    .page-header h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .92; letter-spacing: -.04em; }
+    .page-header h1 .grad { background: linear-gradient(90deg, var(--b400), #93c5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-header p { margin-top: 1rem; color: rgba(255,255,255,.55); font-size: 1rem; max-width: 500px; }
+
+    /* FILTER TABS */
+    .filters {
+      max-width: 1320px; margin: 0 auto; padding: 0 2rem 2.5rem;
+      display: flex; gap: .6rem; flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: .5rem 1.2rem; border-radius: 99px; border: 1.5px solid var(--border);
+      font-size: .82rem; font-weight: 700; cursor: pointer;
+      background: transparent; color: rgba(255,255,255,.6);
+      transition: all .25s; letter-spacing: .02em;
+    }
+    .filter-btn:hover { border-color: var(--b500); color: var(--white); }
+    .filter-btn.active {
+      background: var(--b600); border-color: var(--b600); color: var(--white);
+      box-shadow: 0 4px 20px rgba(30,84,212,.4);
+    }
+
+    /* CARDS GRID */
+    .cards-section {
+      max-width: 1320px; margin: 0 auto; padding: 0 2rem 6rem;
+    }
+    .day-group { margin-bottom: 2.5rem; }
+    .day-label {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.1rem; letter-spacing: -.02em;
+      color: rgba(255,255,255,.25); text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .day-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .slots-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+    .slot-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      flex: 0 0 auto; min-width: 240px; max-width: 320px;
+      transition: all .3s cubic-bezier(.23,1,.32,1);
+      position: relative; overflow: hidden;
+    }
+    .slot-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 20px 20px 0 0;
+    }
+    .slot-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.09);
+      box-shadow: 0 24px 48px rgba(0,0,0,.4);
+    }
+    .slot-card.loisir::before  { background: var(--b500); }
+    .slot-card.comp::before    { background: #ef4444; }
+    .slot-card.jeunes::before  { background: #22c55e; }
+    .slot-card.libre::before   { background: #a78bfa; }
+    .slot-card.hidden { display: none; }
+
+    .slot-tag {
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      padding: .25rem .7rem; border-radius: 99px; margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .slot-card.loisir  .slot-tag { background: rgba(59,130,246,.2);  color: var(--b400); }
+    .slot-card.comp    .slot-tag { background: rgba(239,68,68,.2);   color: #fca5a5; }
+    .slot-card.jeunes  .slot-tag { background: rgba(34,197,94,.2);   color: #86efac; }
+    .slot-card.libre   .slot-tag { background: rgba(167,139,250,.2); color: #c4b5fd; }
+
+    .slot-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; line-height: 1.15; letter-spacing: -.02em; margin-bottom: .6rem; }
+    .slot-time {
+      font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums;
+      letter-spacing: -.02em; color: var(--white); line-height: 1;
+      margin-bottom: .5rem;
+    }
+    .slot-time sub { font-size: .75rem; vertical-align: middle; opacity: .6; font-weight: 500; }
+    .slot-meta { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .slot-meta span {
+      font-size: .72rem; background: rgba(255,255,255,.08); padding: .2rem .65rem;
+      border-radius: 6px; color: rgba(255,255,255,.6);
+    }
+
+    /* STAT ROW */
+    .stat-row {
+      max-width: 1320px; margin: 0 auto; padding: 0 2rem 2.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;
+    }
+    .stat-glass {
+      background: rgba(255,255,255,.05); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(12px);
+      text-align: center;
+    }
+    .stat-glass .n { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--b400); }
+    .stat-glass .l { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.45); margin-top: .4rem; }
+
+    footer { text-align: center; padding: 2rem; color: rgba(255,255,255,.25); font-size: .8rem; border-top: 1px solid var(--border); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .slot-card { min-width: 100%; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo">Ass. Mayennaise<br><span>de Badminton</span></div>
+    <nav class="nav-links">
+      <a href="index2.html">Accueil</a>
+      <a href="#">Le Club</a>
+      <a href="horaire2.html" class="active">Horaires</a>
+      <a href="#">Équipes</a>
+      <a href="#">Contact</a>
+      <a href="#" class="nav-cta">Nous rejoindre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="eyebrow">Saison 2025 – 2026</div>
+  <h1>Nos <span class="grad">créneaux</span><br>d'entraînement</h1>
+  <p>Filtrez par catégorie et trouvez le créneau qui vous correspond. Tous niveaux, tous âges.</p>
+</div>
+
+<!-- STATS -->
+<div class="stat-row">
+  <div class="stat-glass"><div class="n">10</div><div class="l">Séances / semaine</div></div>
+  <div class="stat-glass"><div class="n">5</div><div class="l">Jours de pratique</div></div>
+  <div class="stat-glass"><div class="n">8</div><div class="l">Terrains</div></div>
+  <div class="stat-glass"><div class="n">Gratuit</div><div class="l">1re séance</div></div>
+</div>
+
+<!-- FILTRES -->
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">Tout afficher</button>
+  <button class="filter-btn" data-filter="loisir">🏸 Adultes Loisir</button>
+  <button class="filter-btn" data-filter="comp">🥇 Compétition</button>
+  <button class="filter-btn" data-filter="jeunes">🌱 Jeunes</button>
+  <button class="filter-btn" data-filter="libre">✨ Jeu Libre</button>
+</div>
+
+<!-- CARDS PAR JOUR -->
+<div class="cards-section">
+
+  <div class="day-group">
+    <div class="day-label">Lundi</div>
+    <div class="slots-row">
+      <div class="slot-card loisir">
+        <span class="slot-tag">Adultes Loisir</span>
+        <div class="slot-name">Entraînement Adultes</div>
+        <div class="slot-time">19<sub>h</sub>00 – 21<sub>h</sub>30</div>
+        <div class="slot-meta"><span>📍 Salle principale</span><span>Tous niveaux</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">Mardi</div>
+    <div class="slots-row">
+      <div class="slot-card jeunes">
+        <span class="slot-tag">Jeunes</span>
+        <div class="slot-name">École de Badminton</div>
+        <div class="slot-time">17<sub>h</sub>30 – 19<sub>h</sub>00</div>
+        <div class="slot-meta"><span>📍 Gymnase A</span><span>6 – 14 ans</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">Mercredi</div>
+    <div class="slots-row">
+      <div class="slot-card jeunes">
+        <span class="slot-tag">Jeunes</span>
+        <div class="slot-name">École de Badminton</div>
+        <div class="slot-time">14<sub>h</sub>00 – 17<sub>h</sub>00</div>
+        <div class="slot-meta"><span>📍 Gymnase A</span><span>6 – 14 ans</span></div>
+      </div>
+      <div class="slot-card comp">
+        <span class="slot-tag">Compétition</span>
+        <div class="slot-name">Entraîn. Compétition</div>
+        <div class="slot-time">19<sub>h</sub>00 – 21<sub>h</sub>30</div>
+        <div class="slot-meta"><span>📍 Salle principale</span><span>Classés</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">Jeudi</div>
+    <div class="slots-row">
+      <div class="slot-card loisir">
+        <span class="slot-tag">Adultes Loisir</span>
+        <div class="slot-name">Entraînement Adultes</div>
+        <div class="slot-time">19<sub>h</sub>00 – 21<sub>h</sub>30</div>
+        <div class="slot-meta"><span>📍 Salle principale</span><span>Tous niveaux</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">Vendredi</div>
+    <div class="slots-row">
+      <div class="slot-card comp">
+        <span class="slot-tag">Compétition</span>
+        <div class="slot-name">Entraînement Avancé</div>
+        <div class="slot-time">20<sub>h</sub>00 – 22<sub>h</sub>00</div>
+        <div class="slot-meta"><span>📍 Salle principale</span><span>Confirmés</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label">Samedi</div>
+    <div class="slots-row">
+      <div class="slot-card jeunes">
+        <span class="slot-tag">Jeunes</span>
+        <div class="slot-name">Plateau Jeunes & Ados</div>
+        <div class="slot-time">09<sub>h</sub>00 – 11<sub>h</sub>30</div>
+        <div class="slot-meta"><span>📍 Gymnase A</span><span>– 18 ans</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>© 2026 Association Mayennaise de Badminton · contact@mayenne-badminton.fr</footer>
+
+<script>
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.slot-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(c => {
+        if (f === 'all' || c.classList.contains(f)) {
+          c.classList.remove('hidden');
+        } else {
+          c.classList.add('hidden');
+        }
+      });
+      // Masquer groupes de jours vides
+      document.querySelectorAll('.day-group').forEach(g => {
+        const visible = [...g.querySelectorAll('.slot-card')].some(c => !c.classList.contains('hidden'));
+        g.style.display = visible ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

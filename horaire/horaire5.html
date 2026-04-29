@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>AMB — Horaires V5</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root { --dark: #04122e; --accent: #e8c400; --blue: #1e54d4; }
+    body { background: var(--dark); color: white; font-family: 'Plus Jakarta Sans', sans-serif; padding: 50px; }
+    h1 { font-family: 'Bebas Neue', cursive; font-size: 4rem; letter-spacing: 4px; color: var(--accent); margin-bottom: 50px; }
+    
+    .grid-sessions { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .session-card { background: rgba(255,255,255,0.05); border-left: 5px solid var(--blue); padding: 30px; position: relative; overflow: hidden; transition: 0.3s; }
+    .session-card:hover { background: rgba(255,255,255,0.1); transform: scale(1.02); }
+    .session-card.comp { border-left-color: var(--accent); }
+    
+    .day-name { font-family: 'Bebas Neue'; font-size: 1.5rem; opacity: 0.5; }
+    .time { font-size: 2rem; font-weight: 800; display: block; margin: 10px 0; }
+    .label { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--blue); }
+    .comp .label { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <h1>Agenda du Club</h1>
+  <div class="grid-sessions">
+    <div class="session-card">
+        <span class="day-name">Lundi</span>
+        <span class="time">18H30 - 20H</span>
+        <span class="label">Entraînement Jeunes</span>
+    </div>
+    <div class="session-card comp">
+        <span class="day-name">Mercredi</span>
+        <span class="time">20H - 22H</span>
+        <span class="label">Compétiteurs Élite</span>
+    </div>
+    </div>
+</body>
+</html>
