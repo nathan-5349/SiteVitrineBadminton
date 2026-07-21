@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités V5 — Bento Tuiles</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syne:wght@800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#1e54d4;--dark:#04122e;--accent:#e8c400;--white:#fff;--surface:#F8FAFC;--border:rgba(0,0,0,.08);--muted:#64748B}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dark);color:var(--white)}
+a{text-decoration:none;color:inherit}
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(4,18,46,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;padding:1.2rem 5%}
+.logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-1px;text-transform:uppercase}
+.logo span{color:var(--brand)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-weight:600;font-size:.85rem;color:rgba(255,255,255,.7);transition:.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.btn-join{background:var(--brand);color:#fff;padding:.7rem 1.4rem;border-radius:12px;font-weight:700;font-size:.85rem}
+/* HERO */
+.hero{padding:130px 5% 3rem}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(30,84,212,.15);color:var(--brand);padding:8px 16px;border-radius:100px;font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:1.5rem}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);line-height:.9;letter-spacing:2px;color:var(--accent);margin-bottom:.35rem}
+.hero h1 span{display:block;color:#fff;font-size:60%}
+/* FILTRES */
+.filters{padding:0 5% 2rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.filter-btn{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;padding:.35rem 1.1rem;border-radius:8px;border:2px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);background:transparent;cursor:pointer;transition:.2s}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:var(--dark)}
+/* BENTO GRID */
+.bento{max-width:1300px;margin:0 auto;padding:0 5% 5rem;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:180px;gap:1rem}
+/* Tuile A — grande hero */
+.t-a{grid-column:1/7;grid-row:1/3;background:var(--brand);border-radius:20px;padding:2rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.t-a::before{content:'🏆';position:absolute;top:.5rem;right:1rem;font-size:8rem;opacity:.1}
+/* Tuile B — stat */
+.t-b{grid-column:7/10;grid-row:1/2;background:var(--accent);color:var(--dark);border-radius:20px;padding:1.5rem;display:flex;flex-direction:column;justify-content:flex-end}
+/* Tuile C — résultat */
+.t-c{grid-column:10/13;grid-row:1/2;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.5rem;display:flex;flex-direction:column;justify-content:flex-end}
+/* Tuile D */
+.t-d{grid-column:7/10;grid-row:2/3;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.5rem;display:flex;flex-direction:column;justify-content:flex-end}
+/* Tuile E */
+.t-e{grid-column:10/13;grid-row:2/3;background:#0c2461;border-radius:20px;padding:1.5rem;display:flex;flex-direction:column;justify-content:flex-end}
+/* Tuile F — large bas gauche */
+.t-f{grid-column:1/5;grid-row:3/4;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.5rem;display:flex;align-items:center;gap:1.25rem}
+/* Tuile G */
+.t-g{grid-column:5/9;grid-row:3/4;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.5rem;display:flex;align-items:center;gap:1.25rem}
+/* Tuile H */
+.t-h{grid-column:9/13;grid-row:3/4;background:rgba(30,84,212,.2);border:1px solid rgba(30,84,212,.4);border-radius:20px;padding:1.5rem;display:flex;align-items:center;gap:1.25rem}
+
+.tile-cat{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.4rem}
+.tile-cat.acc{color:var(--accent)}
+.tile-cat.grn{color:#86efac}
+.t-b .tile-cat{color:rgba(4,18,46,.6)}
+.tile-h2{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:.5rem}
+.t-b .tile-h2,.t-b .tile-p{color:var(--dark)}
+.tile-p{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:.5rem}
+.tile-date{font-size:.7rem;color:rgba(255,255,255,.3)}
+.t-b .tile-date{color:rgba(4,18,46,.5)}
+.tile-link{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.7);display:inline-flex;align-items:center;gap:.35rem;margin-top:.5rem;transition:gap .2s}
+.tile-link:hover{gap:.6rem;color:#fff}
+.t-b .tile-link{color:var(--dark)}
+.big-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--dark);line-height:1}
+.big-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(4,18,46,.6);margin-top:.25rem}
+/* tuiles horizontales */
+.tile-ico{font-size:2.5rem;flex-shrink:0}
+.tile-txt .tile-cat{margin-bottom:.3rem}
+.tile-txt h3{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;line-height:1.2;margin-bottom:.3rem}
+.tile-txt p{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+footer{text-align:center;padding:2rem;color:rgba(255,255,255,.25);font-size:.8rem;border-top:1px solid rgba(255,255,255,.06)}
+@media(max-width:900px){.bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto}.t-a,.t-b,.t-c,.t-d,.t-e,.t-f,.t-g,.t-h{grid-column:auto;grid-row:auto;min-height:160px}.nav-links{display:none}}
+@media(max-width:560px){.bento{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">AMB<span>.</span></div>
+  <ul class="nav-links"><li><a href="#">Le Club</a></li><li><a href="#" class="active">Actualités</a></li><li><a href="#">Créneaux</a></li><li><a href="#">Contact</a></li><li><a href="#" class="btn-join">Nous rejoindre</a></li></ul>
+</nav>
+<div class="hero">
+  <div class="hero-tag">Saison 2025/2026</div>
+  <h1>Actus<span>&amp; Résultats</span></h1>
+</div>
+<div class="filters">
+  <button class="filter-btn active">Tout</button>
+  <button class="filter-btn">🏆 Résultats</button>
+  <button class="filter-btn">🌱 Jeunes</button>
+  <button class="filter-btn">📋 Infos Club</button>
+  <button class="filter-btn">🎉 Événements</button>
+</div>
+<div class="bento">
+  <div class="t-a">
+    <div class="tile-cat acc">À la une · Compétition</div>
+    <div class="tile-h2">Tournoi Départemental — 3 Podiums pour le Club !</div>
+    <div class="tile-p">Trois de nos licenciés terminent sur le podium lors du tournoi départemental seniors.</div>
+    <div class="tile-date">12 mai 2026</div>
+    <a href="#" class="tile-link">Lire l'article →</a>
+  </div>
+  <div class="t-b">
+    <div class="big-num">3</div>
+    <div class="big-label">Podiums ce mois</div>
+    <div class="tile-date" style="margin-top:.5rem">Meilleur résultat depuis 2 saisons</div>
+  </div>
+  <div class="t-c">
+    <div class="tile-cat">Résultats</div>
+    <div class="tile-h2" style="font-size:1rem">Régionale : Éq. 1</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#86efac;line-height:1">6–2 ✓</div>
+    <div class="tile-date">20 mars 2026</div>
+  </div>
+  <div class="t-d">
+    <div class="tile-cat grn">Jeunes</div>
+    <div class="tile-h2" style="font-size:1rem">Interclubs Jeunes — Victoire des Benjamins</div>
+    <div class="tile-date">28 avr. 2026</div>
+    <a href="#" class="tile-link">Lire →</a>
+  </div>
+  <div class="t-e">
+    <div class="tile-cat">Infos Club</div>
+    <div class="tile-h2" style="font-size:1rem">Inscriptions 2025-2026 : Places Disponibles</div>
+    <div class="tile-date">10 avr. 2026</div>
+    <a href="#" class="tile-link">Lire →</a>
+  </div>
+  <div class="t-f">
+    <div class="tile-ico">🎉</div>
+    <div class="tile-txt"><div class="tile-cat">Événement</div><h3>Tournoi Interne Promobad — 44 Joueurs</h3><p>Grande réussite pour notre tournoi annuel.</p></div>
+  </div>
+  <div class="t-g">
+    <div class="tile-ico">🎒</div>
+    <div class="tile-txt"><div class="tile-cat">Événement</div><h3>Stage de Pâques Jeunes — Retour en Images</h3><p>Quatre jours de stage intensif pour nos jeunes.</p></div>
+  </div>
+  <div class="t-h">
+    <div class="tile-ico">📅</div>
+    <div class="tile-txt"><div class="tile-cat">Infos Club</div><h3>Assemblée Générale 2026 — Compte Rendu</h3><p>Budget, projets et élections du bureau.</p></div>
+  </div>
+</div>
+<footer>© 2026 AMB · Association Mayennaise de Badminton</footer>
+</body>
+</html>

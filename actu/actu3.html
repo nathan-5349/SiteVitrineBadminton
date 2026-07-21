@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités V3 — Journal 3 Colonnes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bleu:#1A3C8F;--bleu-fonce:#0D2660;--bleu-leger:#EBF0FA;--blanc:#fff;--gris-bg:#F7F8FC;--gris-bord:#DDE3EF;--gris-txt:#546280;--texte:#1A2340;--or:#C9A84C}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;color:var(--texte);background:var(--blanc)}
+a{text-decoration:none;color:inherit}
+.topbar{background:var(--bleu-fonce);padding:.5rem 2.5rem;display:flex;justify-content:space-between;font-size:.8rem;color:rgba(255,255,255,.7)}
+header{background:var(--blanc);border-bottom:1px solid var(--gris-bord);position:sticky;top:0;z-index:900;box-shadow:0 2px 12px rgba(26,60,143,.07)}
+.header-inner{max-width:1240px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;height:80px;gap:2rem}
+.brand-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:var(--bleu-fonce)}
+.brand-sub{font-size:.7rem;color:var(--gris-txt);text-transform:uppercase;letter-spacing:.08em}
+nav{display:flex;gap:.1rem;margin-left:auto}
+nav a{font-size:.88rem;font-weight:600;color:var(--texte);padding:.5rem 1rem;border-radius:4px;transition:.2s}
+nav a:hover{color:var(--bleu);background:var(--bleu-leger)}
+nav a.active{color:var(--bleu)}
+.nav-cta{background:var(--bleu);color:var(--blanc) !important;font-weight:700 !important;border-radius:4px !important}
+/* EN-TÊTE JOURNAL */
+.journal-header{max-width:1240px;margin:0 auto;padding:3rem 2.5rem 0}
+.journal-title-row{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--bleu-fonce);padding-bottom:1rem;margin-bottom:1rem}
+.journal-title-row h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:var(--bleu-fonce);line-height:1}
+.journal-meta{font-size:.78rem;color:var(--gris-txt);text-align:right;line-height:1.6}
+.journal-meta strong{color:var(--bleu-fonce)}
+.or-line{height:3px;background:var(--or);margin-bottom:2rem}
+/* FILTRES */
+.filters{max-width:1240px;margin:0 auto;padding:0 2.5rem 2rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.filter-btn{font-family:'Playfair Display',serif;font-size:.85rem;padding:.35rem 1rem;border:1.5px solid var(--gris-bord);color:var(--gris-txt);background:transparent;cursor:pointer;transition:.2s;border-radius:2px}
+.filter-btn:hover,.filter-btn.active{background:var(--bleu);color:var(--blanc);border-color:var(--bleu)}
+/* LAYOUT 3 COLONNES JOURNAL */
+.journal-body{max-width:1240px;margin:0 auto;padding:0 2.5rem 5rem;display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0}
+.col-sep{background:var(--gris-bord);margin:0 2rem}
+.col{padding:0 .5rem}
+/* Article principal (col 1 — grande) */
+.art-main{}
+.art-main-img{width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,var(--bleu-fonce),var(--bleu));display:flex;align-items:center;justify-content:center;font-size:5rem;margin-bottom:1.25rem}
+.art-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bleu);display:flex;align-items:center;gap:.4rem;margin-bottom:.6rem}
+.art-eyebrow::before{content:'';width:16px;height:2px;background:var(--or)}
+.art-main h2{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;line-height:1.15;color:var(--bleu-fonce);margin-bottom:.75rem}
+.art-main p{font-size:.9rem;color:var(--gris-txt);line-height:1.75;margin-bottom:.85rem}
+.art-date{font-size:.75rem;color:var(--gris-txt);font-weight:600}
+.read-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--bleu);font-weight:700;font-size:.83rem;margin-top:.75rem;border-bottom:1px solid transparent;transition:.2s}
+.read-link:hover{border-color:var(--bleu);gap:.7rem}
+/* Articles secondaires */
+.art-sec{padding:1.25rem 0;border-bottom:1px solid var(--gris-bord)}
+.art-sec:last-child{border-bottom:none}
+.art-sec-img{width:100%;height:120px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin-bottom:.85rem;border-bottom:2px solid var(--or)}
+.art-sec h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;line-height:1.25;color:var(--bleu-fonce);margin-bottom:.5rem}
+.art-sec p{font-size:.83rem;color:var(--gris-txt);line-height:1.65}
+.art-sec-foot{display:flex;justify-content:space-between;align-items:center;margin-top:.75rem;font-size:.75rem;color:var(--gris-txt)}
+/* Col 3 — résultats + brèves */
+.results-box{background:var(--bleu-fonce);color:var(--blanc);padding:1.25rem;margin-bottom:1.5rem;border-top:4px solid var(--or)}
+.results-box h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--or);margin-bottom:1rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.83rem}
+.result-row:last-child{border-bottom:none}
+.r-comp{color:rgba(255,255,255,.7)}
+.r-score{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem}
+.r-score.win{color:#86efac}
+.r-score.loss{color:#fca5a5}
+.breve{padding:1rem 0;border-bottom:1px solid var(--gris-bord)}
+.breve:last-child{border-bottom:none}
+.breve-cat{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bleu);margin-bottom:.3rem}
+.breve h4{font-family:'Playfair Display',serif;font-weight:700;font-size:.95rem;color:var(--bleu-fonce);line-height:1.25;margin-bottom:.25rem}
+.breve p{font-size:.8rem;color:var(--gris-txt);line-height:1.55}
+footer{background:var(--bleu-fonce);padding:2rem 2.5rem;text-align:center;color:rgba(255,255,255,.4);font-size:.8rem}
+footer strong{color:var(--or)}
+@media(max-width:900px){.journal-body{grid-template-columns:1fr}.col-sep{display:none}.col{padding:2rem 0;border-bottom:1px solid var(--gris-bord)}nav{display:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><span>✉ contact@mayenne-badminton.fr · 📍 Laval, Mayenne (53)</span><span>Club affilié FFBaD</span></div>
+<header>
+  <div class="header-inner">
+    <div><div class="brand-name">Association Mayennaise de Badminton</div><div class="brand-sub">Club affilié FFBaD · Mayenne (53)</div></div>
+    <nav><a href="#">Accueil</a><a href="#">Le Club</a><a href="#" class="active">Actualités</a><a href="#">Horaires</a><a href="#">Contact</a><a href="#" class="nav-cta">Nous Rejoindre</a></nav>
+  </div>
+</header>
+<div class="journal-header">
+  <div class="journal-title-row">
+    <h1>Actualités &amp; Résultats</h1>
+    <div class="journal-meta"><strong>Saison 2025–2026</strong><br>Dernière mise à jour : 12 mai 2026<br>Association Mayennaise de Badminton</div>
+  </div>
+  <div class="or-line"></div>
+</div>
+<div class="filters">
+  <button class="filter-btn active">Tout</button>
+  <button class="filter-btn">🏆 Résultats</button>
+  <button class="filter-btn">🌱 Jeunes</button>
+  <button class="filter-btn">📋 Infos Club</button>
+  <button class="filter-btn">🎉 Événements</button>
+</div>
+<div class="journal-body">
+  <!-- COL 1 -->
+  <div class="col">
+    <div class="art-main">
+      <div class="art-main-img">🏆</div>
+      <div class="art-eyebrow">À la une · Compétition</div>
+      <h2>Tournoi Départemental Seniors — Trois Podiums pour le Club</h2>
+      <p>Trois de nos licenciés terminent sur le podium lors du tournoi départemental seniors. Une belle performance qui récompense des mois de travail acharné et confirme la progression du club sur la scène compétitive départementale.</p>
+      <div class="art-date">12 mai 2026</div>
+      <a href="#" class="read-link">Lire la suite →</a>
+    </div>
+  </div>
+  <div class="col-sep"></div>
+  <!-- COL 2 -->
+  <div class="col">
+    <div class="art-sec">
+      <div class="art-sec-img" style="background:linear-gradient(135deg,#e6f4ea,#c3e6cb)">🌱</div>
+      <div class="art-eyebrow">Jeunes</div>
+      <h3>Interclubs Jeunes : Victoire de nos Benjamins</h3>
+      <p>Nos équipes jeunes s'imposent lors de la journée interclubs. Bravo à tous les joueurs et encadrants pour cette belle performance collective.</p>
+      <div class="art-sec-foot"><span>28 avr. 2026</span><a href="#" style="color:var(--bleu);font-weight:700">Lire →</a></div>
+    </div>
+    <div class="art-sec">
+      <div class="art-sec-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">🎉</div>
+      <div class="art-eyebrow">Événement</div>
+      <h3>Tournoi Interne Promobad — 44 Joueurs au Rendez-vous</h3>
+      <p>Grande réussite pour notre tournoi interne annuel. Convivialité et sport au programme pour cette belle journée.</p>
+      <div class="art-sec-foot"><span>02 avr. 2026</span><a href="#" style="color:var(--bleu);font-weight:700">Lire →</a></div>
+    </div>
+    <div class="art-sec">
+      <div class="art-sec-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">🎒</div>
+      <div class="art-eyebrow">Événement</div>
+      <h3>Stage de Pâques Jeunes — Retour en Images</h3>
+      <p>Quatre jours de stage intensif et de bonne humeur pour nos jeunes. Progression technique et cohésion au menu.</p>
+      <div class="art-sec-foot"><span>15 mars 2026</span><a href="#" style="color:var(--bleu);font-weight:700">Lire →</a></div>
+    </div>
+  </div>
+  <div class="col-sep"></div>
+  <!-- COL 3 -->
+  <div class="col">
+    <div class="results-box">
+      <h3>Derniers scores</h3>
+      <div class="result-row"><span class="r-comp">Régionale · Éq. 1</span><span class="r-score win">6–2 ✓</span></div>
+      <div class="result-row"><span class="r-comp">Départ. · Éq. 2</span><span class="r-score loss">3–5 ✗</span></div>
+      <div class="result-row"><span class="r-comp">Jeunes U13</span><span class="r-score win">4–1 ✓</span></div>
+      <div class="result-row"><span class="r-comp">Jeunes U15</span><span class="r-score win">5–2 ✓</span></div>
+    </div>
+    <div class="breve">
+      <div class="breve-cat">Infos Club</div>
+      <h4>Inscriptions 2025-2026 : Quelques Places Disponibles</h4>
+      <p>Il reste encore des créneaux pour rejoindre le club cette saison. Contactez-nous !</p>
+    </div>
+    <div class="breve">
+      <div class="breve-cat">Infos Club</div>
+      <h4>Assemblée Générale 2026 — Compte Rendu</h4>
+      <p>Budget, projets et élections du bureau. Tout le compte rendu de notre AG annuelle disponible.</p>
+    </div>
+    <div class="breve">
+      <div class="breve-cat">Partenaires</div>
+      <h4>Nouveau Partenaire Équipementier</h4>
+      <p>Le club s'associe à un équipementier local. Bénéficiez de réductions sur le matériel de badminton.</p>
+    </div>
+  </div>
+</div>
+<footer><strong>Association Mayennaise de Badminton</strong> · Club affilié FFBaD · Mayenne (53) · © 2026</footer>
+</body>
+</html>

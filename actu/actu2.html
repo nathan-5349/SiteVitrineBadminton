@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités V2 — Timeline Chronologique</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--b900:#04122e;--b800:#0c2461;--b600:#1e54d4;--b500:#3b82f6;--b400:#60a5fa;--white:#fff;--slate:#64748b;--border:rgba(255,255,255,.1);--surface:rgba(255,255,255,.05)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--b900);color:#fff;background-image:radial-gradient(ellipse 70% 50% at 80% 10%,rgba(30,84,212,.35),transparent),radial-gradient(ellipse 50% 60% at 10% 90%,rgba(26,55,153,.3),transparent)}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:900;background:rgba(4,18,46,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1320px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;height:72px;gap:1.5rem}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase}
+.logo span{color:var(--b500)}
+.nav-links{display:flex;align-items:center;gap:.25rem;margin-left:auto}
+.nav-links a{font-size:.875rem;font-weight:500;padding:.5rem .9rem;border-radius:8px;transition:.2s;color:rgba(255,255,255,.7)}
+.nav-links a:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-links a.active{color:var(--b400);background:rgba(59,130,246,.12)}
+.nav-cta{background:var(--b600);color:#fff !important;padding:.55rem 1.3rem !important;border-radius:99px !important;font-weight:700 !important}
+/* HEADER */
+.page-header{max-width:1320px;margin:0 auto;padding:4rem 2rem 2rem}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--b400);margin-bottom:.75rem}
+.page-header h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,4rem);line-height:.92;letter-spacing:-.04em}
+.page-header h1 .grad{background:linear-gradient(90deg,var(--b400),#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* FILTRES */
+.filters{max-width:1320px;margin:0 auto;padding:1.5rem 2rem 2rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.filter-btn{padding:.45rem 1.1rem;border-radius:99px;border:1.5px solid var(--border);font-size:.82rem;font-weight:700;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:.25s}
+.filter-btn:hover{border-color:var(--b500);color:#fff}
+.filter-btn.active{background:var(--b600);border-color:var(--b600);color:#fff}
+/* LAYOUT TIMELINE */
+.content{max-width:1320px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:1fr 340px;gap:4rem;align-items:start}
+/* TIMELINE VERTICALE */
+.timeline{display:flex;flex-direction:column}
+.tl-month{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:-.03em;color:rgba(255,255,255,.15);text-transform:uppercase;padding:1.5rem 0 .75rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:1rem}
+.tl-item{display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);position:relative}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--b600);border:2px solid var(--b400);flex-shrink:0;margin-top:.3rem}
+.tl-line{flex:1;width:2px;background:rgba(255,255,255,.06);margin-top:4px}
+.tl-item:last-of-type .tl-line{display:none}
+.tl-date-col{flex-shrink:0;width:52px;text-align:right;padding-top:.15rem}
+.tl-date{font-family:'Syne',sans-serif;font-size:.7rem;color:rgba(255,255,255,.35);font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.3}
+.tl-body{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem;backdrop-filter:blur(12px);transition:.3s}
+.tl-body:hover{border-color:rgba(59,130,246,.35);background:rgba(255,255,255,.08);transform:translateX(4px)}
+.tl-cat{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--b400);margin-bottom:.5rem}
+.tl-body h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem}
+.tl-body p{font-size:.83rem;color:rgba(255,255,255,.55);line-height:1.6}
+.tl-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--b400);font-weight:700;font-size:.8rem;margin-top:.75rem;transition:gap .2s}
+.tl-link:hover{gap:.7rem}
+/* SIDEBAR */
+.sidebar{position:sticky;top:90px;display:flex;flex-direction:column;gap:1.25rem}
+.side-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;backdrop-filter:blur(12px)}
+.side-title{font-family:'Syne',sans-serif;font-weight:800;font-size:.85rem;letter-spacing:-.01em;color:var(--b400);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.1rem;font-size:.72rem}
+/* Scores */
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:.65rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.score-row:last-child{border-bottom:none}
+.score-comp{font-size:.78rem;color:rgba(255,255,255,.6)}
+.score-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#fff}
+.score-val.win{color:#86efac}
+.score-val.loss{color:#fca5a5}
+/* Stats */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.stat-box{background:rgba(255,255,255,.05);border-radius:10px;padding:.85rem;text-align:center}
+.stat-n{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;line-height:1;color:#fff}
+.stat-l{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.25rem;text-transform:uppercase;letter-spacing:.06em}
+footer{text-align:center;padding:2rem;color:rgba(255,255,255,.25);font-size:.8rem;border-top:1px solid var(--border)}
+@media(max-width:1000px){.content{grid-template-columns:1fr}.sidebar{position:static}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-inner">
+    <div class="logo">Ass. Mayennaise <span>de Badminton</span></div>
+    <nav class="nav-links"><a href="#">Accueil</a><a href="#">Le Club</a><a href="#" class="active">Actualités</a><a href="#">Horaires</a><a href="#">Contact</a><a href="#" class="nav-cta">Nous rejoindre</a></nav>
+  </div>
+</header>
+<div class="page-header">
+  <div class="eyebrow">Vie du club · Saison 2025–2026</div>
+  <h1>Actus &amp; <span class="grad">Résultats</span></h1>
+</div>
+<div class="filters">
+  <button class="filter-btn active">Tout afficher</button>
+  <button class="filter-btn">🏆 Résultats</button>
+  <button class="filter-btn">🌱 Jeunes</button>
+  <button class="filter-btn">📋 Infos Club</button>
+  <button class="filter-btn">🎉 Événements</button>
+</div>
+<div class="content">
+  <div class="timeline">
+    <div class="tl-month">Mai 2026</div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-date-col"><div class="tl-date">12<br>mai</div></div>
+      <div class="tl-body">
+        <div class="tl-cat">🏆 Compétition · À la une</div>
+        <h3>Tournoi Départemental Seniors — 3 Podiums pour le Club !</h3>
+        <p>Trois de nos licenciés terminent sur le podium. Une belle performance qui récompense des mois de travail acharné.</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="tl-month">Avril 2026</div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot" style="background:#22c55e;border-color:#86efac"></div><div class="tl-line"></div></div>
+      <div class="tl-date-col"><div class="tl-date">28<br>avr.</div></div>
+      <div class="tl-body">
+        <div class="tl-cat" style="color:#86efac">🌱 Jeunes</div>
+        <h3>Interclubs Jeunes : Victoire de nos Benjamins</h3>
+        <p>Nos équipes jeunes s'imposent lors de la journée interclubs. Bravo à tous !</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot" style="background:#a78bfa;border-color:#c4b5fd"></div><div class="tl-line"></div></div>
+      <div class="tl-date-col"><div class="tl-date">10<br>avr.</div></div>
+      <div class="tl-body">
+        <div class="tl-cat" style="color:#c4b5fd">📋 Infos Club</div>
+        <h3>Inscriptions 2025-2026 : Quelques Places Encore Disponibles</h3>
+        <p>La saison bat son plein mais il reste des créneaux. Rejoignez-nous !</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot" style="background:#f59e0b;border-color:#fde68a"></div><div class="tl-line"></div></div>
+      <div class="tl-date-col"><div class="tl-date">02<br>avr.</div></div>
+      <div class="tl-body">
+        <div class="tl-cat" style="color:#fde68a">🎉 Événement</div>
+        <h3>Tournoi Interne Promobad — 44 Joueurs au Rendez-vous</h3>
+        <p>Grande réussite pour notre tournoi interne annuel. Convivialité et sport au programme !</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="tl-month">Mars 2026</div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-date-col"><div class="tl-date">20<br>mars</div></div>
+      <div class="tl-body">
+        <div class="tl-cat">🥇 Résultats</div>
+        <h3>Interclubs Régionaux — Notre Équipe 1 se Maintient</h3>
+        <p>Beau match disputé en régionale. L'équipe 1 assure son maintien pour la saison prochaine.</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot" style="background:#f59e0b;border-color:#fde68a"></div><div class="tl-line"></div></div>
+      <div class="tl-date-col"><div class="tl-date">15<br>mars</div></div>
+      <div class="tl-body">
+        <div class="tl-cat" style="color:#fde68a">🎒 Événement</div>
+        <h3>Stage de Pâques Jeunes — Retour en Images</h3>
+        <p>Quatre jours de stage intensif et de bonne humeur pour nos jeunes.</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot-col"><div class="tl-dot" style="background:#a78bfa;border-color:#c4b5fd"></div></div>
+      <div class="tl-date-col"><div class="tl-date">05<br>mars</div></div>
+      <div class="tl-body">
+        <div class="tl-cat" style="color:#c4b5fd">📅 Infos Club</div>
+        <h3>Assemblée Générale 2026 — Compte Rendu Complet</h3>
+        <p>Budget, projets et élections du bureau. Tout le compte rendu de l'AG annuelle.</p>
+        <a href="#" class="tl-link">Lire l'article →</a>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="side-card">
+      <div class="side-title">Derniers scores</div>
+      <div class="score-row"><span class="score-comp">Régionale · Équipe 1</span><span class="score-val win">6–2 ✓</span></div>
+      <div class="score-row"><span class="score-comp">Départemental · Équipe 2</span><span class="score-val loss">3–5 ✗</span></div>
+      <div class="score-row"><span class="score-comp">Jeunes U13</span><span class="score-val win">4–1 ✓</span></div>
+      <div class="score-row"><span class="score-comp">Jeunes U15</span><span class="score-val win">5–2 ✓</span></div>
+    </div>
+    <div class="side-card">
+      <div class="side-title">Le club en chiffres</div>
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-n">250+</div><div class="stat-l">Licenciés</div></div>
+        <div class="stat-box"><div class="stat-n">12</div><div class="stat-l">Équipes</div></div>
+        <div class="stat-box"><div class="stat-n">3</div><div class="stat-l">Podiums</div></div>
+        <div class="stat-box"><div class="stat-n">8</div><div class="stat-l">Terrains</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>© 2026 Association Mayennaise de Badminton · contact@mayenne-badminton.fr</footer>
+</body>
+</html>

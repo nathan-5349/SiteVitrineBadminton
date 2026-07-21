@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités V6 — Liste Numérotée + Sidebar</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#060E26;--blue:#1A3C8F;--blue-mid:#1E54D4;--blue-sky:#4B8FE8;--blue-ice:#C8DCFF;--white:#fff;--off:#F0F4FF;--muted:#6B7DA8;--line:rgba(26,60,143,.12);--gold:#C9A84C}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk',sans-serif;background:var(--off);color:var(--ink)}
+a{text-decoration:none;color:inherit}
+header{position:fixed;top:0;left:0;right:0;z-index:800;padding:0 3rem;height:64px;display:flex;align-items:center;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-logo{font-family:'Space Mono',monospace;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink)}
+.nav-logo span{color:var(--blue-mid)}
+.nav-center{display:flex;gap:.1rem;margin:0 auto}
+.nav-center a{font-size:.8rem;font-weight:500;color:var(--muted);padding:.4rem .85rem;border-radius:6px;transition:.2s}
+.nav-center a:hover{color:var(--ink);background:rgba(26,60,143,.06)}
+.nav-center a.active{color:var(--blue-mid);background:rgba(30,84,212,.08)}
+.nav-btn{background:var(--blue-mid);color:#fff;font-weight:700;font-size:.8rem;padding:.5rem 1.3rem;border-radius:99px}
+/* PAGE HEADER */
+.page-header{padding:100px 3rem 3rem;max-width:1260px;margin:0 auto}
+.s-kicker{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-mid);display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+.s-kicker::before{content:'';flex:0 0 24px;height:1.5px;background:var(--blue-mid)}
+.page-header h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:.95;letter-spacing:-.05em;color:var(--ink)}
+.page-header h1 em{font-style:italic;color:var(--blue-mid)}
+/* FILTRES */
+.filters{max-width:1260px;margin:0 auto;padding:1.5rem 3rem 2.5rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.filter-btn{padding:.4rem 1rem;border-radius:99px;border:1.5px solid var(--line);font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);cursor:pointer;background:var(--white);transition:.25s}
+.filter-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid)}
+.filter-btn.active{background:var(--blue-mid);border-color:var(--blue-mid);color:#fff}
+/* LAYOUT */
+.content{max-width:1260px;margin:0 auto;padding:0 3rem 5rem;display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:start}
+/* LISTE NUMÉROTÉE */
+.art-list{display:flex;flex-direction:column}
+/* Article featured */
+.art-featured{background:var(--ink);border-radius:20px;padding:2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.art-featured::before{content:'01';position:absolute;top:-.5rem;right:1.5rem;font-family:'Space Mono',monospace;font-size:8rem;font-weight:700;color:rgba(255,255,255,.04);line-height:1}
+.af-kicker{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-sky);margin-bottom:.85rem}
+.art-featured h2{font-size:1.5rem;font-weight:700;line-height:1.15;letter-spacing:-.03em;color:var(--white);margin-bottom:.75rem}
+.art-featured p{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:1rem}
+.af-date{font-family:'Space Mono',monospace;font-size:.65rem;color:rgba(255,255,255,.3)}
+.read-link{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.83rem;margin-top:.75rem;transition:gap .2s}
+.read-link{color:var(--blue-sky)}
+.read-link:hover{gap:.85rem}
+/* Articles liste */
+.art-item{display:flex;gap:1.5rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--line);border-radius:14px;margin-bottom:.85rem;transition:.25s}
+.art-item:hover{border-color:var(--blue-mid);box-shadow:0 6px 24px rgba(26,60,143,.08);transform:translateX(4px)}
+.art-num{font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;color:var(--muted);flex-shrink:0;width:28px;padding-top:.15rem}
+.art-ico{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:var(--off)}
+.art-body{flex:1}
+.art-cat{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:.3rem}
+.art-body h3{font-weight:700;font-size:1rem;line-height:1.25;letter-spacing:-.02em;margin-bottom:.35rem}
+.art-body p{font-size:.82rem;color:var(--muted);line-height:1.6}
+.art-meta{margin-top:.65rem;display:flex;justify-content:space-between;align-items:center;font-size:.73rem;color:var(--muted)}
+.art-meta .lnk{color:var(--blue-mid);font-weight:700;transition:gap .2s}
+/* SIDEBAR */
+.sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:1.25rem}
+.side-block{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:1.5rem}
+.side-block.dark{background:var(--ink);border-color:var(--ink)}
+.side-title{font-family:'Space Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+.side-block.dark .side-title{color:rgba(255,255,255,.35)}
+/* Scores */
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.82rem}
+.score-row:last-child{border-bottom:none}
+.score-val{font-family:'Space Mono',monospace;font-weight:700;font-size:.88rem}
+.score-val.win{color:#22c55e}
+.score-val.loss{color:#ef4444}
+.side-block.dark .score-row{border-color:rgba(255,255,255,.06)}
+.side-block.dark .score-row span:first-child{color:rgba(255,255,255,.6);font-size:.82rem}
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.stat-b{background:var(--off);border-radius:10px;padding:.85rem;text-align:center}
+.stat-b .n{font-family:'Space Mono',monospace;font-weight:700;font-size:1.6rem;color:var(--blue-mid);line-height:1}
+.stat-b .l{font-size:.6rem;color:var(--muted);margin-top:.25rem;text-transform:uppercase;letter-spacing:.06em}
+/* CTA */
+.side-cta{display:block;text-align:center;background:var(--blue-mid);color:#fff;font-weight:700;font-size:.85rem;padding:.85rem;border-radius:10px;transition:.2s;margin-top:1rem}
+.side-cta:hover{background:var(--blue)}
+footer{padding:2rem 3rem;border-top:1px solid var(--line);text-align:center;font-size:.78rem;color:var(--muted)}
+@media(max-width:1000px){.content{grid-template-columns:1fr}.sidebar{position:static}.nav-center{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-logo">Ass. Mayennaise <span>de Badminton</span></div>
+  <nav class="nav-center"><a href="#">Accueil</a><a href="#">Le Club</a><a href="#" class="active">Actualités</a><a href="#">Horaires</a><a href="#">Contact</a></nav>
+  <a href="#" class="nav-btn">Nous rejoindre</a>
+</header>
+<div class="page-header">
+  <div class="s-kicker">Vie du club · 2025–2026</div>
+  <h1>Actus &amp;<br><em>Résultats</em></h1>
+</div>
+<div class="filters">
+  <button class="filter-btn active">Tout afficher</button>
+  <button class="filter-btn">🏆 Résultats</button>
+  <button class="filter-btn">🌱 Jeunes</button>
+  <button class="filter-btn">📋 Infos Club</button>
+  <button class="filter-btn">🎉 Événements</button>
+</div>
+<div class="content">
+  <div class="art-list">
+    <div class="art-featured">
+      <div class="af-kicker">// 01 · À la une · Compétition</div>
+      <h2>Tournoi Départemental Seniors — 3 Podiums pour le Club !</h2>
+      <p>Trois de nos licenciés terminent sur le podium lors du tournoi départemental seniors. Une belle performance qui récompense des mois de travail acharné.</p>
+      <div class="af-date">12.05.2026</div>
+      <a href="#" class="read-link">Lire l'article →</a>
+    </div>
+    <div class="art-item">
+      <div class="art-num">02</div>
+      <div class="art-ico" style="background:#e6f4ea">🌱</div>
+      <div class="art-body"><div class="art-cat" style="color:#22c55e">Jeunes</div><h3>Interclubs Jeunes : Victoire de nos Benjamins</h3><p>Nos équipes jeunes s'imposent lors de la journée interclubs.</p><div class="art-meta"><span>28 avr. 2026</span><a href="#" class="lnk">Lire →</a></div></div>
+    </div>
+    <div class="art-item">
+      <div class="art-num">03</div>
+      <div class="art-ico" style="background:#ede9fe">📋</div>
+      <div class="art-body"><div class="art-cat">Infos Club</div><h3>Inscriptions 2025-2026 : Quelques Places Encore Disponibles</h3><p>Il reste encore des créneaux pour rejoindre le club cette saison.</p><div class="art-meta"><span>10 avr. 2026</span><a href="#" class="lnk">Lire →</a></div></div>
+    </div>
+    <div class="art-item">
+      <div class="art-num">04</div>
+      <div class="art-ico" style="background:#fef9c3">🎉</div>
+      <div class="art-body"><div class="art-cat" style="color:#f59e0b">Événement</div><h3>Tournoi Interne Promobad — 44 Joueurs au Rendez-vous</h3><p>Grande réussite pour notre tournoi interne annuel.</p><div class="art-meta"><span>02 avr. 2026</span><a href="#" class="lnk">Lire →</a></div></div>
+    </div>
+    <div class="art-item">
+      <div class="art-num">05</div>
+      <div class="art-ico" style="background:#fee2e2">🥇</div>
+      <div class="art-body"><div class="art-cat" style="color:#ef4444">Résultats</div><h3>Interclubs Régionaux — Notre Équipe 1 se Maintient</h3><p>Beau match disputé en régionale. Le maintien est assuré.</p><div class="art-meta"><span>20 mars 2026</span><a href="#" class="lnk">Lire →</a></div></div>
+    </div>
+    <div class="art-item">
+      <div class="art-num">06</div>
+      <div class="art-ico" style="background:#fef3c7">🎒</div>
+      <div class="art-body"><div class="art-cat" style="color:#f59e0b">Événement</div><h3>Stage de Pâques Jeunes — Retour en Images</h3><p>Quatre jours de stage intensif et de bonne humeur pour nos jeunes.</p><div class="art-meta"><span>15 mars 2026</span><a href="#" class="lnk">Lire →</a></div></div>
+    </div>
+    <div class="art-item">
+      <div class="art-num">07</div>
+      <div class="art-ico">📅</div>
+      <div class="art-body"><div class="art-cat">Infos Club</div><h3>Assemblée Générale 2026 — Compte Rendu Complet</h3><p>Budget, projets et élections du bureau. Tout le compte rendu.</p><div class="art-meta"><span>05 mars 2026</span><a href="#" class="lnk">Lire →</a></div></div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="side-block dark">
+      <div class="side-title">Derniers scores</div>
+      <div class="score-row"><span>Régionale · Éq. 1</span><span class="score-val win">6–2 ✓</span></div>
+      <div class="score-row"><span>Départ. · Éq. 2</span><span class="score-val loss">3–5 ✗</span></div>
+      <div class="score-row"><span>Jeunes U13</span><span class="score-val win">4–1 ✓</span></div>
+      <div class="score-row"><span>Jeunes U15</span><span class="score-val win">5–2 ✓</span></div>
+    </div>
+    <div class="side-block">
+      <div class="side-title">Le club en chiffres</div>
+      <div class="stats-grid">
+        <div class="stat-b"><div class="n">250+</div><div class="l">Licenciés</div></div>
+        <div class="stat-b"><div class="n">12</div><div class="l">Équipes</div></div>
+        <div class="stat-b"><div class="n">3</div><div class="l">Podiums</div></div>
+        <div class="stat-b"><div class="n">8</div><div class="l">Terrains</div></div>
+      </div>
+      <a href="#" class="side-cta">Nous rejoindre →</a>
+    </div>
+  </div>
+</div>
+<footer>© 2026 Association Mayennaise de Badminton · contact@mayenne-badminton.fr</footer>
+</body>
+</html>

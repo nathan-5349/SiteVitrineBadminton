@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités — Mayenne Badminton V1</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0a2a6e;
+    --accent: #e8c400;
+    --light: #f4f6fb;
+    --dark: #08183f;
+    --text: #1a1a2e;
+    --muted: #6b7a99;
+    --white: #ffffff;
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; color: var(--text); background: var(--white); }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 72px;
+    background: rgba(8,24,63,0.96); backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--accent);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-text .club { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--accent); line-height: 1; }
+  .nav-logo-text .dept { font-size: 0.72rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #08183f 0%, #0a2a6e 60%, #1a4fd6 100%);
+    padding: 60px 5vw 40px;
+    color: var(--white);
+    border-bottom: 3px solid var(--accent);
+  }
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--accent); }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--white); letter-spacing: 2px; line-height: 1; }
+  .hero-sub { margin-top: 1rem; color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 560px; }
+
+  /* FILTERS */
+  .filters-section {
+    max-width: 1200px; margin: 0 auto;
+    padding: 3rem 5vw 2rem;
+  }
+  .filter-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--primary); margin-bottom: 1rem; }
+  .filter-group {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .filter-btn {
+    padding: .6rem 1.4rem; border-radius: 99px; border: 2px solid var(--primary);
+    background: transparent; color: var(--primary); cursor: pointer;
+    font-weight: 600; font-size: .85rem; transition: all .25s;
+    letter-spacing: .5px;
+  }
+  .filter-btn:hover { background: var(--light); }
+  .filter-btn.active { background: var(--primary); color: var(--white); }
+  .filter-btn.hidden { display: none; }
+
+  /* CARDS GRID */
+  .articles-container { max-width: 1200px; margin: 0 auto; padding: 0 5vw 5rem; }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .article-card {
+    background: var(--light); border-radius: var(--radius); overflow: hidden;
+    transition: all .3s; cursor: pointer; border: 2px solid transparent;
+  }
+  .article-card:hover {
+    transform: translateY(-8px); box-shadow: 0 12px 40px rgba(10,42,110,0.15);
+    border-color: var(--accent);
+  }
+  .article-card.hidden { display: none; }
+
+  .card-image {
+    height: 180px; background: linear-gradient(135deg, var(--primary), #1a4fd6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; position: relative;
+  }
+  .card-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--accent); color: var(--dark);
+    padding: .4rem .9rem; border-radius: 4px;
+    font-size: .65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  .card-body { padding: 1.75rem; }
+  .card-tag {
+    display: inline-block; background: var(--primary); color: var(--white);
+    padding: .25rem .75rem; border-radius: 4px;
+    font-size: .65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 1px; color: var(--primary); margin-bottom: .5rem; line-height: 1.1; }
+  .card-meta { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; }
+  .card-excerpt { font-size: .9rem; color: var(--text); line-height: 1.6; margin-bottom: 1.5rem; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid rgba(10,42,110,.1); }
+  .card-date { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .card-link { color: var(--primary); font-weight: 700; font-size: .85rem; }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 3rem 5vw; text-align: center; color: rgba(255,255,255,0.4); font-size: .8rem; border-top: 2px solid var(--accent); }
+
+  @media (max-width: 768px) {
+    .articles-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
+    nav { padding: 0 3vw; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index1.html">
+    <div class="nav-logo-text">
+      <span class="club">Mayenne Badminton</span>
+      <span class="dept">Département 53</span>
+    </div>
+  </a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Saison 2025-2026</div>
+  <h1>Actualités du Club</h1>
+  <p class="hero-sub">Découvrez les derniers résultats, événements et grandes étapes de la vie du club.</p>
+</section>
+
+<!-- FILTERS -->
+<div class="filters-section">
+  <div>
+    <div class="filter-label">Catégorie</div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterBy('category', 'all')">Tous</button>
+      <button class="filter-btn" onclick="filterBy('category', 'competition')">🏆 Compétitions</button>
+      <button class="filter-btn" onclick="filterBy('category', 'life')">🎉 Vie du Club</button>
+    </div>
+  </div>
+  
+  <div>
+    <div class="filter-label">Catégorie d'âge</div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterBy('age', 'all')">Tous</button>
+      <button class="filter-btn" onclick="filterBy('age', 'adults')">👥 Adultes</button>
+      <button class="filter-btn" onclick="filterBy('age', 'kids')">👶 Enfants</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="filter-label">Équipes</div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="filterBy('team', 'all')">Toutes</button>
+      <button class="filter-btn" onclick="filterBy('team', 'r3')">R3</button>
+      <button class="filter-btn" onclick="filterBy('team', 'd3')">D3</button>
+      <button class="filter-btn" onclick="filterBy('team', 'men')">Hommes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLES GRID -->
+<div class="articles-container">
+  <div class="articles-grid" id="articlesGrid"></div>
+</div>
+
+<footer>
+  <strong>Mayenne Badminton</strong> · Club affilié FFBaD · Mayenne (53) · © 2026
+</footer>
+
+<script>
+  const articles = [
+    {
+      id: 1,
+      title: "Tournoi Départemental Seniors",
+      category: "competition",
+      age: "adults",
+      team: "r3",
+      emoji: "🏆",
+      date: "12 Mai 2026",
+      excerpt: "Trois de nos licenciés terminent sur le podium. Une belle performance qui récompense des mois d'entraînement.",
+      meta: "Compétition · R3"
+    },
+    {
+      id: 2,
+      title: "Interclubs Jeunes: Victoire en Équipe",
+      category: "competition",
+      age: "kids",
+      team: "d3",
+      emoji: "🥇",
+      date: "28 Avril 2026",
+      excerpt: "Nos benjamins et minimes brillent lors de la journée interclubs. Une belle dynamique à quelques semaines de la fin.",
+      meta: "Compétition · D3"
+    },
+    {
+      id: 3,
+      title: "Stage de Pâques Jeunes",
+      category: "life",
+      age: "kids",
+      team: "all",
+      emoji: "🎒",
+      date: "10 Avril 2026",
+      excerpt: "Trois jours d'entraînement intensif pendant les vacances. Retour en images de ce stage convivial.",
+      meta: "Événement · École"
+    },
+    {
+      id: 4,
+      title: "Nouvelle Équipe R3 Hommes",
+      category: "life",
+      age: "adults",
+      team: "men",
+      emoji: "⭐",
+      date: "15 Mars 2026",
+      excerpt: "Nous accueillons une nouvelle équipe hommes en régionale 3. Bienvenue à nos nouveaux joueurs !",
+      meta: "Annonce · Compétition"
+    },
+    {
+      id: 5,
+      title: "Championnat Régional Doubles Mixtes",
+      category: "competition",
+      age: "adults",
+      team: "r3",
+      emoji: "🎯",
+      date: "8 Mars 2026",
+      excerpt: "Notre duo remporte la finale en trois sets. Bravo aux champions !",
+      meta: "Compétition · Résultat"
+    },
+    {
+      id: 6,
+      title: "Tournoi Interne Promobad",
+      category: "life",
+      age: "kids",
+      team: "d3",
+      emoji: "🏸",
+      date: "1 Mars 2026",
+      excerpt: "44 joueurs au rendez-vous pour notre traditionnel tournoi interne. Merci à tous les participants !",
+      meta: "Événement · Interne"
+    },
+    {
+      id: 7,
+      title: "Résultats Coupe de France",
+      category: "competition",
+      age: "adults",
+      team: "men",
+      emoji: "🏅",
+      date: "15 Février 2026",
+      excerpt: "Nos équipes masculines se qualifient pour les quarts de finale. Le chemin continue !",
+      meta: "Compétition · Nationale"
+    },
+    {
+      id: 8,
+      title: "Soirée de Noël du Club",
+      category: "life",
+      age: "all",
+      team: "all",
+      emoji: "🎄",
+      date: "20 Décembre 2025",
+      excerpt: "Moment convivial rassemblant tous les licenciés. Merci pour cette belle ambiance !",
+      meta: "Social · Club"
+    }
+  ];
+
+  const filters = {
+    category: 'all',
+    age: 'all',
+    team: 'all'
+  };
+
+  function filterBy(type, value) {
+    filters[type] = value;
+    renderArticles();
+    
+    // Update button states
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      if (btn.getAttribute('onclick').includes(`'${type}'`) && btn.getAttribute('onclick').includes(`'${value}'`)) {
+        btn.classList.add('active');
+      } else if (btn.getAttribute('onclick').includes(`'${type}'`)) {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function renderArticles() {
+    const container = document.getElementById('articlesGrid');
+    const filtered = articles.filter(a => {
+      return (filters.category === 'all' || a.category === filters.category) &&
+             (filters.age === 'all' || a.age === filters.age || a.age === 'all') &&
+             (filters.team === 'all' || a.team === filters.team || a.team === 'all');
+    });
+
+    container.innerHTML = filtered.map(a => `
+      <div class="article-card">
+        <div class="card-image">
+          ${a.emoji}
+          <div class="card-badge">${a.date}</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">${a.meta}</div>
+          <h3 class="card-title">${a.title}</h3>
+          <p class="card-excerpt">${a.excerpt}</p>
+          <div class="card-footer">
+            <span class="card-date">${a.date}</span>
+            <a href="#" class="card-link">Lire →</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderArticles();
+</script>
+</body>
+</html>

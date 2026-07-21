@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités V1 — Grille Magazine</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#0a2a6e;--accent:#e8c400;--light:#f4f6fb;--dark:#08183f;--text:#1a1a2e;--muted:#6b7a99;--white:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;color:var(--text);background:var(--white)}
+a{text-decoration:none;color:inherit}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;background:rgba(8,24,63,.96);backdrop-filter:blur(10px);border-bottom:2px solid var(--accent)}
+.nav-logo .club{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:var(--accent)}
+.nav-logo .dept{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.nav-links{display:flex;gap:2px}
+.nav-links a{color:rgba(255,255,255,.8);padding:8px 16px;border-radius:6px;font-size:.88rem;font-weight:500;transition:.2s}
+.nav-links a:hover,.nav-links a.active{background:var(--accent);color:var(--dark);font-weight:700}
+.page-header{background:var(--dark);padding:3rem 5vw 2.5rem;border-bottom:3px solid var(--accent)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:28px;height:2px;background:var(--accent)}
+.page-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);color:#fff;letter-spacing:2px;line-height:1}
+.filters{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem}
+.filter-btn{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;padding:.3rem 1.1rem;border-radius:4px;border:2px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);background:transparent;cursor:pointer;transition:.2s}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:var(--dark)}
+.container{max-width:1200px;margin:0 auto;padding:2.5rem 5vw 5rem}
+/* LIGNE 1 : grande carte gauche + 2 petites droite */
+.row1{display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.big-card{background:var(--primary);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-height:380px}
+.big-card-img{height:220px;background:linear-gradient(135deg,#08183f,#1a4fd6);display:flex;align-items:center;justify-content:center;font-size:6rem;flex-shrink:0}
+.big-card-body{padding:1.75rem;flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+.cat-tag{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+.big-card-body h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#fff;letter-spacing:1px;line-height:1.05;margin-bottom:.6rem}
+.big-card-body p{font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:1rem}
+.meta{font-size:.73rem;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase}
+.read-more{display:inline-flex;align-items:center;gap:.5rem;color:var(--accent);font-weight:700;font-size:.85rem;margin-top:.85rem;transition:gap .2s}
+.read-more:hover{gap:.85rem}
+.col-right{display:flex;flex-direction:column;gap:1rem}
+.small-card{background:var(--light);border-radius:12px;overflow:hidden;flex:1;display:flex;transition:.25s;border:2px solid transparent}
+.small-card:hover{border-color:var(--accent);transform:translateX(4px)}
+.small-card-img{width:110px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0}
+.small-card-body{padding:1rem 1.1rem;display:flex;flex-direction:column;justify-content:center}
+.small-card-body .cat-tag{color:var(--primary)}
+.small-card-body h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--primary);letter-spacing:.5px;line-height:1.1;margin-bottom:.35rem}
+.small-card-body p{font-size:.78rem;color:var(--muted);line-height:1.55}
+.small-card-body .meta{color:var(--muted);margin-top:.5rem}
+/* LIGNE 2 : 3 cartes égales */
+.row2{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:1.5rem}
+.mid-card{background:var(--light);border-radius:12px;overflow:hidden;transition:.25s;border:2px solid transparent}
+.mid-card:hover{border-color:var(--primary);transform:translateY(-5px);box-shadow:0 16px 40px rgba(10,42,110,.12)}
+.mid-card-img{height:150px;display:flex;align-items:center;justify-content:center;font-size:3rem;border-bottom:3px solid var(--accent)}
+.mid-card-body{padding:1.25rem}
+.mid-card-body .cat-tag{color:var(--primary)}
+.mid-card-body h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--primary);letter-spacing:.5px;margin:.4rem 0 .5rem}
+.mid-card-body p{font-size:.82rem;color:var(--muted);line-height:1.6}
+.mid-card-foot{padding:.75rem 1.25rem;border-top:1px solid #e4e8f0;display:flex;justify-content:space-between;align-items:center;font-size:.73rem;color:var(--muted)}
+/* BANDE RÉSULTATS */
+.results-band{background:var(--primary);border-radius:12px;padding:1.5rem 2rem;display:flex;gap:0;overflow:hidden}
+.result-item{flex:1;border-right:1px solid rgba(255,255,255,.12);padding:0 2rem;text-align:center}
+.result-item:first-child{padding-left:0}
+.result-item:last-child{border-right:none}
+.result-ico{font-size:1.5rem;margin-bottom:.4rem}
+.result-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#fff;letter-spacing:1px;margin-bottom:.25rem}
+.result-score{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);line-height:1}
+.result-sub{font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:.25rem}
+footer{background:var(--dark);padding:2rem 5vw;text-align:center;color:rgba(255,255,255,.4);font-size:.8rem;border-top:2px solid var(--accent)}
+footer strong{color:var(--accent)}
+@media(max-width:860px){.row1,.row2{grid-template-columns:1fr}.col-right{flex-direction:row;flex-wrap:wrap}.results-band{flex-direction:column;gap:1rem}.result-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);padding:1rem 0}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo"><div class="club">Mayenne Badminton</div><div class="dept">Département 53</div></div>
+  <div class="nav-links"><a href="#">Accueil</a><a href="#">Le Club</a><a href="#" class="active">Actualités</a><a href="#">Horaires</a><a href="#">Contact</a></div>
+</nav>
+<div class="page-header">
+  <div class="eyebrow">Vie du club · Saison 2025–2026</div>
+  <h1>Actualités & Résultats</h1>
+  <div class="filters">
+    <button class="filter-btn active">Tout</button>
+    <button class="filter-btn">🏆 Résultats</button>
+    <button class="filter-btn">🌱 Jeunes</button>
+    <button class="filter-btn">📋 Infos Club</button>
+    <button class="filter-btn">🎉 Événements</button>
+  </div>
+</div>
+<div class="container">
+  <div class="row1">
+    <div class="big-card">
+      <div class="big-card-img">🏆</div>
+      <div class="big-card-body">
+        <div class="cat-tag">À la une · Compétition</div>
+        <h2>Tournoi Départemental — 3 Podiums pour le Club !</h2>
+        <p>Trois de nos licenciés terminent sur le podium lors du tournoi départemental seniors. Une belle performance récompensée.</p>
+        <div class="meta">12 mai 2026</div>
+        <a href="#" class="read-more">Lire l'article →</a>
+      </div>
+    </div>
+    <div class="col-right">
+      <div class="small-card">
+        <div class="small-card-img" style="background:linear-gradient(135deg,#e6f4ea,#c3e6cb)">🌱</div>
+        <div class="small-card-body"><div class="cat-tag">Jeunes</div><h3>Interclubs Jeunes — Victoire des Benjamins</h3><p>Nos équipes jeunes s'imposent lors de la journée interclubs.</p><div class="meta">28 avr. 2026</div></div>
+      </div>
+      <div class="small-card">
+        <div class="small-card-img" style="background:linear-gradient(135deg,#f5edd6,#edd9a3)">📋</div>
+        <div class="small-card-body"><div class="cat-tag">Infos Club</div><h3>Inscriptions 2025-2026 : Places Disponibles</h3><p>Il reste des créneaux pour vous rejoindre cette saison.</p><div class="meta">10 avr. 2026</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="mid-card">
+      <div class="mid-card-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">🎉</div>
+      <div class="mid-card-body"><div class="cat-tag">Événement</div><h3>Tournoi Interne Promobad — 44 Joueurs</h3><p>Grande réussite pour notre tournoi interne annuel.</p></div>
+      <div class="mid-card-foot"><span>02 avr. 2026</span><a href="#" style="color:var(--primary);font-weight:700">Lire →</a></div>
+    </div>
+    <div class="mid-card">
+      <div class="mid-card-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">🎒</div>
+      <div class="mid-card-body"><div class="cat-tag">Événement</div><h3>Stage de Pâques Jeunes — Retour en Images</h3><p>Quatre jours de stage intensif pour nos jeunes.</p></div>
+      <div class="mid-card-foot"><span>15 mars 2026</span><a href="#" style="color:var(--primary);font-weight:700">Lire →</a></div>
+    </div>
+    <div class="mid-card">
+      <div class="mid-card-img" style="background:linear-gradient(135deg,#f4f6fb,#dde5f0)">📅</div>
+      <div class="mid-card-body"><div class="cat-tag">Infos Club</div><h3>Assemblée Générale 2026 — Compte Rendu</h3><p>Budget, projets et élections du bureau.</p></div>
+      <div class="mid-card-foot"><span>05 mars 2026</span><a href="#" style="color:var(--primary);font-weight:700">Lire →</a></div>
+    </div>
+  </div>
+  <div class="results-band">
+    <div class="result-item"><div class="result-ico">🥇</div><div class="result-title">Régionale</div><div class="result-score">6–2</div><div class="result-sub">Équipe 1 · 20 mars</div></div>
+    <div class="result-item"><div class="result-ico">🥈</div><div class="result-title">Départemental</div><div class="result-score">3–5</div><div class="result-sub">Équipe 2 · 15 mars</div></div>
+    <div class="result-item"><div class="result-ico">🏅</div><div class="result-title">Jeunes</div><div class="result-score">4–1</div><div class="result-sub">U13 · 10 mars</div></div>
+    <div class="result-item"><div class="result-ico">🏆</div><div class="result-title">Tournoi interne</div><div class="result-score">44</div><div class="result-sub">Joueurs · Promobad</div></div>
+  </div>
+</div>
+<footer><strong>Mayenne Badminton</strong> · Club affilié FFBaD · Département 53 · © 2026</footer>
+</body>
+</html>
