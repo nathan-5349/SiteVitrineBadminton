@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nos Équipes — Association Mayennaise de Badminton</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --b900: #04122e; --b800: #0c2461; --b700: #1a3799;
+      --b600: #1e54d4; --b500: #3b82f6; --b400: #60a5fa;
+      --b100: #dbeafe; --b050: #eff6ff; --white: #ffffff;
+      --slate: #64748b; --r: 12px; --r-lg: 20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--b900); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* HEADER */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 0 2rem; transition: background .3s, box-shadow .3s;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,.85); backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(30,84,212,.12), 0 8px 32px rgba(4,18,46,.08);
+    }
+    .nav-inner { max-width: 1320px; margin: 0 auto; display: flex; align-items: center; height: 76px; gap: 1.5rem; }
+    .logo { display: flex; align-items: center; gap: .85rem; }
+    .logo-mark { width: 44px; height: 44px; background: var(--b700); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: .88rem; line-height: 1.2; color: var(--b900); text-transform: uppercase; }
+    .logo-text span { color: var(--b600); }
+    .nav-links { display: flex; align-items: center; gap: .25rem; margin-left: auto; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: var(--b900); padding: .5rem .9rem; border-radius: 8px; transition: background .2s, color .2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--b050); color: var(--b600); }
+    .nav-cta { background: var(--b600); color: var(--white) !important; padding: .6rem 1.4rem !important; border-radius: 99px !important; font-weight: 700 !important; box-shadow: 0 2px 12px rgba(30,84,212,.3); }
+    .nav-cta:hover { background: var(--b700) !important; }
+
+    /* HERO — dark avec deux colonnes */
+    .hero {
+      min-height: 100svh; background: var(--b900);
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 76px; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 30%, rgba(30,84,212,.55), transparent 70%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,55,153,.4), transparent 60%),
+        var(--b900);
+    }
+    .hero-grid-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+    }
+    .hero-left {
+      position: relative; z-index: 2;
+      padding: 4rem 3rem 4rem 2rem; max-width: 660px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      color: var(--b400); font-size: .78rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 99px; margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: .92;
+      color: var(--white); letter-spacing: -.03em;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, var(--b400), #93c5fd);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: block;
+    }
+    .hero-desc { margin-top: 1.5rem; color: rgba(255,255,255,.6); font-size: 1rem; line-height: 1.7; max-width: 460px; }
+    .hero-stats-row {
+      margin-top: 2.5rem; display: flex; gap: 0;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-lg); overflow: hidden;
+    }
+    .hero-stat {
+      flex: 1; padding: 1.25rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; color: var(--white); line-height: 1; }
+    .hero-stat-l { font-size: .7rem; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .06em; margin-top: .3rem; }
+    .hero-right {
+      position: relative; z-index: 2;
+      padding: 4rem 2rem; display: flex; flex-direction: column; gap: 1rem; justify-content: center;
+    }
+    /* Cards équipes preview dans le hero */
+    .hero-team-pill {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r-lg); padding: 1.1rem 1.4rem; backdrop-filter: blur(12px);
+      display: flex; align-items: center; gap: 1rem;
+      transition: background .2s, transform .2s;
+      cursor: pointer;
+    }
+    .hero-team-pill:hover { background: rgba(255,255,255,.12); transform: translateX(6px); }
+    .pill-rank {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem;
+      color: var(--b400); width: 40px; flex-shrink: 0; text-align: center;
+    }
+    .pill-div { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--b400); }
+    .pill-name { font-weight: 700; font-size: .95rem; color: var(--white); }
+    .pill-score {
+      margin-left: auto; font-family: 'Syne', sans-serif;
+      font-size: .88rem; color: rgba(255,255,255,.5);
+    }
+    .pill-score strong { color: var(--white); }
+    .pill-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .7rem; border-radius: 99px; flex-shrink: 0;
+    }
+    .pb-green { background: rgba(34,197,94,.15); color: #4ade80; }
+    .pb-yellow { background: rgba(234,179,8,.15); color: #fbbf24; }
+    .pb-blue { background: rgba(59,130,246,.15); color: var(--b400); }
+
+    /* RIBBON */
+    .ribbon { background: var(--b600); padding: 1.25rem 2rem; }
+    .ribbon-inner { max-width: 1320px; margin: 0 auto; display: flex; gap: 3rem; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .ribbon-item { display: flex; align-items: center; gap: .85rem; color: var(--white); }
+    .ribbon-icon { width: 40px; height: 40px; border-radius: 8px; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .ribbon-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; line-height: 1; }
+    .ribbon-l { font-size: .72rem; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* SECTIONS */
+    .section { padding: 6rem 2rem; }
+    .section-bg { background: #f1f5f9; }
+    .inner { max-width: 1320px; margin: 0 auto; }
+    .eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--b600); margin-bottom: .75rem; }
+    .heading { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; letter-spacing: -.03em; color: var(--b900); }
+    .heading span { color: var(--b600); }
+    .subtext { margin-top: .85rem; color: var(--slate); line-height: 1.7; max-width: 500px; font-size: .95rem; }
+
+    /* TEAMS SECTION — liste avec expansion */
+    .teams-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .tabs { display: flex; gap: .4rem; background: #f1f5f9; border-radius: 10px; padding: .3rem; }
+    .tab { font-size: .83rem; font-weight: 600; padding: .5rem 1.1rem; border-radius: 8px; cursor: pointer; color: var(--slate); transition: all .2s; }
+    .tab.active { background: var(--white); color: var(--b900); box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+    .teams-list { display: flex; flex-direction: column; gap: .85rem; }
+    .team-row {
+      background: var(--white); border: 1px solid rgba(30,84,212,.1);
+      border-radius: var(--r-lg); overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .team-row:hover { border-color: var(--b500); box-shadow: 0 4px 24px rgba(30,84,212,.08); }
+    .team-row-header {
+      padding: 1.5rem 2rem; display: flex; align-items: center; gap: 1.5rem;
+      cursor: pointer;
+    }
+    .tr-number {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.5rem;
+      color: var(--b100); line-height: 1; flex-shrink: 0; width: 56px;
+    }
+    .tr-division { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--b600); }
+    .tr-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.35rem; color: var(--b900); letter-spacing: -.02em; }
+    .tr-meta { display: flex; gap: .85rem; flex-wrap: wrap; margin-top: .5rem; }
+    .tr-meta-item { font-size: .8rem; color: var(--slate); display: flex; align-items: center; gap: .3rem; }
+    .tr-badge { margin-left: auto; flex-shrink: 0; font-size: .72rem; font-weight: 700; padding: .3rem .9rem; border-radius: 99px; letter-spacing: .04em; }
+    .tb-n3 { background: rgba(234,179,8,.12); color: #92400e; }
+    .tb-r1 { background: var(--b050); color: var(--b700); }
+    .tb-r2 { background: #f0fdf4; color: #166534; }
+    .tb-d1 { background: #fdf4ff; color: #6b21a8; }
+    .tr-score { text-align: right; flex-shrink: 0; }
+    .tr-score-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--b900); line-height: 1; }
+    .tr-score-l { font-size: .68rem; color: var(--slate); text-transform: uppercase; letter-spacing: .06em; }
+    .tr-expand { width: 32px; height: 32px; border-radius: 50%; background: var(--b050); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .8rem; color: var(--b600); transition: transform .3s; }
+    .team-row.open .tr-expand { transform: rotate(180deg); }
+    .team-row-body {
+      max-height: 0; overflow: hidden; transition: max-height .4s ease;
+      border-top: 0px solid rgba(30,84,212,.08);
+    }
+    .team-row.open .team-row-body { max-height: 400px; border-top-width: 1px; }
+    .team-body-inner { padding: 1.5rem 2rem 2rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+    .tbody-section h4 { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--slate); margin-bottom: .85rem; }
+    .players-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .pchip {
+      background: var(--b050); border: 1px solid rgba(30,84,212,.1); color: var(--b800);
+      font-size: .8rem; font-weight: 500; padding: .3rem .8rem; border-radius: 8px;
+    }
+    .results-mini { display: flex; flex-direction: column; gap: .5rem; }
+    .result-row { display: flex; align-items: center; gap: .75rem; font-size: .83rem; }
+    .r-tag { font-size: .65rem; font-weight: 700; padding: .2rem .6rem; border-radius: 4px; flex-shrink: 0; }
+    .r-v { background: rgba(34,197,94,.15); color: #166534; }
+    .r-d { background: rgba(239,68,68,.1); color: #991b1b; }
+    .result-opp { color: var(--b900); flex: 1; }
+    .result-score { font-weight: 700; color: var(--b900); font-size: .85rem; }
+    .next-matches { display: flex; flex-direction: column; gap: .5rem; }
+    .nmatch {
+      background: var(--b050); border-radius: 8px; padding: .75rem 1rem;
+      font-size: .83rem;
+    }
+    .nmatch-date { font-weight: 700; color: var(--b600); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; }
+    .nmatch-opp { color: var(--b900); margin-top: .2rem; font-weight: 500; }
+
+    /* TABLEAU CLASSEMENT */
+    .classement-wrap { overflow-x: auto; }
+    .clas-table { width: 100%; border-collapse: collapse; min-width: 700px; }
+    .clas-table thead th {
+      padding: 1rem 1.25rem; text-align: left;
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--b600); background: var(--b050); border-bottom: 2px solid rgba(30,84,212,.1);
+    }
+    .clas-table tbody tr { border-bottom: 1px solid rgba(30,84,212,.07); transition: background .2s; }
+    .clas-table tbody tr:hover { background: var(--b050); }
+    .clas-table tbody td { padding: 1rem 1.25rem; font-size: .9rem; vertical-align: middle; }
+    .clas-pos { width: 32px; height: 32px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: .88rem; }
+    .cp1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; }
+    .cp2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+    .cp3 { background: linear-gradient(135deg, #d97706, #b45309); color: white; }
+    .cpn { background: #f1f5f9; color: var(--slate); }
+    .amb-highlight { background: rgba(59,130,246,.05) !important; }
+    .amb-highlight td { font-weight: 600; color: var(--b700) !important; }
+    .mini-dots { display: flex; gap: 3px; }
+    .md { width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; }
+    .md-v { background: rgba(34,197,94,.15); color: #16a34a; }
+    .md-d { background: rgba(239,68,68,.1); color: #dc2626; }
+    .pts-badge { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--b900); }
+
+    /* CALENDRIER — format cards compactes */
+    .cal-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .cal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .match-card {
+      background: var(--white); border: 1px solid rgba(30,84,212,.1);
+      border-radius: var(--r); padding: 1.4rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .match-card:hover { border-color: var(--b500); transform: translateY(-3px); }
+    .mc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .85rem; }
+    .mc-date { font-size: .72rem; font-weight: 700; color: var(--b600); text-transform: uppercase; letter-spacing: .06em; }
+    .mc-type { font-size: .65rem; font-weight: 700; padding: .2rem .6rem; border-radius: 99px; }
+    .mct-dom { background: var(--b050); color: var(--b700); }
+    .mct-ext { background: #fdf4ff; color: #6b21a8; }
+    .mc-teams { font-weight: 700; font-size: .97rem; color: var(--b900); line-height: 1.35; margin-bottom: .5rem; }
+    .mc-teams em { color: var(--b600); font-style: normal; }
+    .mc-detail { font-size: .8rem; color: var(--slate); }
+
+    /* STAFF */
+    .staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+    .staff-card {
+      background: var(--white); border: 1px solid rgba(30,84,212,.1);
+      border-radius: var(--r-lg); padding: 2rem; display: flex; align-items: flex-start; gap: 1.25rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .staff-card:hover { border-color: var(--b500); box-shadow: 0 8px 32px rgba(30,84,212,.08); }
+    .staff-ava { width: 56px; height: 56px; border-radius: 12px; background: var(--b700); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .staff-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--b900); }
+    .staff-role { font-size: .82rem; color: var(--slate); margin-top: .25rem; }
+    .staff-badge { display: inline-block; margin-top: .6rem; font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: var(--b050); color: var(--b700); padding: .25rem .7rem; border-radius: 99px; }
+
+    /* FOOTER */
+    footer { background: var(--b900); color: rgba(255,255,255,.5); padding: 5rem 2rem 2.5rem; }
+    .footer-grid { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-desc { font-size: .88rem; line-height: 1.7; margin-top: 1rem; }
+    footer h5 { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 1.25rem; }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    footer ul a { font-size: .88rem; color: rgba(255,255,255,.55); transition: color .2s; }
+    footer ul a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1320px; margin: 2rem auto 0; display: flex; justify-content: space-between; font-size: .8rem; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom a { color: rgba(255,255,255,.35); transition: color .2s; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .team-body-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="nav-inner">
+    <a href="index2.html" class="logo">
+      <div class="logo-mark">
+        <svg width="26" height="26" viewBox="0 0 768 686" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(0,686) scale(0.1,-0.1)" fill="white" stroke="none">
+            <path d="M4440 6149 c-364 -42 -777 -263 -1148 -613 -186 -177 -430 -481 -725 -908 l-67 -96 97 -32 c425 -140 781 -316 1043 -515 409 -311 590 -543 776 -995 166 -407 213 -695 200 -1250 -3 -157 -9 -302 -12 -322 l-6 -38 124 0 c68 0 198 7 289 15 1064 100 1767 415 2093 938 140 224 201 509 166 774 -34 253 -132 519 -265 723 -60 91 -207 242 -293 299 -140 94 -321 161 -495 182 -97 12 -344 6 -409 -10 -21 -5 -38 -7 -38 -6 0 2 20 43 44 92 89 176 119 303 118 498 0 176 -27 288 -107 450 -69 140 -154 252 -291 385 -147 143 -264 228 -419 305 -226 113 -436 151 -675 124z"/>
+          </g>
+        </svg>
+      </div>
+      <div class="logo-text">Ass. Mayennaise<br><span>de Badminton</span></div>
+    </a>
+    <nav class="nav-links">
+      <a href="index2.html">Accueil</a>
+      <a href="#">Le Club</a>
+      <a href="#" class="active">Équipes</a>
+      <a href="#">Calendriers</a>
+      <a href="#">Entraînement</a>
+      <a href="#">Contact</a>
+      <a href="#" class="nav-cta">Nous Rejoindre</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-left">
+    <div class="hero-label"><span class="hero-dot"></span> Saison 2025–2026 en cours</div>
+    <h1>
+      12 équipes.<br>
+      <span class="accent">Une passion.</span>
+    </h1>
+    <p class="hero-desc">De la Nationale 3 aux championnats départementaux, les équipes de l'AMB défendent les couleurs de la Mayenne sur tous les fronts.</p>
+    <div class="hero-stats-row">
+      <div class="hero-stat"><div class="hero-stat-n">12</div><div class="hero-stat-l">Équipes</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">85+</div><div class="hero-stat-l">Joueurs</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">4</div><div class="hero-stat-l">Divisions</div></div>
+      <div class="hero-stat"><div class="hero-stat-n">72%</div><div class="hero-stat-l">Win rate</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-team-pill">
+      <div class="pill-rank">1</div>
+      <div><div class="pill-div">Nationale 3</div><div class="pill-name">Équipe Première</div></div>
+      <div class="pill-score"><strong>4</strong>V – 1D</div>
+      <span class="pill-badge pb-yellow">N3</span>
+    </div>
+    <div class="hero-team-pill">
+      <div class="pill-rank">2</div>
+      <div><div class="pill-div">Régionale 1</div><div class="pill-name">Équipe Deuxième</div></div>
+      <div class="pill-score"><strong>3</strong>V – 2D</div>
+      <span class="pill-badge pb-blue">R1</span>
+    </div>
+    <div class="hero-team-pill">
+      <div class="pill-rank">3</div>
+      <div><div class="pill-div">Régionale 2</div><div class="pill-name">Équipe Troisième</div></div>
+      <div class="pill-score"><strong>2</strong>V – 3D</div>
+      <span class="pill-badge pb-blue">R2</span>
+    </div>
+    <div class="hero-team-pill">
+      <div class="pill-rank">4</div>
+      <div><div class="pill-div">Départementale 1</div><div class="pill-name">Équipe Quatrième</div></div>
+      <div class="pill-score"><strong>5</strong>V – 0D</div>
+      <span class="pill-badge pb-green">D1</span>
+    </div>
+    <div class="hero-team-pill">
+      <div class="pill-rank">↑</div>
+      <div><div class="pill-div">Jeunes U17</div><div class="pill-name">Équipe Espoirs</div></div>
+      <div class="pill-score"><strong>3</strong>V – 1D</div>
+      <span class="pill-badge pb-green">U17</span>
+    </div>
+  </div>
+</section>
+
+<!-- RIBBON -->
+<div class="ribbon">
+  <div class="ribbon-inner">
+    <div class="ribbon-item"><div class="ribbon-icon">🏆</div><div><div class="ribbon-n">2e</div><div class="ribbon-l">Classement N3</div></div></div>
+    <div class="ribbon-item"><div class="ribbon-icon">🏸</div><div><div class="ribbon-n">32</div><div class="ribbon-l">Matchs joués</div></div></div>
+    <div class="ribbon-item"><div class="ribbon-icon">✅</div><div><div class="ribbon-n">23V</div><div class="ribbon-l">Victoires</div></div></div>
+    <div class="ribbon-item"><div class="ribbon-icon">🌟</div><div><div class="ribbon-n">4★</div><div class="ribbon-l">Label FFBaD</div></div></div>
+  </div>
+</div>
+
+<!-- TEAMS SECTION -->
+<section class="section">
+  <div class="inner">
+    <div class="teams-header">
+      <div>
+        <div class="eyebrow">Saison en cours</div>
+        <h2 class="heading">Toutes nos <span>équipes</span></h2>
+      </div>
+      <div class="tabs">
+        <div class="tab active">Seniors</div>
+        <div class="tab">Jeunes</div>
+        <div class="tab">Vétérans</div>
+      </div>
+    </div>
+    <div class="teams-list">
+
+      <div class="team-row" id="t1">
+        <div class="team-row-header" onclick="toggleTeam('t1')">
+          <div class="tr-number">01</div>
+          <div style="flex:1">
+            <div class="tr-division">Nationale 3 — Poule B</div>
+            <div class="tr-name">Équipe Première</div>
+            <div class="tr-meta">
+              <div class="tr-meta-item">👥 8 joueurs</div>
+              <div class="tr-meta-item">📍 Gymnase Ferry</div>
+              <div class="tr-meta-item">🕒 Mercredi soir</div>
+            </div>
+          </div>
+          <div class="tr-score"><div class="tr-score-n">4V - 1D</div><div class="tr-score-l">Bilan saison</div></div>
+          <span class="tr-badge tb-n3">Nationale 3</span>
+          <div class="tr-expand">↓</div>
+        </div>
+        <div class="team-row-body">
+          <div class="team-body-inner">
+            <div class="tbody-section">
+              <h4>Joueurs</h4>
+              <div class="players-chips">
+                <span class="pchip">Martin D.</span><span class="pchip">Lefebvre A.</span><span class="pchip">Moreau C.</span><span class="pchip">Petit L.</span><span class="pchip">Bernard T.</span><span class="pchip">Girard S.</span><span class="pchip">Richard P.</span><span class="pchip">Leroy M.</span>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Derniers résultats</h4>
+              <div class="results-mini">
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Pays de la Loire BC</span><span class="result-score">6-2</span></div>
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Laval Nord Bad.</span><span class="result-score">5-3</span></div>
+                <div class="result-row"><span class="r-tag r-d">D</span><span class="result-opp">vs Club Angevin</span><span class="result-score">3-5</span></div>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Prochains matchs</h4>
+              <div class="next-matches">
+                <div class="nmatch"><div class="nmatch-date">14 Juin 2026</div><div class="nmatch-opp">vs Club Angevin · Domicile</div></div>
+                <div class="nmatch"><div class="nmatch-date">28 Juin 2026</div><div class="nmatch-opp">vs Sarthe Bad · Extérieur</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-row" id="t2">
+        <div class="team-row-header" onclick="toggleTeam('t2')">
+          <div class="tr-number">02</div>
+          <div style="flex:1">
+            <div class="tr-division">Régionale 1 — Groupe A</div>
+            <div class="tr-name">Équipe Deuxième</div>
+            <div class="tr-meta">
+              <div class="tr-meta-item">👥 8 joueurs</div>
+              <div class="tr-meta-item">📍 Salle Buron</div>
+              <div class="tr-meta-item">🕒 Jeudi soir</div>
+            </div>
+          </div>
+          <div class="tr-score"><div class="tr-score-n">3V - 2D</div><div class="tr-score-l">Bilan saison</div></div>
+          <span class="tr-badge tb-r1">Régionale 1</span>
+          <div class="tr-expand">↓</div>
+        </div>
+        <div class="team-row-body">
+          <div class="team-body-inner">
+            <div class="tbody-section">
+              <h4>Joueurs</h4>
+              <div class="players-chips">
+                <span class="pchip">Dubois R.</span><span class="pchip">Simon P.</span><span class="pchip">Laurent K.</span><span class="pchip">Garnier M.</span><span class="pchip">Arnaud B.</span><span class="pchip">Chevalier F.</span><span class="pchip">Henry J.</span><span class="pchip">Dupont A.</span>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Derniers résultats</h4>
+              <div class="results-mini">
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Sarthe Bad. R1</span><span class="result-score">5-3</span></div>
+                <div class="result-row"><span class="r-tag r-d">D</span><span class="result-opp">vs Nantes BC</span><span class="result-score">2-6</span></div>
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Tours Badminton</span><span class="result-score">4-4</span></div>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Prochains matchs</h4>
+              <div class="next-matches">
+                <div class="nmatch"><div class="nmatch-date">21 Juin 2026</div><div class="nmatch-opp">vs Sarthe Bad · Extérieur</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-row" id="t3">
+        <div class="team-row-header" onclick="toggleTeam('t3')">
+          <div class="tr-number">03</div>
+          <div style="flex:1">
+            <div class="tr-division">Régionale 2 — Groupe C</div>
+            <div class="tr-name">Équipe Troisième</div>
+            <div class="tr-meta">
+              <div class="tr-meta-item">👥 8 joueurs</div>
+              <div class="tr-meta-item">📍 Gymnase Ferry</div>
+              <div class="tr-meta-item">🕒 Vendredi soir</div>
+            </div>
+          </div>
+          <div class="tr-score"><div class="tr-score-n">2V - 3D</div><div class="tr-score-l">Bilan saison</div></div>
+          <span class="tr-badge tb-r2">Régionale 2</span>
+          <div class="tr-expand">↓</div>
+        </div>
+        <div class="team-row-body">
+          <div class="team-body-inner">
+            <div class="tbody-section">
+              <h4>Joueurs</h4>
+              <div class="players-chips">
+                <span class="pchip">Fontaine J.</span><span class="pchip">Mercier A.</span><span class="pchip">Roussel N.</span><span class="pchip">Blanc O.</span><span class="pchip">Renard C.</span><span class="pchip">Mallet T.</span><span class="pchip">Gilles V.</span><span class="pchip">Faure M.</span>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Derniers résultats</h4>
+              <div class="results-mini">
+                <div class="result-row"><span class="r-tag r-d">D</span><span class="result-opp">vs Rennes BC</span><span class="result-score">3-5</span></div>
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Laval Nord R2</span><span class="result-score">5-3</span></div>
+                <div class="result-row"><span class="r-tag r-d">D</span><span class="result-opp">vs Anjou Bad.</span><span class="result-score">2-6</span></div>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Prochains matchs</h4>
+              <div class="next-matches">
+                <div class="nmatch"><div class="nmatch-date">28 Juin 2026</div><div class="nmatch-opp">vs Laval Nord · Domicile</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-row" id="t4">
+        <div class="team-row-header" onclick="toggleTeam('t4')">
+          <div class="tr-number">04</div>
+          <div style="flex:1">
+            <div class="tr-division">Départementale 1 — Mayenne</div>
+            <div class="tr-name">Équipe Quatrième</div>
+            <div class="tr-meta">
+              <div class="tr-meta-item">👥 6 joueurs</div>
+              <div class="tr-meta-item">📍 Gymnase Ferry</div>
+              <div class="tr-meta-item">🕒 Lundi soir</div>
+            </div>
+          </div>
+          <div class="tr-score"><div class="tr-score-n">5V - 0D</div><div class="tr-score-l">Bilan saison</div></div>
+          <span class="tr-badge tb-d1">Dép. 1</span>
+          <div class="tr-expand">↓</div>
+        </div>
+        <div class="team-row-body">
+          <div class="team-body-inner">
+            <div class="tbody-section">
+              <h4>Joueurs</h4>
+              <div class="players-chips">
+                <span class="pchip">Chevalier P.</span><span class="pchip">Dupont S.</span><span class="pchip">Henry F.</span><span class="pchip">Lebrun A.</span><span class="pchip">Torres M.</span><span class="pchip">Beaumont L.</span>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Derniers résultats</h4>
+              <div class="results-mini">
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Évron BC</span><span class="result-score">6-0</span></div>
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Mayenne Ville BC</span><span class="result-score">5-1</span></div>
+                <div class="result-row"><span class="r-tag r-v">V</span><span class="result-opp">vs Ernée Badminton</span><span class="result-score">6-2</span></div>
+              </div>
+            </div>
+            <div class="tbody-section">
+              <h4>Saison terminée !</h4>
+              <div class="next-matches">
+                <div class="nmatch"><div class="nmatch-date">Bilan final</div><div class="nmatch-opp">5V / 0D — 1er du groupe · Montée en R2</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLASSEMENT -->
+<section class="section section-bg">
+  <div class="inner">
+    <div class="eyebrow">Classements officiels</div>
+    <h2 class="heading" style="margin-bottom:2.5rem">Nationale 3 — <span>Poule B</span></h2>
+    <div class="classement-wrap">
+      <table class="clas-table">
+        <thead>
+          <tr>
+            <th>Pos.</th><th>Club</th><th>J</th><th>V</th><th>D</th>
+            <th>Pts</th><th>5 derniers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="clas-pos cp1">1</span></td>
+            <td>Club Angevin Badminton</td>
+            <td>7</td><td>6</td><td>1</td>
+            <td><span class="pts-badge">12</span></td>
+            <td><div class="mini-dots"><span class="md md-v">V</span><span class="md md-v">V</span><span class="md md-d">D</span><span class="md md-v">V</span><span class="md md-v">V</span></div></td>
+          </tr>
+          <tr class="amb-highlight">
+            <td><span class="clas-pos cp2">2</span></td>
+            <td>🏸 AMB Mayenne</td>
+            <td>5</td><td>4</td><td>1</td>
+            <td><span class="pts-badge">8</span></td>
+            <td><div class="mini-dots"><span class="md md-v">V</span><span class="md md-v">V</span><span class="md md-v">V</span><span class="md md-d">D</span><span class="md md-v">V</span></div></td>
+          </tr>
+          <tr>
+            <td><span class="clas-pos cp3">3</span></td>
+            <td>Sarthe Badminton</td>
+            <td>7</td><td>3</td><td>4</td>
+            <td><span class="pts-badge">6</span></td>
+            <td><div class="mini-dots"><span class="md md-d">D</span><span class="md md-v">V</span><span class="md md-d">D</span><span class="md md-v">V</span><span class="md md-d">D</span></div></td>
+          </tr>
+          <tr>
+            <td><span class="clas-pos cpn">4</span></td>
+            <td>Pays de la Loire BC</td>
+            <td>7</td><td>2</td><td>5</td>
+            <td><span class="pts-badge">4</span></td>
+            <td><div class="mini-dots"><span class="md md-d">D</span><span class="md md-d">D</span><span class="md md-v">V</span><span class="md md-d">D</span><span class="md md-d">D</span></div></td>
+          </tr>
+          <tr>
+            <td><span class="clas-pos cpn">5</span></td>
+            <td>Laval Nord Bad.</td>
+            <td>7</td><td>1</td><td>6</td>
+            <td><span class="pts-badge">2</span></td>
+            <td><div class="mini-dots"><span class="md md-d">D</span><span class="md md-d">D</span><span class="md md-d">D</span><span class="md md-v">V</span><span class="md md-d">D</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDRIER -->
+<section class="section">
+  <div class="inner">
+    <div class="cal-header">
+      <div>
+        <div class="eyebrow">Agenda</div>
+        <h2 class="heading">Prochains <span>matchs</span></h2>
+      </div>
+      <a href="#" style="font-size:.85rem;font-weight:700;color:var(--b600);display:flex;align-items:center;gap:.4rem">Calendrier complet →</a>
+    </div>
+    <div class="cal-grid">
+      <div class="match-card">
+        <div class="mc-top"><span class="mc-date">14 Juin 2026</span><span class="mc-type mct-dom">Domicile</span></div>
+        <div class="mc-teams"><em>AMB Éq.1</em> — Club Angevin Bad.</div>
+        <div class="mc-detail">🕒 14h00 · 🏟 Gymnase Ferry · Nationale 3</div>
+      </div>
+      <div class="match-card">
+        <div class="mc-top"><span class="mc-date">21 Juin 2026</span><span class="mc-type mct-ext">Extérieur</span></div>
+        <div class="mc-teams">Sarthe Bad. — <em>AMB Éq.2</em></div>
+        <div class="mc-detail">🕒 16h00 · 🏟 Salle Buron · Régionale 1</div>
+      </div>
+      <div class="match-card">
+        <div class="mc-top"><span class="mc-date">28 Juin 2026</span><span class="mc-type mct-dom">Domicile</span></div>
+        <div class="mc-teams"><em>AMB Éq.3</em> — Laval Nord Bad.</div>
+        <div class="mc-detail">🕒 10h00 · 🏟 Gymnase Ferry · Régionale 2</div>
+      </div>
+      <div class="match-card">
+        <div class="mc-top"><span class="mc-date">5 Juillet 2026</span><span class="mc-type mct-dom">Domicile</span></div>
+        <div class="mc-teams"><em>AMB Jeunes</em> — Finale Interclubs U17</div>
+        <div class="mc-detail">🕒 09h00 · 🏟 Gymnase Municipal · Championnat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAFF -->
+<section class="section section-bg">
+  <div class="inner">
+    <div class="eyebrow">Encadrement technique</div>
+    <h2 class="heading" style="margin-bottom:2.5rem">Le <span>staff</span></h2>
+    <div class="staff-grid">
+      <div class="staff-card"><div class="staff-ava">👨‍🏫</div><div><div class="staff-name">Jean-Pierre Martin</div><div class="staff-role">Entraîneur Principal</div><span class="staff-badge">Brevet d'État</span></div></div>
+      <div class="staff-card"><div class="staff-ava">👩‍🏫</div><div><div class="staff-name">Sophie Lefebvre</div><div class="staff-role">Coach Jeunes</div><span class="staff-badge">DE Badminton</span></div></div>
+      <div class="staff-card"><div class="staff-ava">🧑‍💼</div><div><div class="staff-name">Thomas Bernard</div><div class="staff-role">Responsable Compétition</div><span class="staff-badge">Capitaine Éq.1</span></div></div>
+      <div class="staff-card"><div class="staff-ava">👨‍⚕️</div><div><div class="staff-name">Marc Dupont</div><div class="staff-role">Préparateur Physique</div><span class="staff-badge">STAPS</span></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo">
+        <div class="logo-mark" style="background:var(--b700)">
+          <svg width="22" height="22" viewBox="0 0 768 686" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,686) scale(0.1,-0.1)" fill="white" stroke="none"><path d="M4440 6149 c-364 -42 -777 -263 -1148 -613 -186 -177 -430 -481 -725 -908 l-67 -96 97 -32 c425 -140 781 -316 1043 -515 409 -311 590 -543 776 -995 166 -407 213 -695 200 -1250 -3 -157 -9 -302 -12 -322 l-6 -38 124 0 c68 0 198 7 289 15 1064 100 1767 415 2093 938 140 224 201 509 166 774 -34 253 -132 519 -265 723 -60 91 -207 242 -293 299 -140 94 -321 161 -495 182 -97 12 -344 6 -409 -10 -21 -5 -38 -7 -38 -6 0 2 20 43 44 92 89 176 119 303 118 498 0 176 -27 288 -107 450 -69 140 -154 252 -291 385 -147 143 -264 228 -419 305 -226 113 -436 151 -675 124z"/></g></svg>
+        </div>
+        <div class="logo-text" style="color:white">Ass. Mayennaise<br><span>de Badminton</span></div>
+      </div>
+      <p class="footer-desc">Club affilié FFBaD — 30 ans de badminton en Mayenne.</p>
+    </div>
+    <div><h5>Navigation</h5><ul><li><a href="index2.html">Accueil</a></li><li><a href="#">Le Club</a></li><li><a href="#">Équipes</a></li><li><a href="#">Calendriers</a></li></ul></div>
+    <div><h5>Équipes</h5><ul><li><a href="#">Éq.1 — N3</a></li><li><a href="#">Éq.2 — R1</a></li><li><a href="#">Éq.3 — R2</a></li><li><a href="#">Éq.4 — D1</a></li><li><a href="#">Jeunes U17</a></li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="#">contact@mayenne-badminton.fr</a></li><li><a href="#">Laval, Mayenne (53)</a></li><li><a href="#">Facebook</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Association Mayennaise de Badminton</span>
+    <div style="display:flex;gap:1.5rem"><a href="#">Mentions légales</a><a href="#">Confidentialité</a></div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  function toggleTeam(id) {
+    const row = document.getElementById(id);
+    row.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
