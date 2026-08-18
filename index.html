@@ -13,6 +13,7 @@
       --white: #ffffff; --slate: #94a3b8;
       --border: rgba(255,255,255,0.08);
       --surface: rgba(255,255,255,0.04);
+      --purple: #a78bfa; --rose: #fb7185;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -51,11 +52,12 @@
       width: 8px; height: 8px; border-radius: 50%; background: var(--b500);
       animation: pulse 2s infinite;
     }
-    .nav-tabs { display: flex; gap: .15rem; }
+    .nav-tabs { display: flex; gap: .15rem; flex-wrap: wrap; }
     .nav-tab {
       font-size: .8rem; font-weight: 600; color: var(--slate);
       padding: .4rem .85rem; border-radius: 8px;
       transition: color .2s, background .2s; cursor: pointer; border: none; background: none;
+      white-space: nowrap;
     }
     .nav-tab:hover { color: var(--white); background: var(--surface); }
     .nav-tab.active { color: var(--white); background: rgba(59,130,246,.15); }
@@ -183,6 +185,8 @@
       background: rgba(255,255,255,.03);
     }
     .ctag.blue { color: var(--b400); border-color: rgba(96,165,250,.25); background: rgba(96,165,250,.08); }
+    .ctag.purple { color: var(--purple); border-color: rgba(167,139,250,.25); background: rgba(167,139,250,.08); }
+    .ctag.rose { color: var(--rose); border-color: rgba(251,113,133,.25); background: rgba(251,113,133,.08); }
     .card-title {
       font-family: 'Syne', sans-serif; font-weight: 800;
       font-size: 1.1rem; letter-spacing: -.02em; line-height: 1.15;
@@ -219,6 +223,8 @@
     .cat-home    { background: rgba(96,165,250,.15); color: var(--b400); }
     .cat-contact { background: rgba(34,197,94,.12);  color: #86efac; }
     .cat-horaire { background: rgba(251,191,36,.12); color: #fde68a; }
+    .cat-equipe  { background: rgba(167,139,250,.15); color: var(--purple); }
+    .cat-actu    { background: rgba(251,113,133,.14); color: var(--rose); }
 
     /* ── FOOTER ── */
     .hub-footer {
@@ -251,6 +257,8 @@
     .dot-green { background: #22c55e; }
     .dot-blue  { background: var(--b500); }
     .dot-amber { background: #f59e0b; }
+    .dot-purple{ background: var(--purple); }
+    .dot-rose  { background: var(--rose); }
 
     /* ── ANIMATIONS ── */
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
@@ -284,6 +292,8 @@
     <button class="nav-tab active" onclick="showSection('accueil')">🏠 Accueil</button>
     <button class="nav-tab" onclick="showSection('contact')">✉ Contact</button>
     <button class="nav-tab" onclick="showSection('horaires')">📅 Horaires</button>
+    <button class="nav-tab" onclick="showSection('equipes')">🏆 Équipes</button>
+    <button class="nav-tab" onclick="showSection('actus')">📰 Actualités</button>
     <button class="nav-tab" onclick="showSection('all')">Tout voir</button>
   </div>
 </nav>
@@ -295,13 +305,13 @@
     <h1>Galerie de<br><span>Design</span></h1>
     <p class="hero-sub">
       Comparez les directions artistiques proposées pour la plateforme AMB.
-      6 identités visuelles distinctes — chacune déclinée en page d'accueil, contact et planning.
+      6 identités visuelles distinctes — chacune déclinée en accueil, contact, horaires, équipes et actualités.
     </p>
   </div>
   <div class="hero-counts">
     <div class="hcount"><div class="hcount-n">6</div><div class="hcount-l">Designs</div></div>
-    <div class="hcount"><div class="hcount-n">3</div><div class="hcount-l">Pages / design</div></div>
-    <div class="hcount"><div class="hcount-n">18</div><div class="hcount-l">Fichiers</div></div>
+    <div class="hcount"><div class="hcount-n">5</div><div class="hcount-l">Pages / design</div></div>
+    <div class="hcount"><div class="hcount-n">30</div><div class="hcount-l">Fichiers</div></div>
   </div>
 </div>
 
@@ -310,6 +320,8 @@
   <div class="status-item"><div class="status-dot dot-green"></div>Accueil × 6 versions</div>
   <div class="status-item"><div class="status-dot dot-blue"></div>Contact × 6 versions</div>
   <div class="status-item"><div class="status-dot dot-amber"></div>Horaires × 6 versions</div>
+  <div class="status-item"><div class="status-dot dot-purple"></div>Équipes × 6 versions</div>
+  <div class="status-item"><div class="status-dot dot-rose"></div>Actualités × 6 versions</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -328,10 +340,27 @@
     <div class="cards-grid">
 
       <!-- V1 -->
-      <a href="index1.html" class="card" target="_blank">
-        <div class="preview" style="background:linear-gradient(135deg,#08183f 0%,#0a2a6e 60%,#1a4fd6 100%)">
+      <a href="index/index1.html" class="card" target="_blank">
+        <div class="preview" style="background:linear-gradient(135deg,#08183f 0%,#0a2a6e 60%,#1a4fd6 100%);padding:.85rem;display:flex;flex-direction:column;gap:.5rem;align-items:stretch">
           <span class="preview-badge">V1</span>
-          <span class="preview-label" style="color:#e8c400">TRADITION</span>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="width:60px;height:8px;background:#e8c400;border-radius:2px"></div>
+            <div style="display:flex;gap:4px">
+              <div style="width:16px;height:6px;background:rgba(255,255,255,.25);border-radius:2px"></div>
+              <div style="width:16px;height:6px;background:rgba(255,255,255,.25);border-radius:2px"></div>
+              <div style="width:16px;height:6px;background:#e8c400;border-radius:2px"></div>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:5px">
+            <div style="width:80%;height:14px;background:rgba(255,255,255,.9);border-radius:2px"></div>
+            <div style="width:60%;height:14px;background:#e8c400;border-radius:2px"></div>
+            <div style="width:90%;height:5px;background:rgba(255,255,255,.3);border-radius:2px;margin-top:6px"></div>
+          </div>
+          <div style="display:flex;gap:10px;padding-top:.4rem;border-top:1px solid rgba(255,255,255,.12)">
+            <div><div style="font-family:'Bebas Neue',cursive;font-size:.9rem;color:#fff">200+</div><div style="font-size:.4rem;color:rgba(255,255,255,.4);letter-spacing:.05em;text-transform:uppercase">Licenciés</div></div>
+            <div><div style="font-family:'Bebas Neue',cursive;font-size:.9rem;color:#fff">8</div><div style="font-size:.4rem;color:rgba(255,255,255,.4);letter-spacing:.05em;text-transform:uppercase">Terrains</div></div>
+            <div><div style="font-family:'Bebas Neue',cursive;font-size:.9rem;color:#fff">1979</div><div style="font-size:.4rem;color:rgba(255,255,255,.4);letter-spacing:.05em;text-transform:uppercase">Fondé</div></div>
+          </div>
         </div>
         <div class="card-body">
           <div class="card-tags">
@@ -349,10 +378,24 @@
       </a>
 
       <!-- V2 -->
-      <a href="index2.html" class="card" target="_blank">
-        <div class="preview" style="background:linear-gradient(135deg,#04122e,#1a3799,#1e54d4)">
+      <a href="index/index2.html" class="card" target="_blank">
+        <div class="preview" style="background:linear-gradient(135deg,#04122e,#1a3799,#1e54d4);padding:.85rem;display:grid;grid-template-columns:1.3fr 1fr;gap:.6rem">
           <span class="preview-badge">V2</span>
-          <span class="preview-label" style="color:#60a5fa">DIGITAL</span>
+          <div style="display:flex;flex-direction:column;justify-content:center;gap:5px">
+            <div style="width:70px;height:12px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)"></div>
+            <div style="width:95%;height:14px;background:#fff;border-radius:2px;margin-top:4px"></div>
+            <div style="width:75%;height:14px;background:#60a5fa;border-radius:2px"></div>
+            <div style="width:60%;height:5px;background:rgba(255,255,255,.3);border-radius:2px;margin-top:6px"></div>
+            <div style="width:60px;height:16px;background:#1e54d4;border-radius:99px;margin-top:6px"></div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.5rem;display:flex;flex-direction:column;gap:5px;justify-content:center">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+              <div style="background:rgba(255,255,255,.08);border-radius:5px;padding:4px;text-align:center"><div style="font-family:'Syne',sans-serif;font-size:.65rem;font-weight:800;color:#fff">250+</div></div>
+              <div style="background:rgba(255,255,255,.08);border-radius:5px;padding:4px;text-align:center"><div style="font-family:'Syne',sans-serif;font-size:.65rem;font-weight:800;color:#fff">12</div></div>
+            </div>
+            <div style="width:100%;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin-top:4px"></div>
+            <div style="width:80%;height:4px;background:rgba(255,255,255,.15);border-radius:2px"></div>
+          </div>
         </div>
         <div class="card-body">
           <div class="card-tags">
@@ -370,10 +413,27 @@
       </a>
 
       <!-- V3 -->
-      <a href="index3.html" class="card" target="_blank">
-        <div class="preview" style="background:#f7f8fc; border-bottom:3px solid #C9A84C">
+      <a href="index/index3.html" class="card" target="_blank">
+        <div class="preview" style="background:#f7f8fc;border-bottom:3px solid #C9A84C;padding:0;display:flex;flex-direction:column">
           <span class="preview-badge" style="background:rgba(26,60,143,.1);color:#1A3C8F">V3</span>
-          <span class="preview-label" style="color:#1A3C8F">PRESTIGE</span>
+          <div style="height:14px;background:#0D2660;display:flex;align-items:center;padding:0 .6rem;gap:4px">
+            <div style="width:30px;height:3px;background:rgba(255,255,255,.4);border-radius:2px"></div>
+          </div>
+          <div style="height:22px;background:#fff;border-bottom:1px solid #DDE3EF;display:flex;align-items:center;padding:0 .6rem;gap:6px">
+            <div style="width:16px;height:16px;border-radius:50%;background:#1A3C8F;border:2px solid #C9A84C"></div>
+            <div style="width:60px;height:5px;background:#1A2340;border-radius:2px"></div>
+          </div>
+          <div style="flex:1;background:linear-gradient(120deg,rgba(13,38,96,.9),rgba(13,38,96,.4)),linear-gradient(135deg,#2E5BB8,#0D2660);display:flex;align-items:center;padding:0 .7rem">
+            <div>
+              <div style="width:50px;height:9px;background:#C9A84C;border-radius:2px;margin-bottom:4px"></div>
+              <div style="width:90px;height:10px;background:#fff;border-radius:2px"></div>
+            </div>
+          </div>
+          <div style="height:20px;background:rgba(13,38,96,.92);display:flex;gap:8px;align-items:center;padding:0 .6rem">
+            <div style="font-family:'Playfair Display',serif;font-size:.6rem;font-weight:700;color:#C9A84C">250+</div>
+            <div style="font-family:'Playfair Display',serif;font-size:.6rem;font-weight:700;color:#C9A84C">8</div>
+            <div style="font-family:'Playfair Display',serif;font-size:.6rem;font-weight:700;color:#C9A84C">30+</div>
+          </div>
         </div>
         <div class="card-body">
           <div class="card-tags">
@@ -391,10 +451,17 @@
       </a>
 
       <!-- V4 -->
-      <a href="index4.html" class="card" target="_blank">
-        <div class="preview" style="background:linear-gradient(135deg,#dbeafe,#eff6ff)">
+      <a href="index/index4.html" class="card" target="_blank">
+        <div class="preview" style="background:linear-gradient(135deg,#dbeafe,#eff6ff);padding:.85rem;display:flex;flex-direction:column;align-items:center;gap:.5rem">
           <span class="preview-badge" style="background:rgba(30,84,212,.1);color:#1e54d4">V4</span>
-          <span class="preview-label" style="color:#1e54d4">SPORT</span>
+          <div style="background:#fff;border:1px solid rgba(30,84,212,.2);border-radius:99px;padding:3px 10px;font-size:.45rem;color:#1e54d4;font-weight:800">SAISON 2025/2026</div>
+          <div style="width:75%;height:11px;background:#04122e;border-radius:2px"></div>
+          <div style="width:55%;height:11px;background:#1e54d4;border-radius:2px"></div>
+          <div style="display:flex;gap:6px;width:100%;flex:1;margin-top:.2rem">
+            <div style="flex:1;background:#fff;border-radius:8px;border:1px solid rgba(30,84,212,.12)"></div>
+            <div style="flex:1;background:#1e54d4;border-radius:8px"></div>
+            <div style="flex:1;background:#fff;border-radius:8px;border:1px solid rgba(30,84,212,.12)"></div>
+          </div>
         </div>
         <div class="card-body">
           <div class="card-tags">
@@ -412,10 +479,16 @@
       </a>
 
       <!-- V5 -->
-      <a href="index5.html" class="card" target="_blank">
-        <div class="preview" style="background:radial-gradient(ellipse at 30% 50%,#1e54d4,#04122e);border:2px solid #e8c400">
+      <a href="index/index5.html" class="card" target="_blank">
+        <div class="preview" style="background:radial-gradient(ellipse at 30% 30%,#1e54d4,#04122e);border:2px solid #e8c400;padding:.85rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;justify-content:center">
           <span class="preview-badge">V5</span>
-          <span class="preview-label" style="color:#e8c400">HYBRIDE</span>
+          <div style="background:rgba(232,196,0,.12);border:1px solid rgba(232,196,0,.3);border-radius:99px;padding:2px 10px;font-size:.4rem;color:#e8c400;font-weight:800;letter-spacing:.1em">SAISON OUVERTE</div>
+          <div style="font-family:'Bebas Neue',cursive;font-size:1.8rem;color:#fff;letter-spacing:1px;line-height:.9">DOMINEZ<br><span style="color:#e8c400">LE TERRAIN.</span></div>
+          <div style="display:flex;gap:6px;background:#04122e;border-radius:10px;padding:.4rem .7rem;margin-top:.2rem">
+            <div style="text-align:center"><div style="font-family:'Bebas Neue',cursive;font-size:.85rem;color:#e8c400">250+</div></div>
+            <div style="text-align:center"><div style="font-family:'Bebas Neue',cursive;font-size:.85rem;color:#e8c400">12</div></div>
+            <div style="text-align:center"><div style="font-family:'Bebas Neue',cursive;font-size:.85rem;color:#e8c400">3★</div></div>
+          </div>
         </div>
         <div class="card-body">
           <div class="card-tags">
@@ -433,10 +506,26 @@
       </a>
 
       <!-- V6 -->
-      <a href="index6.html" class="card" target="_blank">
-        <div class="preview" style="background:#070D1F">
+      <a href="index/index6.html" class="card" target="_blank">
+        <div class="preview" style="background:#070D1F;padding:0;display:grid;grid-template-columns:1.3fr 1fr">
           <span class="preview-badge">V6</span>
-          <span class="preview-label" style="color:#60A5FA;font-family:'Space Mono',monospace;font-size:1.1rem">FUTURE</span>
+          <div style="padding:.85rem;display:flex;flex-direction:column;justify-content:center;gap:5px">
+            <div style="font-family:'Space Mono',monospace;font-size:.4rem;color:#4B8FE8;letter-spacing:.1em">// ASS. MAYENNAISE</div>
+            <div style="width:85%;height:12px;background:#fff;border-radius:2px;margin-top:3px"></div>
+            <div style="width:65%;height:12px;background:#4B8FE8;border-radius:2px"></div>
+            <div style="width:50%;height:14px;background:transparent;border:1px solid rgba(255,255,255,.25);border-radius:2px"></div>
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <div style="font-family:'Space Mono',monospace;font-size:.55rem;color:#fff;font-weight:700">250+</div>
+              <div style="font-family:'Space Mono',monospace;font-size:.55rem;color:#fff;font-weight:700">12</div>
+            </div>
+          </div>
+          <div style="background:linear-gradient(160deg,#1A3C8F,#060E26);position:relative;display:flex;align-items:flex-end;padding:.6rem">
+            <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:.4rem;width:100%">
+              <div style="font-family:'Space Mono',monospace;font-size:.38rem;color:#C8DCFF;letter-spacing:.08em">// NEWS</div>
+              <div style="width:80%;height:4px;background:rgba(255,255,255,.5);border-radius:2px;margin-top:4px"></div>
+              <div style="width:60%;height:4px;background:rgba(255,255,255,.3);border-radius:2px;margin-top:3px"></div>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <div class="card-tags">
@@ -473,7 +562,7 @@
     <div class="cards-grid">
 
       <!-- Contact V1 -->
-      <a href="contact1.html" class="card" target="_blank">
+      <a href="contact/contact1.html" class="card" target="_blank">
         <div class="preview" style="background:linear-gradient(160deg,#08183f 0%,#0a2a6e 100%);display:grid;grid-template-columns:1.5fr 1fr;height:190px;align-items:stretch">
           <span class="preview-badge">V1</span>
           <div style="display:flex;align-items:flex-end;padding:1.25rem;border-right:1px solid rgba(255,255,255,.1)">
@@ -502,7 +591,7 @@
       </a>
 
       <!-- Contact V2 -->
-      <a href="contact2.html" class="card" target="_blank">
+      <a href="contact/contact2.html" class="card" target="_blank">
         <div class="preview" style="background:#04122e;display:grid;grid-template-columns:1fr 1fr;height:190px">
           <span class="preview-badge">V2</span>
           <div style="background:linear-gradient(135deg,#0c2461,#1e54d4);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff">HELLO.</div>
@@ -525,7 +614,7 @@
       </a>
 
       <!-- Contact V3 -->
-      <a href="contact3.html" class="card" target="_blank">
+      <a href="contact/contact3.html" class="card" target="_blank">
         <div class="preview" style="background:#F7F8FC;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem">
           <span class="preview-badge" style="background:rgba(26,60,143,.1);color:#1A3C8F">V3</span>
           <div style="width:40px;height:2px;background:#C9A84C;border-radius:1px"></div>
@@ -547,7 +636,7 @@
       </a>
 
       <!-- Contact V4 -->
-      <a href="contact4.html" class="card" target="_blank">
+      <a href="contact/contact4.html" class="card" target="_blank">
         <div class="preview" style="background:#f8fafc;display:grid;grid-template-columns:2fr 3fr;height:190px">
           <span class="preview-badge" style="background:rgba(30,84,212,.1);color:#1e54d4">V4</span>
           <div style="background:#0c2461;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem">
@@ -573,7 +662,7 @@
       </a>
 
       <!-- Contact V5 -->
-      <a href="contact5.html" class="card" target="_blank">
+      <a href="contact/contact5.html" class="card" target="_blank">
         <div class="preview" style="background:#04122e;padding:.85rem;display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;height:190px">
           <span class="preview-badge">V5</span>
           <div style="grid-row:span 2;background:#fff;border-radius:10px;padding:.75rem;display:flex;flex-direction:column;gap:5px;justify-content:flex-end">
@@ -597,7 +686,7 @@
       </a>
 
       <!-- Contact V6 -->
-      <a href="contact6.html" class="card" target="_blank">
+      <a href="contact/contact6.html" class="card" target="_blank">
         <div class="preview" style="background:#F0F4FF;padding:1rem;display:flex;flex-direction:column;gap:.75rem">
           <span class="preview-badge" style="background:rgba(26,60,143,.1);color:#1A3C8F">V6</span>
           <div style="border-bottom:2px solid #060E26;padding-bottom:.5rem;display:flex;justify-content:space-between;align-items:flex-end">
@@ -646,7 +735,7 @@
     <div class="cards-grid">
 
       <!-- Horaire V1 -->
-      <a href="horaire1.html" class="card" target="_blank">
+      <a href="horaire/horaire1.html" class="card" target="_blank">
         <div class="preview" style="background:#f4f6fb;flex-direction:column;gap:4px;padding:.85rem">
           <span class="preview-badge" style="background:rgba(10,42,110,.1);color:#0a2a6e">V1</span>
           <div style="display:grid;grid-template-columns:60px repeat(6,1fr);gap:2px;flex:1">
@@ -687,7 +776,7 @@
       </a>
 
       <!-- Horaire V2 -->
-      <a href="horaire2.html" class="card" target="_blank">
+      <a href="horaire/horaire2.html" class="card" target="_blank">
         <div class="preview" style="background:#04122e;padding:.85rem;display:flex;flex-direction:column;gap:.5rem">
           <span class="preview-badge">V2</span>
           <div style="display:flex;gap:.4rem;margin-bottom:.25rem">
@@ -715,7 +804,7 @@
       </a>
 
       <!-- Horaire V3 -->
-      <a href="horaire3.html" class="card" target="_blank">
+      <a href="horaire/horaire3.html" class="card" target="_blank">
         <div class="preview" style="background:#F7F8FC;padding:.85rem;display:grid;grid-template-columns:1fr 260px;gap:.5rem;height:190px">
           <span class="preview-badge" style="background:rgba(26,60,143,.1);color:#1A3C8F">V3</span>
           <div style="display:flex;flex-direction:column;gap:.4rem">
@@ -760,7 +849,7 @@
       </a>
 
       <!-- Horaire V4 -->
-      <a href="horaire4.html" class="card" target="_blank">
+      <a href="horaire/horaire4.html" class="card" target="_blank">
         <div class="preview" style="background:#f8fafc;padding:1rem;display:flex;flex-direction:column;gap:.5rem">
           <span class="preview-badge" style="background:rgba(30,84,212,.1);color:#1e54d4">V4</span>
           <div style="border-left:5px solid #1e54d4;padding-left:.6rem;margin-bottom:.4rem">
@@ -799,7 +888,7 @@
       </a>
 
       <!-- Horaire V5 -->
-      <a href="horaire5.html" class="card" target="_blank">
+      <a href="horaire/horaire5.html" class="card" target="_blank">
         <div class="preview" style="background:#04122e;padding:.85rem">
           <span class="preview-badge">V5</span>
           <div style="font-family:monospace;font-size:1.2rem;font-weight:800;color:#e8c400;letter-spacing:.1em;margin-bottom:.75rem">AGENDA DU CLUB</div>
@@ -828,7 +917,7 @@
       </a>
 
       <!-- Horaire V6 -->
-      <a href="horaire6.html" class="card" target="_blank">
+      <a href="horaire/horaire6.html" class="card" target="_blank">
         <div class="preview" style="background:#070D1F;padding:.85rem;display:flex;flex-direction:column;gap:.5rem">
           <span class="preview-badge">V6</span>
           <div style="display:flex;gap:.4rem;margin-bottom:.2rem">
@@ -863,12 +952,353 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════
+     SECTION : PAGES ÉQUIPES
+═══════════════════════════════════════════════ -->
+<div id="panel-equipes" class="section-panel visible">
+  <div class="divider"></div>
+  <div class="sec">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label" style="color:var(--purple)">Pages équipes</div>
+        <div class="sec-title">6 vues effectifs & compétitions</div>
+      </div>
+      <div class="sec-count">6 fichiers</div>
+    </div>
+    <div class="cards-grid">
+
+      <!-- Equipe V1 -->
+      <a href="equipe/equipe1.html" class="card" target="_blank">
+        <div class="preview" style="background:linear-gradient(135deg,#08183f,#0a2a6e);padding:.85rem;display:flex;flex-direction:column;gap:.5rem">
+          <span class="preview-badge">V1</span>
+          <div style="display:flex;gap:.35rem;flex-wrap:wrap">
+            <div style="font-family:'Bebas Neue',cursive;font-size:.75rem;letter-spacing:1px;background:#e8c400;color:#08183f;padding:.2rem .6rem;border-radius:5px">ÉQ. 1 · N3</div>
+            <div style="font-family:'Bebas Neue',cursive;font-size:.75rem;letter-spacing:1px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);padding:.2rem .6rem;border-radius:5px">ÉQ. 2 · R1</div>
+            <div style="font-family:'Bebas Neue',cursive;font-size:.75rem;letter-spacing:1px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);padding:.2rem .6rem;border-radius:5px">JEUNES</div>
+          </div>
+          <div style="flex:1;background:#0a2a6e;border-radius:8px;padding:.6rem;display:flex;flex-direction:column;justify-content:flex-end">
+            <div style="font-family:'Bebas Neue',cursive;font-size:1rem;color:#fff;letter-spacing:1px">ÉQUIPE PREMIÈRE</div>
+            <div style="font-size:.5rem;color:#e8c400;font-weight:700">4V–1D · 2E AU CLASSEMENT</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag purple">Sélecteur onglets</span><span class="ctag">Bebas Neue</span><span class="ctag">Navy & Or</span></div>
+          <div class="card-title">Centre d'Équipe Interactif</div>
+          <p class="card-desc">Pills cliquables pour basculer entre les 6 équipes : le panneau principal (roster, résultats) se met à jour instantanément. Classement, calendrier et staff en dessous.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-equipe">Équipes</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Equipe V2 -->
+      <a href="equipe/equipe2.html" class="card" target="_blank">
+        <div class="preview" style="background:#04122e;padding:.85rem;display:flex;flex-direction:column;gap:.4rem">
+          <span class="preview-badge">V2</span>
+          <div style="display:flex;gap:.4rem;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.5rem .7rem">
+            <div style="font-family:'Syne',sans-serif;font-weight:800;color:#60a5fa;font-size:1.1rem">01</div>
+            <div style="flex:1">
+              <div style="font-size:.55rem;font-weight:700;color:#fff">Équipe Première</div>
+              <div style="font-size:.45rem;color:rgba(255,255,255,.4)">Nationale 3</div>
+            </div>
+            <div style="font-size:.6rem;color:#e8c400;font-weight:800">4V-1D</div>
+          </div>
+          <div style="display:flex;gap:.4rem;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.5rem .7rem">
+            <div style="font-family:'Syne',sans-serif;font-weight:800;color:rgba(255,255,255,.2);font-size:1.1rem">02</div>
+            <div style="flex:1">
+              <div style="font-size:.55rem;font-weight:700;color:#fff">Équipe Deuxième</div>
+              <div style="font-size:.45rem;color:rgba(255,255,255,.4)">Régionale 1</div>
+            </div>
+            <div style="font-size:.6rem;color:rgba(255,255,255,.4);font-weight:800">3V-2D</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag purple">Accordéon</span><span class="ctag">Syne</span><span class="ctag">Dark UI</span></div>
+          <div class="card-title">Liste Extensible par Équipe</div>
+          <p class="card-desc">Hero split avec pastilles d'équipes classées, lignes d'équipes cliquables qui se déplient (joueurs, résultats, prochains matchs), classement médaillé.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-equipe">Équipes</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Equipe V3 -->
+      <a href="equipe/equipe3.html" class="card" target="_blank">
+        <div class="preview" style="background:linear-gradient(to right,#0D2660 55%,#2E5BB8);padding:1rem">
+          <span class="preview-badge" style="background:rgba(201,168,76,.2);color:#C9A84C">V3</span>
+          <span class="preview-label" style="color:#C9A84C;font-family:serif;font-style:italic;font-size:1.2rem">Nos Équipes</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag purple">Éditorial</span><span class="ctag">Playfair Display</span><span class="ctag">Or & Bleu</span></div>
+          <div class="card-title">Effectif Vedette + Classement Journal</div>
+          <p class="card-desc">Même identité prestige que la V1/V5/V6 : équipe vedette détaillée, classement journal, calendrier et staff. À personnaliser pour se différencier.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-equipe">Équipes</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Equipe V4 -->
+      <a href="equipe/equipe4.html" class="card" target="_blank">
+        <div class="preview" style="background:#f8fafc;padding:.85rem;display:flex;flex-direction:column;gap:.4rem">
+          <span class="preview-badge" style="background:rgba(30,84,212,.1);color:#1e54d4">V4</span>
+          <div style="background:#0c2461;border-radius:10px;padding:.6rem .75rem;display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:.5rem;color:#60a5fa;font-weight:800">AMB Éq.1 vs Club Angevin</div>
+            <div style="font-size:.75rem;font-weight:800;color:#fff">6-2</div>
+          </div>
+          <div style="display:flex;gap:.4rem">
+            <div style="flex:1;background:#e2e8f0;border-radius:6px;height:34px"></div>
+            <div style="flex:1;background:#e2e8f0;border-radius:6px;height:34px"></div>
+            <div style="flex:1;background:#1e54d4;border-radius:6px;height:34px"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag purple">Dashboard</span><span class="ctag">Sidebar</span><span class="ctag">Live score</span></div>
+          <div class="card-title">Centre de Performance Sportif</div>
+          <p class="card-desc">Hero avec scoreboard live, navigation par onglets, sidebar de sélection d'équipes, tableau de joueurs avec barres de win-rate et calendrier des matchs.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-equipe">Équipes</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Equipe V5 -->
+      <a href="equipe/equipe5.html" class="card" target="_blank">
+        <div class="preview" style="background:#04122e;padding:.6rem;display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:1fr 1fr;gap:5px;height:190px">
+          <span class="preview-badge">V5</span>
+          <div style="grid-row:span 2;background:linear-gradient(135deg,#e8c400,#b8943e);border-radius:10px;display:flex;align-items:flex-end;padding:.6rem">
+            <div style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:#04122e;letter-spacing:1px;line-height:1">ÉQUIPE 1</div>
+          </div>
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:flex-end;padding:.5rem">
+            <div style="font-family:'Bebas Neue',cursive;font-size:.85rem;color:#fff">ÉQUIPE 2</div>
+          </div>
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:flex-end;padding:.5rem">
+            <div style="font-family:'Bebas Neue',cursive;font-size:.85rem;color:#fff">JEUNES U17</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag purple">Bento Grid</span><span class="ctag">Bebas Neue</span><span class="ctag">Dark & Or</span></div>
+          <div class="card-title">Toutes les Équipes en un Regard</div>
+          <p class="card-desc">Grille bento statique à fort impact visuel : chaque équipe est une tuile de taille variable (grande pour l'équipe 1, plus petites pour les autres). Aucune interaction requise.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-equipe">Équipes</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Equipe V6 -->
+      <a href="equipe/equipe6.html" class="card" target="_blank">
+        <div class="preview" style="background:#060E26;padding:.85rem;display:flex;flex-direction:column;gap:.5rem;overflow:hidden">
+          <span class="preview-badge">V6</span>
+          <div style="display:flex;gap:.4rem">
+            <div style="flex:0 0 130px;background:rgba(255,255,255,.04);border:1px solid rgba(75,143,232,.3);border-radius:10px;padding:.5rem">
+              <div style="font-family:'Space Mono',monospace;font-size:.42rem;color:#4B8FE8;letter-spacing:.06em">// N3</div>
+              <div style="font-size:.6rem;color:#fff;font-weight:700;margin-top:.2rem">Équipe 1</div>
+              <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:#C9A84C;margin-top:.3rem">4V–1D</div>
+            </div>
+            <div style="flex:0 0 130px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.5rem;opacity:.6">
+              <div style="font-family:'Space Mono',monospace;font-size:.42rem;color:#4B8FE8;letter-spacing:.06em">// R1</div>
+              <div style="font-size:.6rem;color:#fff;font-weight:700;margin-top:.2rem">Équipe 2</div>
+            </div>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:.5rem;color:rgba(255,255,255,.3)">← défiler pour voir toutes les équipes →</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag purple">Carrousel scroll-snap</span><span class="ctag">Space Mono</span><span class="ctag">Dark diagonal</span></div>
+          <div class="card-title">Centre de Match Défilant</div>
+          <p class="card-desc">Hero diagonal sombre façon "centre de match", puis carrousel horizontal à défilement (scroll-snap) présentant chaque équipe en carte. Calendrier en timeline verticale.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-equipe">Équipes</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION : PAGES ACTUALITÉS
+═══════════════════════════════════════════════ -->
+<div id="panel-actus" class="section-panel visible">
+  <div class="divider"></div>
+  <div class="sec">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label" style="color:var(--rose)">Pages actualités</div>
+        <div class="sec-title">6 vues fil d'actualité</div>
+      </div>
+      <div class="sec-count">6 fichiers</div>
+    </div>
+    <div class="cards-grid">
+
+      <!-- Actu V1 -->
+      <a href="actu/actu1.html" class="card" target="_blank">
+        <div class="preview" style="background:#08183f;padding:.85rem;display:grid;grid-template-columns:1.6fr 1fr;gap:.5rem">
+          <span class="preview-badge">V1</span>
+          <div style="background:#0a2a6e;border-radius:8px;display:flex;align-items:flex-end;padding:.6rem">
+            <div style="font-size:.55rem;color:#e8c400;font-weight:800">Tournoi Départemental</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.4rem">
+            <div style="flex:1;background:#f4f6fb;border-radius:8px"></div>
+            <div style="flex:1;background:#f4f6fb;border-radius:8px"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag rose">Grille magazine</span><span class="ctag">Bebas Neue</span><span class="ctag">Filtres</span></div>
+          <div class="card-title">Grille Magazine Sportif</div>
+          <p class="card-desc">Grande carte à la une + deux petites, ligne de 3 cartes égales et bande de résultats chiffrés. Filtres catégories en haut de page.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-actu">Actualités</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Actu V2 -->
+      <a href="actu/actu2.html" class="card" target="_blank">
+        <div class="preview" style="background:#04122e;padding:.85rem;display:flex;gap:.6rem">
+          <span class="preview-badge">V2</span>
+          <div style="width:14px;display:flex;flex-direction:column;align-items:center;padding-top:.3rem">
+            <div style="width:8px;height:8px;border-radius:50%;background:#3b82f6"></div>
+            <div style="width:2px;flex:1;background:rgba(255,255,255,.1);margin-top:4px"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:.4rem">
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.5rem">
+              <div style="font-size:.5rem;color:#60a5fa;font-weight:700">Compétition</div>
+              <div style="font-size:.55rem;color:#fff;font-weight:700;margin-top:.2rem">Tournoi Départemental</div>
+            </div>
+            <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.5rem;opacity:.6">
+              <div style="font-size:.5rem;color:#86efac;font-weight:700">Jeunes</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag rose">Timeline</span><span class="ctag">Syne</span><span class="ctag">Dark glassmorphisme</span></div>
+          <div class="card-title">Fil Chronologique par Mois</div>
+          <p class="card-desc">Timeline verticale groupée par mois avec pastilles colorées par catégorie, sidebar sticky de derniers scores et chiffres clés du club.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-actu">Actualités</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Actu V3 -->
+      <a href="actu/actu3.html" class="card" target="_blank">
+        <div class="preview" style="background:#F7F8FC;padding:.85rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem">
+          <span class="preview-badge" style="background:rgba(26,60,143,.1);color:#1A3C8F">V3</span>
+          <div style="display:flex;flex-direction:column;gap:.3rem">
+            <div style="height:44px;background:#0D2660;border-radius:4px"></div>
+            <div style="height:6px;background:#DDE3EF;border-radius:2px;width:80%"></div>
+            <div style="height:6px;background:#DDE3EF;border-radius:2px;width:60%"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.3rem;border-left:1px solid #DDE3EF;padding-left:.4rem">
+            <div style="height:6px;background:#C9A84C;border-radius:2px;width:70%"></div>
+            <div style="height:24px;background:#F5EDD6;border-radius:4px"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.3rem;border-left:1px solid #DDE3EF;padding-left:.4rem">
+            <div style="height:30px;background:#0D2660;border-radius:4px"></div>
+            <div style="height:6px;background:#DDE3EF;border-radius:2px;width:70%"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag rose">Journal 3 colonnes</span><span class="ctag">Playfair Display</span><span class="ctag">Broadsheet</span></div>
+          <div class="card-title">Mise en Page Journal</div>
+          <p class="card-desc">Structure éditoriale en 3 colonnes séparées par des filets : article principal, articles secondaires, puis derniers scores et brèves.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-actu">Actualités</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Actu V4 -->
+      <a href="actu/actu4.html" class="card" target="_blank">
+        <div class="preview" style="background:linear-gradient(135deg,#08183f,#0a2a6e);padding:1rem;display:flex;flex-direction:column;gap:.6rem">
+          <span class="preview-badge">V4</span>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <div style="border-radius:99px;background:#e8c400;color:#08183f;font-size:.5rem;font-weight:800;padding:.25rem .6rem">Tous</div>
+            <div style="border-radius:99px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);font-size:.5rem;padding:.25rem .6rem">🏆 Compét.</div>
+            <div style="border-radius:99px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);font-size:.5rem;padding:.25rem .6rem">🎉 Club</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,.06);border-radius:8px"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag rose">Filtres croisés</span><span class="ctag">JS interactif</span><span class="ctag">Bebas Neue</span></div>
+          <div class="card-title">Fil Filtrable Multi-critères</div>
+          <p class="card-desc">Trois groupes de filtres combinables (catégorie, âge, équipe) qui régénèrent dynamiquement la grille d'articles en JavaScript.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-actu">Actualités</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Actu V5 -->
+      <a href="actu/actu5.html" class="card" target="_blank">
+        <div class="preview" style="background:#04122e;padding:.85rem;display:grid;grid-template-columns:1.6fr 1fr;gap:.4rem">
+          <span class="preview-badge">V5</span>
+          <div style="background:#1e54d4;border-radius:10px;display:flex;align-items:flex-end;padding:.6rem">
+            <div style="font-size:.5rem;color:#fff;font-weight:800">À la une · Tournoi</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.4rem">
+            <div style="flex:1;background:#e8c400;border-radius:10px"></div>
+            <div style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag rose">Bento Grid</span><span class="ctag">Syne / Bebas Neue</span><span class="ctag">Dark UI</span></div>
+          <div class="card-title">Actualités en Tuiles Bento</div>
+          <p class="card-desc">Grille bento asymétrique : grande tuile à la une, tuiles de stats et résultats, puis rangée de tuiles horizontales pour les brèves.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-actu">Actualités</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+      <!-- Actu V6 -->
+      <a href="actu/actu6.html" class="card" target="_blank">
+        <div class="preview" style="background:#060E26;padding:.85rem;display:grid;grid-template-columns:1fr 100px;gap:.5rem">
+          <span class="preview-badge">V6</span>
+          <div style="display:flex;flex-direction:column;gap:.35rem">
+            <div style="height:36px;background:rgba(255,255,255,.06);border-radius:8px"></div>
+            <div style="height:22px;background:#F0F4FF;border-radius:8px"></div>
+            <div style="height:22px;background:#F0F4FF;border-radius:8px"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.35rem">
+            <div style="flex:1;background:rgba(75,143,232,.15);border:1px solid rgba(75,143,232,.3);border-radius:8px"></div>
+            <div style="flex:1;background:#F0F4FF;border-radius:8px"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="ctag rose">Liste numérotée</span><span class="ctag">Space Mono</span><span class="ctag">Sidebar sticky</span></div>
+          <div class="card-title">Liste Numérotée + Sidebar Scores</div>
+          <p class="card-desc">Article vedette sombre suivi d'une liste numérotée d'articles, avec sidebar sticky affichant les derniers scores et les chiffres du club.</p>
+        </div>
+        <div class="card-foot">
+          <span class="cat-pill cat-actu">Actualités</span>
+          <span class="card-foot-link">Ouvrir <span class="card-foot-ico">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="hub-footer">
   <div>
     <strong>Association Mayennaise de Badminton</strong> — Prototypes graphiques
     <span style="margin-left:.75rem;color:var(--b700)">·</span>
-    <span style="margin-left:.75rem">18 fichiers · 6 identités visuelles · 3 types de pages</span>
+    <span style="margin-left:.75rem">30 fichiers · 6 identités visuelles · 5 types de pages</span>
   </div>
   <div class="hub-footer-links">
     <a href="#">Mentions légales</a>
@@ -888,6 +1318,8 @@
       accueil:  document.getElementById('panel-accueil'),
       contact:  document.getElementById('panel-contact'),
       horaires: document.getElementById('panel-horaires'),
+      equipes:  document.getElementById('panel-equipes'),
+      actus:    document.getElementById('panel-actus'),
     };
 
     if (id === 'all') {
